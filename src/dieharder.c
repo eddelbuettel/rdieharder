@@ -10,34 +10,37 @@
 #include "dieharder.h"		/* from the front-end sources */
 
 SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS) {
+  int verb;
+  unsigned int i;
+  SEXP result = NULL, vec, pv, name, desc, nkps;
+
+  /*
+   * Parse command line and set global variables
+   */
+  char *argv[] = { "foo" };
+  parsecl(1, argv); 
+
   generator  = INTEGER_VALUE(genS);
   diehard = INTEGER_VALUE(testS);
   Seed = INTEGER_VALUE(seedS); /* (user-select) Seed, not (save switch) seed */
   psamples = INTEGER_VALUE(psamplesS);
-  int verb = INTEGER_VALUE(verbS);
-  unsigned int i;
-  SEXP result = NULL, vec, pv, name, desc, nkps;
+  verb = INTEGER_VALUE(verbS);
 
   if (Seed == 0) {
     seed = random_seed();
   } else {
-    seed = Seed;
+    seed = (unsigned int) Seed;
   }
 
   if (verb) {
-    Rprintf("Dieharder called with gen=%d test=%d\n", generator, diehard);
+    Rprintf("Dieharder called with gen=%d test=%d seed=%u\n", 
+	    generator, diehard, seed);
     quiet = 0;
     hist_flag = 1;
   } else {
     quiet = 1; 			/* override dieharder command-line default */
     hist_flag = 0;
   }
-
-  /*
-   * Parse command line and set global variables
-   */
-  /*parsecl(argc,argv); */
-
 
   /*
    * Note that most of my cpu_rates (except the terminally simple/stupid) 
@@ -54,8 +57,7 @@ SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS) {
    */
   work();
 
-
-  /* vector of size two: [0] is scalar ks_pv, [1] is vector of pvalues */
+  /* vector of size three: [0] is scalar ks_pv, [1] is pvalues vec, [2] name */
   PROTECT(result = allocVector(VECSXP, 3)); 
   /* alloc scalar, and set it */
   PROTECT(pv = allocVector(REALSXP, 1));
@@ -83,7 +85,6 @@ SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS) {
   UNPROTECT(4);
   return result;
 }
-
 
 SEXP dieharderVectorised(SEXP genS, SEXP testS, SEXP verbS) {
   //int *genvec = INTEGER(genS);
@@ -134,3 +135,35 @@ SEXP dieharderVectorised(SEXP genS, SEXP testS, SEXP verbS) {
   return result;
 }
 
+SEXP dieharderGenerators(void) {
+  SEXP result, gens;
+  int i;
+
+  /* from startup.c */
+  types = gsl_rng_types_setup ();
+  i = 0;
+  while(types[i] != NULL){
+    i++;
+  }
+  num_gsl_rngs = i;
+
+  /*
+   * Now add my own types and count THEM.
+   */
+  add_my_types();
+  while(types[i] != NULL){
+    i++;
+  }
+  num_rngs = i;
+
+  /* vector of size onetwo: [0] is scalar ks_pv, [1] is vector of pvalues */
+  PROTECT(result = allocVector(VECSXP, 1)); 
+  PROTECT(gens = allocVector(STRSXP, num_rngs)); 
+  for (i = 0; i < num_rngs; i++) {
+    SET_STRING_ELT(gens, i, mkChar(types[i]->name));
+  }
+  SET_VECTOR_ELT(result, 0, gens);
+  
+  UNPROTECT(2);
+  return result;
+}
