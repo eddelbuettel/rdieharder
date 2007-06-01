@@ -2,8 +2,11 @@
  (lambda ()
     (LaTeX-add-bibliographies)
     (TeX-add-symbols
+     '("wikinote" 2)
      '("pkg" 1)
      "diehard"
+     "dieharder"
+     "rdieharder"
      "code"
      "proglang")
     (TeX-run-style-hooks

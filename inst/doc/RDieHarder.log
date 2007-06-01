@@ -1,4 +1,4 @@
-This is pdfeTeXk, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=pdflatex 2007.2.26)  15 MAY 2007 21:37
+This is pdfeTeXk, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=pdflatex 2007.2.26)  16 MAY 2007 15:14
 entering extended mode
  file:line:error style messages enabled.
  %&-line parsing enabled.
@@ -141,11 +141,11 @@ LaTeX Info: Redefining \cite on input line 518.
 )
 
 Package hyperref Warning: Option `hyperindex' has already been used,
-(hyperref)                setting the option has no effect on input line 19.
+(hyperref)                setting the option has no effect on input line 21.
 
-Package hyperref Info: Option `colorlinks' set `true' on input line 19.
-Package hyperref Info: Option `linktocpage' set `true' on input line 19.
-Package hyperref Info: Option `plainpages' set `false' on input line 19.
+Package hyperref Info: Option `colorlinks' set `true' on input line 21.
+Package hyperref Info: Option `linktocpage' set `true' on input line 21.
+Package hyperref Info: Option `plainpages' set `false' on input line 21.
 (/usr/share/texmf-tetex/tex/latex/graphics/color.sty
 Package: color 1999/02/16 v1.0i Standard LaTeX Color (DPC)
 
@@ -267,35 +267,35 @@ File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
 )))) (./RDieHarder.aux)
 \openout1 = `RDieHarder.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 37.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 37.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 41.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 41.
 
 (/usr/share/texmf-tetex/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 37.
-Package hyperref Info: Link coloring ON on input line 37.
+LaTeX Font Info:    ... okay on input line 41.
+Package hyperref Info: Link coloring ON on input line 41.
 
 (/usr/share/texmf-tetex/tex/latex/hyperref/nameref.sty
 Package: nameref 2003/12/03 v2.21 Cross-referencing by name of section
 \c@section@level=\count102
 )
-LaTeX Info: Redefining \ref on input line 37.
-LaTeX Info: Redefining \pageref on input line 37.
+LaTeX Info: Redefining \ref on input line 41.
+LaTeX Info: Redefining \pageref on input line 41.
  (./RDieHarder.out)
 (./RDieHarder.out)
 \openout3 = `RDieHarder.out'.
@@ -335,161 +335,188 @@ loading : Context Support Macros / PDF (2004.03.26)
 \everyMPtoPDFconversion=\toks20
 )
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 58.
+(Font)              <14.4> on input line 60.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 58.
-LaTeX Font Info:    Try loading font information for T1+aett on input line 58.
+(Font)              <7> on input line 60.
+LaTeX Font Info:    Try loading font information for T1+aett on input line 60.
  (/usr/share/texmf-tetex/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 ) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 138--138
-[]\T1/aer/m/n/12 TODO:
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 144--144
-[]\T1/aer/m/n/12 TODO:
- []
-
-[2]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 152.
+(Font)              <12> on input line 155.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 152.
+(Font)              <8> on input line 155.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 152.
+(Font)              <6> on input line 155.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 165.
+(Font)              <5> on input line 168.
 
-Underfull \hbox (badness 10000) in paragraph at lines 165--165
+Underfull \hbox (badness 10000) in paragraph at lines 168--168
 [][][]\T1/aer/m/n/10 Running \T1/aett/m/n/10 print(quantile(pnorm( repli-cate(M
 , (sum(runif(N)) - N/2) / sqrt(N/12)) ),
  []
 
-
-Overfull \hbox (10.94751pt too wide) in paragraph at lines 173--173
-[]\T1/aer/m/n/12 Reference? 
- []
-
-
-Overfull \hbox (25.06548pt too wide) in paragraph at lines 198--199
+[2]
+Overfull \hbox (25.06548pt too wide) in paragraph at lines 202--203
 []\T1/aett/m/n/10.95 borosh13 cov-eyou cmrg fish-man18 fish-man20 fish-man2x gf
 sr4 knuthran knuthran2
  []
 
 
-Overfull \hbox (2.11436pt too wide) in paragraph at lines 198--199
+Overfull \hbox (2.11436pt too wide) in paragraph at lines 202--203
 \T1/aett/m/n/10.95 knuthran2002 lecuyer21 min-std mrg mt19937 mt19937_1999 mt19
 937_1998 r250
  []
 
 
-Overfull \hbox (36.54103pt too wide) in paragraph at lines 198--199
+Overfull \hbox (36.54103pt too wide) in paragraph at lines 202--203
 \T1/aett/m/n/10.95 ran0 ran1 ran2 ran3 rand rand48 ran-dom128_bsd ran-dom128_gl
 ibc2 ran-dom128_libc5
  []
 
 
-Overfull \hbox (19.3277pt too wide) in paragraph at lines 198--199
+Overfull \hbox (19.3277pt too wide) in paragraph at lines 202--203
 \T1/aett/m/n/10.95 ran-dom256_bsd ran-dom256_glibc2 ran-dom256_libc5 ran-dom32_
 bsd ran-dom32_glibc2
  []
 
 
-Overfull \hbox (19.3277pt too wide) in paragraph at lines 198--199
+Overfull \hbox (19.3277pt too wide) in paragraph at lines 202--203
 \T1/aett/m/n/10.95 ran-dom32_libc5 ran-dom64_bsd ran-dom64_glibc2 ran-dom64_lib
 c5 ran-dom8_bsd ran-
  []
 
 
-Overfull \hbox (13.58992pt too wide) in paragraph at lines 198--199
+Overfull \hbox (13.58992pt too wide) in paragraph at lines 202--203
 \T1/aett/m/n/10.95 dom8_glibc2 ran-dom8_libc5 ran-dom_bsd ran-dom_glibc2 ran-do
 m_libc5 randu ranf
  []
 
 
-Overfull \hbox (19.3277pt too wide) in paragraph at lines 198--199
+Overfull \hbox (19.3277pt too wide) in paragraph at lines 202--203
 \T1/aett/m/n/10.95 ran-lux ran-lux389 ran-lxd1 ran-lxd2 ran-lxs0 ran-lxs1 ran-l
 xs2 ran-mar slatec taus
  []
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 220--220
-[]\T1/aer/m/n/12 TODO:
- []
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\<def>-command' on input line 247.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 220--220
-\T1/aer/m/n/12 use R
- []
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\f@encoding' on input line 247.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 220--220
-\T1/aer/m/n/12 sources
- []
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\<let>-command' on input line 247.
 
 
-Underfull \hbox (badness 5970) in paragraph at lines 220--220
-\T1/aer/m/n/12 from R
- []
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\<def>-command' on input line 247.
 
-[4]
-LaTeX Font Info:    Try loading font information for TS1+aett on input line 282
-.
- (/usr/share/R/share/texmf/ts1aett.fd
-File: ts1aett.fd 
-)
-LaTeX Font Info:    Try loading font information for TS1+cmtt on input line 282
-.
 
-(/usr/share/texmf-tetex/tex/latex/base/ts1cmtt.fd
-File: ts1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `TS1/aett/m/n' in size <10> not available
-(Font)              Font shape `TS1/cmtt/m/n' tried instead on input line 282.
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\f@family' on input line 247.
 
-<RDieHarder-rd-example.pdf, id=155, 433.62pt x 433.62pt>
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\<def>-command' on input line 247.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\f@series' on input line 247.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\<def>-command' on input line 247.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\f@shape' on input line 247.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\<def>-command' on input line 247.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\font@name' on input line 247.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\T1/aer/b/n/17.28' on input line 247.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\ignorespaces' on input line 247.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\<def>-command' on input line 247.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\f@series' on input line 247.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\<def>-command' on input line 247.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\font@name' on input line 247.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\T1/aer/b/n/17.28' on input line 247.
+
+[4] <RDieHarder-rd-example.pdf, id=161, 433.62pt x 433.62pt>
 File: RDieHarder-rd-example.pdf Graphic file (type pdf)
 
-<use RDieHarder-rd-example.pdf> [5 <./RDieHarder-rd-example.pdf>]
-<RDieHarder-r-rngs.pdf, id=170, 433.62pt x 433.62pt>
+<use RDieHarder-rd-example.pdf>
+<RDieHarder-rd-example1.pdf, id=162, 433.62pt x 433.62pt>
+File: RDieHarder-rd-example1.pdf Graphic file (type pdf)
+
+<use RDieHarder-rd-example1.pdf>
+<RDieHarder-r-rngs.pdf, id=163, 433.62pt x 433.62pt>
 File: RDieHarder-r-rngs.pdf Graphic file (type pdf)
 
-<use RDieHarder-r-rngs.pdf> [6 <./RDieHarder-r-rngs.pdf>] (./RDieHarder.bbl
+<use RDieHarder-r-rngs.pdf> [5 <./RDieHarder-rd-example.pdf> <./RDieHarder-rd-e
+xample1.pdf>] [6 <./RDieHarder-r-rngs.pdf>] [7] (./RDieHarder.bbl
 LaTeX Font Info:    Try loading font information for T1+aess on input line 12.
 
 (/usr/share/texmf-tetex/tex/latex/ae/t1aess.fd
 File: t1aess.fd 1997/11/16 Font definitions for T1/aess.
-) [7]) [8] (./RDieHarder.aux) ) 
+)) [8] (./RDieHarder.aux) ) 
 Here is how much of TeX's memory you used:
- 4321 strings out of 94500
- 58833 string characters out of 1175771
- 104626 words of memory out of 1000000
- 7324 multiletter control sequences out of 10000+50000
- 53909 words of font info for 109 fonts, out of 1200000 for 2000
+ 4309 strings out of 94500
+ 58428 string characters out of 1175771
+ 105726 words of memory out of 1000000
+ 7315 multiletter control sequences out of 10000+50000
+ 56376 words of font info for 108 fonts, out of 1200000 for 2000
  580 hyphenation exceptions out of 8191
- 35i,8n,36p,286b,366s stack positions out of 5000i,500n,6000p,200000b,5000s
+ 35i,8n,40p,286b,355s stack positions out of 5000i,500n,6000p,200000b,5000s
 PDF statistics:
- 212 PDF objects out of 65536
- 31 named destinations out of 20000
- 131 words of extra memory for PDF output out of 65536
-</usr/share/texmf-tetex/fonts/type1/bluesky/cm/c
-mss12.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmti12.pfb></usr/share
-/texmf-tetex/fonts/type1/bluesky/cm/cmitt10.pfb> </home/edd/.texmf-var/fonts/pk
-/ljfour/jknappen/tc/tctt1000.600pk></usr/share/texmf-tetex/fonts/type1/bluesky/
-cm/cmsltt10.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmmi10.pfb></usr
-/share/texmf-tetex/fonts/type1/bluesky/cm/cmr7.pfb></usr/share/texmf-tetex/font
-s/type1/bluesky/cm/cmtt10.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cm
-sy8.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmr8.pfb></usr/share/tex
-mf-tetex/fonts/type1/bluesky/cm/cmmi8.pfb></usr/share/texmf-tetex/fonts/type1/b
-luesky/cm/cmsy10.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmex10.pfb>
-</usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmmi12.pfb></usr/share/texmf-tet
-ex/fonts/type1/bluesky/cm/cmsl12.pfb></usr/share/texmf-tetex/fonts/type1/bluesk
-y/cm/cmbx12.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmr10.pfb></usr/
-share/texmf-tetex/fonts/type1/bluesky/cm/cmbx10.pfb></usr/share/texmf-tetex/fon
-ts/type1/bluesky/cm/cmtt12.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/c
-mr12.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmr17.pfb></usr/share/t
-exmf-tetex/fonts/type1/bluesky/cm/cmb10.pfb>
-Output written on RDieHarder.pdf (8 pages, 213202 bytes).
+ 226 PDF objects out of 65536
+ 36 named destinations out of 20000
+ 136 words of extra memory for PDF output out of 65536
+</usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmss1
+2.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmitt10.pfb></usr/share/te
+xmf-tetex/fonts/type1/bluesky/cm/cmti12.pfb></usr/share/texmf-tetex/fonts/type1
+/bluesky/cm/cmsltt10.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmmi10.
+pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf-
+tetex/fonts/type1/bluesky/cm/cmr7.pfb></usr/share/texmf-tetex/fonts/type1/blues
+ky/cm/cmtt10.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmsy8.pfb></usr
+/share/texmf-tetex/fonts/type1/bluesky/cm/cmr8.pfb></usr/share/texmf-tetex/font
+s/type1/bluesky/cm/cmmi8.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cms
+y10.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmex10.pfb></usr/share/t
+exmf-tetex/fonts/type1/bluesky/cm/cmmi12.pfb></usr/share/texmf-tetex/fonts/type
+1/bluesky/cm/cmbxsl10.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmbx12
+.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmtt12.pfb></usr/share/texm
+f-tetex/fonts/type1/bluesky/cm/cmr12.pfb></usr/share/texmf-tetex/fonts/type1/bl
+uesky/cm/cmsl12.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmr17.pfb></
+usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmb10.pfb>
+Output written on RDieHarder.pdf (8 pages, 236208 bytes).
