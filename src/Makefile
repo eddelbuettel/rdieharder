@@ -12,4 +12,4 @@ RDieHarder.so :	$(objects)
 		$(CC) -shared -o $@ $(objects) $(PKG_LIBS) 
 
 clean :
-		rm $(objects) RDieHarder.so 
+		rm -f $(objects) RDieHarder.so 
