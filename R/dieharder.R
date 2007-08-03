@@ -123,7 +123,7 @@ plot.dieharder <- function(x, ...) {
   mtext(text = x$method, outer = TRUE, cex = 1.2, font = 2, line = 2)
   mtext(text = x$data.name, outer = TRUE, cex = 1.0, font = 1, line = 1)
   pksk <- round(x$p.value, 4)
-  pks <- round(ks.test(x$data, "punif", 0, 1, exact=TRUE)$p.value, 4)
+  pks <- round(ks.test(x$data, "punif", 0, 1, exact=TRUE)$p.value, 4) 
   pw <- round(wilcox.test(x$data, mu=0.5)$p.value, 4)
   mtext(text = paste("Test p-values: ",
           pksk, " (Kuiper-K-S),  ",
