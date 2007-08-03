@@ -1,5 +1,5 @@
 
-R version 2.5.0 (2007-04-23)
+R version 2.5.1 (2007-06-27)
 Copyright (C) 2007 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
@@ -24,7 +24,7 @@ Type 'q()' to quit R.
 
 	Diehard Runs Test
 
-data:  Data created by rng `rand' with seed=12345, data sample of size 100 
+data:  Created by RNG `rand' with seed=12345, sample of size 100 
 p-value = 0.7904
 
 
@@ -66,7 +66,7 @@ alternative hypothesis: true location is not equal to 0.5
 
 	Diehard Runs Test
 
-data:  Data created by rng `rand' with seed=12345, data sample of size 100 
+data:  Created by RNG `rand' with seed=12345, sample of size 100 
 p-value = 0.7904
 
 > 

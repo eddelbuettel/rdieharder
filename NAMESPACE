@@ -1,0 +1,10 @@
+## package has dynamic library
+useDynLib(RDieHarder)
+
+## and one and only one core function
+export("dieharder",
+       "dieharder.default",
+       "plot.dieharder",
+       "print.dieharder",
+       "summary.dieharder",
+       "dieharderGenerators")

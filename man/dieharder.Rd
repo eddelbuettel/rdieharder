@@ -4,6 +4,7 @@
 \alias{print.dieharder}
 \alias{plot.dieharder}
 \alias{summary.dieharder}
+\alias{dieharderGenerators}
 \title{Random numebr generator test suite}
 \description{
   The \code{random} package provides an interface to the dieharder suite
@@ -14,6 +15,7 @@
    \method{print}{dieharder}(x, ...)
    \method{summary}{dieharder}(object, ...)
    \method{plot}{dieharder}(x, ...)
+   dieharderGenerators()
 }
 \arguments{
   \item{rng}{Either a single character vector, or an integer index,
@@ -44,7 +46,8 @@
   \item{generator}{a text desciption of the generator as returned by the
     \code{dieharder} library}
 } \details{
-  The current list of generators comprises
+  The current list of generators (which can be generated dynamically
+  using the \code{dieharderGenerators()} function) comprises
   \code{borosh13},
   \code{cmrg},
   \code{coveyou},
@@ -156,6 +159,8 @@
   for everything else in \code{dieharder}. 
 }
 \examples{
+  ## need to set this for the example to pass the R CMD check test
+  .dieharder.generators <<- dieharderGenerators()
   dh <- dieharder("randu", "runs", seed=12345)
   dh
   summary(dh)
