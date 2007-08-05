@@ -1,8 +1,9 @@
 
-# this works on Debian but I probably need to add proper configure test...
+# these two work on Debian but I probably need to add proper configure test...
 PKG_CFLAGS =	-W -I. -DRDieHarder `gsl-config --cflags`
 PKG_LIBS =	-ldieharder `gsl-config --libs`
 
+# rest is pretty vanilla
 sources := 	$(wildcard *.c)
 
 objects :=	$(sources:%.c=%.o)
