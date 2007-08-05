@@ -1,7 +1,0 @@
-# -*- Makefile -*-
-
-#PKG_CFLAGS=-I../../dieharder-2.24.3/dieharder
-#PKG_LIBS=-ldieharder -lgsl -lgslcblas -lm
-
-PKG_CFLAGS=-g -W -I. -DRDieHarder
-PKG_LIBS=-ldieharder -lgsl -lgslcblas -lm
