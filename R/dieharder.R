@@ -35,6 +35,7 @@ dieharder <- function(rng="mt19937",
                       test=1,
                       psamples=100,
                       seed=0,
+                      rngdraws=100000,
                       verbose=FALSE) {
   UseMethod("dieharder")
 }
@@ -43,6 +44,7 @@ dieharder.default <- function(rng="mt19937",
                               test="runs",
                               psamples=100,
                               seed=0,
+                              rngdraws=100000,
                               verbose=FALSE) {
 
   if (length(rng) > 1) {
@@ -87,6 +89,7 @@ dieharder.default <- function(rng="mt19937",
                as.integer(runtest),
                as.integer(seed),
                as.integer(psamples),
+               as.integer(rngdraws),
                as.integer(verbose),
                PACKAGE="RDieHarder")
   ##class(val) <- c("dieharder", "test")

@@ -11,7 +11,7 @@
   of random number generators.
 }
 \usage{
-   \method{dieharder}{default}(rng="mt19937", test="runs", psamples=100, seed=0, verbose=FALSE) 
+   \method{dieharder}{default}(rng="mt19937", test="runs", psamples=100, seed=0, rngdraws=100000, verbose=FALSE) 
    \method{print}{dieharder}(x, ...)
    \method{summary}{dieharder}(object, ...)
    \method{plot}{dieharder}(x, ...)
@@ -24,6 +24,9 @@
     selecting a dieharder test to be used.}
   \item{psamples}{An integer for the number of probability values samples
     underlying the main Kolomogorov-Smirnov test.}
+  \item{rngdraws}{A (large) integer for the number of rng draws in each
+    of the \code{psamples} experiment; the default is often recommended
+    and this value is not used for all random number generators.}
   \item{seed}{An integer seed that is to be used for the dieharder rng;
     if 0, a new random seed is generated.}
   \item{verbose}{A switch selecting verbose or silent operation.}
@@ -152,7 +155,8 @@
   \code{sts_block}
 }
 \references{
-  The \code{dieharder} website at \url{http://www.phy.duke.edu/~rgb/General/dieharder.php}.
+  The \code{dieharder} source code and website
+  at \url{http://www.phy.duke.edu/~rgb/General/dieharder.php}.
 }
 \author{Dirk Eddelbuettel \email{edd@debian.org} for the
   \R interface and the port of the R RNGs to DieHarder; Robert G. Brown

@@ -9,7 +9,8 @@
 
 #include "dieharder.h"		/* from the front-end sources */
 
-SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS) {
+SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, 
+	       SEXP rngdrawS, SEXP verbS) {
   int verb;
   unsigned int i;
   SEXP result = NULL, vec, pv, name, desc, nkps;
@@ -23,7 +24,8 @@ SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS) {
   generator  = INTEGER_VALUE(genS);
   diehard = INTEGER_VALUE(testS);
   Seed = INTEGER_VALUE(seedS); /* (user-select) Seed, not (save switch) seed */
-  psamples = INTEGER_VALUE(psamplesS);
+  psamples = INTEGER_VALUE(psamplesS);  /* samples for overall KuiperKS test */
+  tsamples = INTEGER_VALUE(rngdrawS);   /* draws for one run of chosen rng */
   verb = INTEGER_VALUE(verbS);
 
   if (Seed == 0) {
