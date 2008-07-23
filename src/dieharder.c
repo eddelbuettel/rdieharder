@@ -14,11 +14,13 @@ SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS,
   int verb;
   unsigned int i;
   SEXP result = NULL, vec, pv, name, desc, nkps;
+  extern int optind;
 
   /*
    * Parse command line and set global variables
    */
-  char *argv[] = { "foo" };
+  char *argv[] = { "dieharder" };
+  optind = 0;
   parsecl(1, argv); 
 
   generator  = INTEGER_VALUE(genS);
