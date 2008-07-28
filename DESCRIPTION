@@ -12,6 +12,6 @@ Depends: R (>= 2.5.0)
 SystemRequirements: DieHarder library from
   http://www.phy.duke.edu/~rgb/General/dieharder.php, 
   GNU GSL for the GSL random-number generators
-License: GPL Version 2 or later
+License: GPL (>= 2)
 URL: http://www.phy.duke.edu/~rgb/General/dieharder.php 
 Packaged: Wed May 16 15:14:57 2007; edd
