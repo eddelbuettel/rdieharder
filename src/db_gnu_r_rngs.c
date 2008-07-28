@@ -57,7 +57,7 @@ typedef unsigned long int Int32;
 typedef void * (*DL_FUNC)();
 
 void error(const char *txt, ...); 
-char *_(char *txt) { return(txt); };
+char *_(char *txt) { return(txt); }
 
 /* UINT_MAX from limits.h */
 #define RANDNUM_MAX	UINT_MAX
