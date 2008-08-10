@@ -1,13 +1,13 @@
 Package: RDieHarder
-Version: 0.0.6
+Version: 0.0.7
 Date: $Date$
 Author: Dirk Eddelbuettel <edd@debian.org>
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Title: R interface to the dieharder RNG test suite
 Description: The RDieHarder packages provides an R interface to the 
-   dieharder suite of random number generators and tests that was
-   developed by Robert G. Brown, extending earlier work by George
-   Marsaglia and others.
+  dieharder suite of random number generators and tests that was
+  developed by Robert G. Brown, extending earlier work by George
+  Marsaglia and others.
 Depends: R (>= 2.5.0)
 SystemRequirements: DieHarder library from
   http://www.phy.duke.edu/~rgb/General/dieharder.php, 
