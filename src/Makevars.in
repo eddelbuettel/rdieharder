@@ -1,0 +1,11 @@
+
+# set by configure
+GSL_CFLAGS = @GSL_CFLAGS@
+GSL_LIBS   = @GSL_LIBS@
+DH_CFLAGS  = @DH_CFLAGS@
+DH_LIBS    = @DH_LIBS@
+
+# combine to standard arguments for R
+PKG_CFLAGS = -W $(DH_CFLAGS) $(GSL_CFLAGS)
+PKG_LIBS   = $(DH_LIBS) $(GSL_LIBS)
+

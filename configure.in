@@ -1,0 +1,92 @@
+# Process this file with autoconf to produce a configure script.
+#
+# Configure.in for RDieHarder
+# Copyright (C) 2008 Dirk Eddelbuettel and licensed under GNU GPL
+
+# The version set here will propagate to other files from here
+AC_INIT(RDieHarder, 0.0.6)
+
+# Checks for common programs using default macros
+AC_PROG_CC
+
+# Check for non-standard programs: gsl-config(1) 
+AC_PATH_PROG([GSL_CONFIG], [gsl-config])
+
+# If gsl-config was found, let's use it
+if test "${GSL_CONFIG}" != ""; then
+
+    # Use gsl-config for header and linker arguments
+    GSL_CFLAGS=`${GSL_CONFIG} --cflags`
+    GSL_LIBS=`${GSL_CONFIG} --libs`
+
+else 
+
+    AC_MSG_ERROR([gsl-config not found, is GSL installed?])
+
+fi
+
+# Now search for dieharder.h
+#AC_MSG_NOTICE([checking for DieHarder header files])
+if ! test $DH_INCDIR
+then  
+    for dir in \
+	/usr/include \
+	/usr/include/dieharder \
+	/usr/local/include \
+	/usr/local/include/dieharder \
+	/usr/local/dieharder/include \
+	/opt/include \
+	/opt/include/dieharder \ 
+	/opt/dieharder/include
+    do
+        if test -f ${dir}/libdieharder.h
+	then 
+	    DH_INCDIR=${dir}
+	    break
+	fi
+    done
+fi
+
+# Now search for libdieharder.so
+#AC_MSG_NOTICE([checking for DieHarder library file])
+if ! test $DH_LIBDIR
+then  
+    for dir in \
+	/usr/lib \
+	/usr/lib/dieharder \
+	/usr/local/lib \
+	/usr/local/lib/dieharder \
+	/usr/local/dieharder/lib \
+	/opt/include \
+	/opt/lib/dieharder \ 
+	/opt/dieharder/lib
+    do
+        if test -f ${dir}/libdieharder.so
+	then 
+	    DH_LIBDIR=${dir}
+	    break
+	fi
+    done
+fi
+
+# Test for sanity by looking for libdieharder.h and libdieharder.so, 
+# no explicit action on found, error on failure
+AC_CHECK_FILE(["${DH_INCDIR}/libdieharder.h"],
+	,
+	AC_MSG_ERROR([File libdieharder.h not in ${DH_INCDIR}.]))
+
+AC_CHECK_FILE(["${DH_LIBDIR}/libdieharder.so"],
+	,
+	AC_MSG_ERROR([Library libdieharder.so not in ${DH_LIBDIR}.]))
+
+# Expand into arguments
+DH_CFLAGS="-I${DH_INCDIR} -I. -DRDieHarder"
+DH_LIBS="-L${DH_LIBDIR} -ldieharder"
+
+# Now substitute these variables in src/Makevars.in to create src/Makevars
+AC_SUBST(GSL_CFLAGS)
+AC_SUBST(GSL_LIBS)
+AC_SUBST(DH_CFLAGS)
+AC_SUBST(DH_LIBS)
+AC_OUTPUT(src/Makevars)
+ 
