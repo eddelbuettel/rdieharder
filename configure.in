@@ -25,12 +25,23 @@ else
 
 fi
 
-# Now search for dieharder.h
-#AC_MSG_NOTICE([checking for DieHarder header files])
-if ! test $DH_INCDIR
-then  
+# offer configure argument support for dieharder includes
+AC_ARG_WITH([dieharder-include],
+            AC_HELP_STRING([--with-dieharder-include=INCLUDE_PATH],
+                           [Supply the location of DieHarder header files]),
+            [dh_include_path=$withval],
+            [dh_include_path=""])
+
+if test [ -n "$dh_include_path" ] ; then
+
+    DH_INCDIR="$dh_include_path"
+
+else
+
+    # Now search for dieharder.h
+    AC_MSG_NOTICE([checking for DieHarder header files])
     for dir in \
-	/usr/include \
+        /usr/include \
 	/usr/include/dieharder \
 	/usr/local/include \
 	/usr/local/include/dieharder \
@@ -47,10 +58,28 @@ then
     done
 fi
 
-# Now search for libdieharder.so
-#AC_MSG_NOTICE([checking for DieHarder library file])
-if ! test $DH_LIBDIR
-then  
+# Test for sanity by looking for libdieharder.h and libdieharder.so, 
+# no explicit action on found, error on failure
+AC_CHECK_FILE(["${DH_INCDIR}/libdieharder.h"],
+	,
+	AC_MSG_ERROR([File libdieharder.h not in ${DH_INCDIR}.]))
+
+
+# offer configure argument support for dieharder library
+AC_ARG_WITH([dieharder-libdir],
+            AC_HELP_STRING([--with-dieharder-libdir=LIBRARY_PATH],
+                           [Supply the location of DieHarder library file]),
+            [dh_lib_path=$withval],
+            [dh_lib_path=""])
+
+if test [ -n "$dh_lib_path" ] ; then
+
+    DH_LIBDIR="$dh_lib_path"
+
+else
+
+    # Now search for libdieharder.so
+    AC_MSG_NOTICE([checking for DieHarder library file])
     for dir in \
 	/usr/lib \
 	/usr/lib/dieharder \
@@ -69,12 +98,8 @@ then
     done
 fi
 
-# Test for sanity by looking for libdieharder.h and libdieharder.so, 
+# Test for sanity by looking for libdieharder.so, 
 # no explicit action on found, error on failure
-AC_CHECK_FILE(["${DH_INCDIR}/libdieharder.h"],
-	,
-	AC_MSG_ERROR([File libdieharder.h not in ${DH_INCDIR}.]))
-
 AC_CHECK_FILE(["${DH_LIBDIR}/libdieharder.so"],
 	,
 	AC_MSG_ERROR([Library libdieharder.so not in ${DH_LIBDIR}.]))
