@@ -1,15 +1,12 @@
 /*
  *========================================================================
- * $Id: dieharder.h 420 2008-08-18 18:29:17Z rgb $
+ * $Id: dieharder.h 267 2007-01-27 15:53:36Z rgb $
  *
  * See copyright in copyright.h and the accompanying file COPYING
  *========================================================================
  */
 
 #include "copyright.h"
-
-/* To enable large file support */
-#define _FILE_OFFSET_BITS 64
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,6 +30,46 @@
  * user_template sources are here, not in library
  */
 #include "user_template.h"
+
+#ifdef RDieHarder
+int histogram(double *input,int inum,double min,double max,int nbins,char *label);
+double output_rnds(void);
+void add_my_types(void);
+void help_user_template(void);
+void list_rngs(void);
+void parsecl(int argc, char **argv);
+void run_diehard_2dsphere(void);
+void run_diehard_3dsphere(void);
+void run_diehard_birthdays(void);
+void run_diehard_bitstream(void);
+void run_diehard_count_1s_byte(void);
+void run_diehard_count_1s_stream(void);
+void run_diehard_craps(void);
+void run_diehard_dna(void);
+void run_diehard_operm5(void);
+void run_diehard_opso(void);
+void run_diehard_oqso(void);
+void run_diehard_parking_lot(void);
+void run_diehard_rank_32x32(void);
+void run_diehard_rank_6x8(void);
+void run_diehard_runs(void);
+void run_diehard_squeeze(void);
+void run_diehard_sums(void);
+void run_marsaglia_tsang_gcd(void);
+void run_rgb_bitdist(void);
+void run_rgb_persist(void);
+void run_rgb_timing(void);
+void run_sts_monobit(void);
+void run_sts_runs(void);
+void run_user_template(void);
+void startup(void);
+void user_template(Test **test,int irun);
+void work(void);
+void Xtest_eval(Xtest *xtest);
+
+Test *testptr;		/* kludge: need a global to report back to main + R */
+Dtest *dtestptr;	/* kludge: need a global to report back to main + R */
+#endif
 
 /*
  *========================================================================
@@ -62,14 +99,6 @@
  */
 #define nullfree(a) {free(a);a = 0;}
 
-/*
- * This is how one gets a macro into quotes; an important one to keep
- * in all program templates.
- */
-#define _QUOTEME(x) #x
-#define QUOTEME(x) _QUOTEME(x)
-
-
  /*
   *========================================================================
   * Subroutine Prototypes
@@ -92,53 +121,6 @@
  double kstest_kuiper(double *pvalue,int count);
  double q_ks(double x);
  double q_ks_kuiper(double x);
- void Exit(int);
-
- double output_rnds(void);
- void add_my_types(void);
- void help_user_template(void);
- void list_rngs(void);
- void list_tests(void);
- void parsecl(int argc, char **argv);
- void run_diehard_2dsphere(void);
- void run_diehard_3dsphere(void);
- void run_diehard_birthdays(void);
- void run_diehard_bitstream(void);
- void run_diehard_count_1s_byte(void);
- void run_diehard_count_1s_stream(void);
- void run_diehard_craps(void);
- void run_diehard_dna(void);
- void run_diehard_operm5(void);
- void run_diehard_opso(void);
- void run_diehard_oqso(void);
- void run_diehard_parking_lot(void);
- void run_diehard_rank_32x32(void);
- void run_diehard_rank_6x8(void);
- void run_diehard_runs(void);
- void run_diehard_squeeze(void);
- void run_diehard_sums(void);
- void run_marsaglia_tsang_gcd(void);
- void run_rgb_bitdist(void);
- void run_rgb_persist(void);
- void run_rgb_timing(void);
- void run_rgb_minimum_distance(void);
- void run_rgb_permutations(void);
- void rgb_lmn(void);
- void run_rgb_operm(void);
- void run_sts_monobit(void);
- void run_sts_runs(void);
- void run_sts_serial(void);
- void run_user_template(void);
- void startup(void);
- void user_template(Test **test,int irun);
- void work(void);
- void Xtest_eval(Xtest *xtest);
-
-#ifdef RDIEHARDER
- int histogram(double *input, char *pvlabel, int inum, double min, double max, int nbins, char *label);
- Test *rdh_testptr;		/* kludge: need a global to report back to main + R */
- Dtest *rdh_dtestptr;	/* kludge: need a global to report back to main + R */
-#endif
 
 
  /*
@@ -167,7 +149,7 @@
  int rgb;               /* rgb test number */
  int sts;               /* sts test number */
  uint Seed;             /* user selected seed.  Surpresses reseeding per sample.*/
- off_t tsamples;        /* Generally should be "a lot".  off_t is u_int64_t. */
+ off_t tsamples;        /* Generally should be "a lot". */
  int user;              /* user defined test number */
  int verbose;           /* Default is not to be verbose. */
  double x_user;         /* General purpose command line inputs for use */
@@ -212,12 +194,14 @@
  char filename[K];      /* Input file name */
  int fromfile;		/* set true if file is used for rands */
  int filenumbits;	/* number of bits per integer */
- /*
-  * If we have large files, we can have a lot of rands.  off_t is
-  * automagically set to u_int64_t if FILE_OFFSET_BITS is set to 64.
-  */
  off_t filecount;	/* number of rands in file */
  char filetype;         /* file type */
+
+ /*
+  * rng global vectors and variables for setup and tests.
+  */
+ const gsl_rng_type **types;    /* where all the rng types go */
+ gsl_rng *rng;                  /* global gsl random number generator */
 
  void show_test_header(Dtest *dtest,Test **test);
  void show_test_header_debug(Dtest *dtest,Test **test);
@@ -225,14 +209,4 @@
  void show_test_results(Dtest *dtest,Test **test);
  void show_test_results_debut(Dtest *dtest,Test **test);
  void test_footer(Dtest *dtest, double pvalue, double *pvalues);
-
-/*
- * List new rng types to be added in startup.c.  Use "empty" or
- * libdieharder rng sources as template, uncomment/clone the lines that
- * add your own type(s) in startup.c.  Consider sending "good" generators
- * that pass all or most tests or "classic" generators good or bad that
- * people might want to test back to me to include in libdieharder.
- */
- GSL_VAR const gsl_rng_type *gsl_rng_empty_random;
- /* GSL_VAR const gsl_rng_type *gsl_rng_my_new_random; */
 

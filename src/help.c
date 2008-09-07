@@ -1,6 +1,6 @@
 /*
  *========================================================================
- * $Id: help.c 313 2007-03-02 01:00:11Z rgb $
+ * $Id: help.c 414 2008-08-15 18:14:45Z rgb $
  *
  * See copyright in copyright.h and the accompanying file COPYING
  *========================================================================
@@ -19,29 +19,59 @@ void help()
   */
  if(all==YES){
    printf("%s",rgb_timing_dtest.description);
+   fflush(stdout);
    printf("%s",rgb_persist_dtest.description);
+   fflush(stdout);
    printf("%s",rgb_bitdist_dtest.description);
+   fflush(stdout);
+   printf("%s",rgb_minimum_distance_dtest.description);
+   fflush(stdout);
+   printf("%s",rgb_permutations_dtest.description);
+   fflush(stdout);
    printf("%s",diehard_birthdays_dtest.description);
+   fflush(stdout);
    printf("%s",diehard_operm5_dtest.description);
+   fflush(stdout);
    printf("%s",diehard_rank_32x32_dtest.description);
+   fflush(stdout);
    printf("%s",diehard_rank_6x8_dtest.description);
+   fflush(stdout);
    printf("%s",diehard_bitstream_dtest.description);
+   fflush(stdout);
    printf("%s",diehard_opso_dtest.description);
+   fflush(stdout);
    printf("%s",diehard_oqso_dtest.description);
+   fflush(stdout);
    printf("%s",diehard_dna_dtest.description);
+   fflush(stdout);
    printf("%s",diehard_count_1s_stream_dtest.description);
+   fflush(stdout);
    printf("%s",diehard_count_1s_byte_dtest.description);
+   fflush(stdout);
    printf("%s",diehard_parking_lot_dtest.description);
+   fflush(stdout);
    printf("%s",diehard_2dsphere_dtest.description);
+   fflush(stdout);
    printf("%s",diehard_3dsphere_dtest.description);
+   fflush(stdout);
    printf("%s",diehard_squeeze_dtest.description);
+   fflush(stdout);
    printf("%s",diehard_sums_dtest.description);
+   fflush(stdout);
    printf("%s",diehard_runs_dtest.description);
+   fflush(stdout);
    printf("%s",diehard_craps_dtest.description);
+   fflush(stdout);
    printf("%s",marsaglia_tsang_gcd_dtest.description);
+   fflush(stdout);
    printf("%s",sts_monobit_dtest.description);
+   fflush(stdout);
    printf("%s",sts_runs_dtest.description);
+   fflush(stdout);
+   printf("%s",sts_serial_dtest.description);
+   fflush(stdout);
    help_user_template();
+   fflush(stdout);
    exit(0);
  }
 
@@ -51,57 +81,75 @@ void help()
  switch(diehard){
    case DIEHARD_BDAY:
      printf("%s",diehard_birthdays_dtest.description);
+     fflush(stdout);
      break;
    case DIEHARD_OPERM5:
      printf("%s",diehard_operm5_dtest.description);
+     fflush(stdout);
      break;
    case DIEHARD_RANK_32x32:
      printf("%s",diehard_rank_32x32_dtest.description);
+     fflush(stdout);
      break;
    case DIEHARD_RANK_6x8:
      printf("%s",diehard_rank_6x8_dtest.description);
+     fflush(stdout);
      break;
    case DIEHARD_BITSTREAM:
      printf("%s",diehard_bitstream_dtest.description);
+     fflush(stdout);
      break;
    case DIEHARD_OPSO:
      printf("%s",diehard_opso_dtest.description);
+     fflush(stdout);
      break;
    case DIEHARD_OQSO:
      printf("%s",diehard_oqso_dtest.description);
+     fflush(stdout);
      break;
    case DIEHARD_DNA:
      printf("%s",diehard_dna_dtest.description);
+     fflush(stdout);
      break;
    case DIEHARD_COUNT_1S_STREAM:
      printf("%s",diehard_count_1s_stream_dtest.description);
+     fflush(stdout);
      break;
    case DIEHARD_COUNT_1S_BYTE:
      printf("%s",diehard_count_1s_byte_dtest.description);
+     fflush(stdout);
      break;
    case DIEHARD_PARKING_LOT:
      printf("%s",diehard_parking_lot_dtest.description);
+     fflush(stdout);
      break;
    case DIEHARD_2DSPHERE:
      printf("%s",diehard_2dsphere_dtest.description);
+     fflush(stdout);
      break;
    case DIEHARD_3DSPHERE:
      printf("%s",diehard_3dsphere_dtest.description);
+     fflush(stdout);
      break;
    case DIEHARD_SQUEEZE:
      printf("%s",diehard_squeeze_dtest.description);
+     fflush(stdout);
      break;
    case DIEHARD_SUMS:
      printf("%s",diehard_sums_dtest.description);
+     fflush(stdout);
      break;
    case DIEHARD_RUNS:
      printf("%s",diehard_runs_dtest.description);
+     fflush(stdout);
      break;
    case DIEHARD_CRAPS:
      printf("%s",diehard_craps_dtest.description);
+     fflush(stdout);
      break;
    case MARSAGLIA_TSANG_GCD:
      printf("%s",marsaglia_tsang_gcd_dtest.description);
+     fflush(stdout);
      break;
    case MARSAGLIA_TSANG_GORILLA:
      break;
@@ -111,12 +159,23 @@ void help()
  switch(rgb){
    case RGB_TIMING:
      printf("%s",rgb_timing_dtest.description);
+     fflush(stdout);
      break;
    case RGB_PERSIST:
      printf("%s",rgb_persist_dtest.description);
+     fflush(stdout);
      break;
    case RGB_BITDIST:
      printf("%s",rgb_bitdist_dtest.description);
+     fflush(stdout);
+     break;
+   case RGB_MINIMUM_DISTANCE:
+     printf("%s",rgb_minimum_distance_dtest.description);
+     fflush(stdout);
+     break;
+   case RGB_PERMUTATIONS:
+     printf("%s",rgb_permutations_dtest.description);
+     fflush(stdout);
      break;
    case RGB_LMN:
      break;
@@ -126,9 +185,15 @@ void help()
  switch(sts){
    case STS_MONOBIT:
      printf("%s",sts_monobit_dtest.description);
+     fflush(stdout);
      break;
    case STS_RUNS:
      printf("%s",sts_runs_dtest.description);
+     fflush(stdout);
+     break;
+   case STS_SERIAL:
+     printf("%s",sts_serial_dtest.description);
+     fflush(stdout);
      break;
    default:
      break;
@@ -142,6 +207,7 @@ void help()
  switch(user){
    case USER_TEMPLATE:
      printf("%s",user_template_dtest.description);
+     fflush(stdout);
      break;
    default:
      break;
@@ -154,11 +220,12 @@ void help()
 
 }
 
-
 void Usage()
 {
 
  fprintf(stdout, "\n\
+dieharder version %s Copyright 2003 Robert G. Brown\n\
+ \n\
 Usage:\n\
   dieharder [-a] [-b bits] [-d diehard test number] [-f filename]\n\
            [-g generator number] [-h] [-i iterations] [-l] \n\
@@ -221,7 +288,7 @@ Usage:\n\
   and may not be even approximately correct in your context.  Also, the\n\
   quality assessment(s) for the rngs may, in fact, be completely incorrect\n\
   or misleading.  Use them at your Own Risk!  Be Warned!\n\
-\n");
+\n",QUOTEME(VERSION));
 
  exit(0);
 

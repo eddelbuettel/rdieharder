@@ -1,6 +1,6 @@
 /*
  *========================================================================
- * $Id: startup.c 255 2007-01-27 15:09:15Z rgb $
+ * $Id: startup.c 437 2008-09-04 21:07:26Z rgb $
  *
  * See copyright in copyright.h and the accompanying file COPYING
  *========================================================================
@@ -15,6 +15,7 @@
  */
 
 #include "dieharder.h"
+static int firstcall=1;
 
 void startup()
 {
@@ -23,95 +24,138 @@ void startup()
  uint mask;
  struct stat sbuf;
 
-
  /*
-  * The very first thing we do is see if any simple help options
-  * were requested, as we exit immediately if they were and can
-  * save all sorts of work.
-  */
- if(list == YES) {
-
-printf("\n\
-                     DieHarder Test Suite\n\
-========================================================================\n\
-The following tests are available and will be run when diehard -a is\n\
-invoked.  Special options or suggested parameters are indicated if\n\
-they are needed to get a satisfactory result (such as completion in a\n\
-reasonable amount of time).\n\
-\n\
-            Diehard Tests\n\
-   -d 1  Diehard Birthdays test\n\
-   -d 2  Diehard Overlapping Permutations test\n\
-   -d 3  Diehard 32x32 Binary Rank test\n\
-   -d 4  Diehard 6x8 Binary Rank test\n\
-   -d 5  Diehard Bitstream test\n\
-   -d 6  Diehard OPSO test\n\
-   -d 7  Diehard OQSO test\n\
-   -d 8  Diehard DNA test\n\
-   -d 9  Diehard Count the 1s (stream) test\n\
-   -d 10 Diehard Count the 1s (byte) test\n\
-   -d 11 Diehard Parking Lot test\n\
-   -d 12 Diehard Minimum Distance (2D Spheres) test\n\
-   -d 13 Diehard 3D Spheres (minimum distance) test\n\
-   -d 14 Diehard Squeeze test\n\
-   -d 15 Diehard Sums test\n\
-   -d 16 Diehard Runs test\n\
-   -d 17 Diehard Craps test\n\
-   -d 18 Marsaglia and Tsang GCD test\n\
-   -d 19 Marsaglia and Tsang Gorilla test\n\
-\n\
-             RGB Tests\n\
-   -r 1 Timing test (times the rng)\n\
-   -r 2 Bit Persist test\n\
-   -r 3 Bit Ntuple Distribution test suite (-n ntuple)\n\
-   -r 4 L-M-Ntuple Distribution test suite (quite long)\n\
-\n\
-      Statistical Test Suite (STS)\n\
-   -s 1 STS Monobit test\n\
-   -s 2 STS Runs test\n\
-\n\
-            User Tests\n\
-   -u 1 User Template (Lagged Sum Test)\n\
-\n");
-
-   exit(0);
- }
-
- /*
-  * Allocate fields early in case we need to parse()
- fields = allocate_fields(MAXFIELDNUMBER,K);
+  * Large chunks of the following should only be done on the first call
+  * to dieharder startup().  Maybe all of it, we'll see.  Either way,
+  * the firstcall flag can be used to ensure that only the parts that can
+  * safely be repeated or are required to be repeated are repeated.
   */
 
- /*
-  * Count and optionally list the available, built in gsl generators
-  */
- types = gsl_rng_types_setup ();
- i = 0;
- while(types[i] != NULL){
+ if(firstcall == 1){
+   /* printf("This is the first call to startup(), I hope.\n"); */
+   /*
+    * The very first thing we do is see if any simple help options
+    * were requested, as we exit immediately if they were and can
+    * save all sorts of work.
+    */
+   if(list == YES) {
+     list_tests();
+     Exit(0);
+   }
+
+   /*
+    * Set up the built-in gls generators.  We have to
+    *
+    *  a) keep the numbers the same from version to version.
+    *
+    *  b) permit calling rngs by name.
+    *
+    * Here we set up for this.  This means counting and adding and
+    * optionally listing the available, built in gsl generators plus
+    * any added generators, plus a parse routine for selecting a generator
+    * from the command line.
+    */
+   types = dieharder_rng_types_setup();
+
+   /*
+    * We new have to work a bit harder to determine how many
+    * generators we have of the different types because there are
+    * different ranges for different sources of generator.
+    *
+    * We start with the basic GSL generators, which start at offset 0.
+    */
+   i = 0;
+   while(types[i] != NULL){
+     i++;
+   }
+   num_gsl_rngs = i;
+   MYDEBUG(D_STARTUP){
+     printf("# startup:  Found %u GSL rngs.\n",num_gsl_rngs);
+   }
+
+   /*
+    * Next come the dieharder generators, which start at offset 200.
+    */
+   i = 200;
+   j = 0;
+   while(types[i] != NULL){
+     i++;
+     j++;
+   }
+   num_dieharder_rngs = j;
+   MYDEBUG(D_STARTUP){
+     printf("# startup:  Found %u dieharder rngs.\n",num_dieharder_rngs);
+   }
+
+   /*
+    * Next come the R generators, which start at offset 400.
+    */
+   i = 400;
+   j = 0;
+   while(types[i] != NULL){
+     i++;
+     j++;
+   }
+   num_R_rngs = j;
+   MYDEBUG(D_STARTUP){
+     printf("# startup:  Found %u R rngs.\n",num_R_rngs);
+   }
+
+   /*
+    * Next come the hardware generators, which start at offset 500.
+    */
+   i = 500;
+   j = 0;
+   while(types[i] != NULL){
+     i++;
+     j++;
+   }
+   num_hardware_rngs = j;
+   MYDEBUG(D_STARTUP){
+     printf("# startup:  Found %u hardware rngs.\n",num_hardware_rngs);
+   }
+
+   /*
+    * Finally, any generators added by the user at the interface level.
+    * That is, if you are hacking dieharder to add your own rng, add it
+    * below and it should "just appear" in the dieharder list of available
+    * generators and be immediately useful.
+    */
+   i = 600;
+   j = 0;
+   types[i] = gsl_rng_empty_random;
    i++;
+   j++;
+   num_ui_rngs = j;
+   MYDEBUG(D_STARTUP){
+     printf("# startup:  Found %u user interface generators.\n",num_ui_rngs);
+   }
+
+   num_rngs = num_gsl_rngs + num_dieharder_rngs + num_R_rngs +
+              num_hardware_rngs + num_ui_rngs;
+
  }
- num_gsl_rngs = i;
 
  /*
-  * Now add my own types and count THEM.
+  * In principle, in Rdh, one could change to an illegal generator
+  * in a new call.  This is probably not a good way to manage it, but
+  * it will do for now.
   */
- add_my_types();
- while(types[i] != NULL){
-   i++;
- }
-
- num_rngs = i;
- num_my_rngs = num_rngs - num_gsl_rngs;
-
  if(generator == -1){
    list_rngs();
-   exit(0);
+   Exit(0);
  }
 
- if(generator > num_rngs-1){
-   fprintf(stderr,"Error:  rng %d (> %d) does not exist!\n",generator,num_rngs-1);
+ if(generator < 0 || generator >= MAXRNGS){
+   fprintf(stderr,"Error:  rng %d does not exist!\n",generator);
    list_rngs();
-   exit(0);
+   Exit(0);
+ }
+
+ if(types[generator] == 0){
+   fprintf(stderr,"Error:  rng %d does not exist!\n",generator);
+   list_rngs();
+   Exit(0);
  }
 
  /*
@@ -125,12 +169,12 @@ reasonable amount of time).\n\
    if(fromfile != 1){
      fprintf(stderr,"Error: generator %s uses file input but no file has been loaded",types[generator]->name);
      list_rngs();
-     exit(0);
+     Exit(0);
    }
    if(output){
      fprintf(stderr,"Error: generator %s uses file input but output flag set.",types[generator]->name);
      Usage();
-     exit(0);
+     Exit(0);
    }
  }
 
@@ -138,14 +182,14 @@ reasonable amount of time).\n\
   * If we get here, in principle the generator is valid and the right
   * inputs are defined to run it (in the case of file_input). We therefore
   * initialize the selected gsl rng using (if possible) random_seed()
-  * seeds from /dev/random.  Note that we had to wait until now for the to
-  * do this or we'd miss our own additions!
+  * seeds from /dev/random.  If this is a second or third pass through
+  * startup, as long as gsl_rng_free(rng) has run, we SHOULD be clear
+  * to re-allocate it or a new one now.
   */
  if(verbose == D_STARTUP || verbose == D_SEED || verbose == D_ALL){
    fprintf(stdout,"# startup(): Creating and seeding generator %s\n",types[generator]->name);
  }
- rng = gsl_rng_alloc (types[generator]);
- random_max = gsl_rng_max(rng);
+ rng = gsl_rng_alloc(types[generator]);
  if(Seed == 0){
    seed = random_seed();
    if(verbose == D_STARTUP || verbose == D_SEED || verbose == D_ALL){
@@ -158,18 +202,20 @@ reasonable amount of time).\n\
    }
  }
  gsl_rng_set(rng,seed);
-
- if(output){
-   output_rnds();
-   /* We'll fix it so we don't have to exit here later, maybe. */
-   exit(0);
- }
+ /* It is indeed the same on looped calls, so this is really cruft.
+ printf("Just for grins, the first rand returned by the generator is %lu\n",
+  gsl_rng_get(rng));
+  */
 
  /*
   * Simultaneously count the number of significant bits in the rng
-  * AND create a mask (which we need in e.g. rgb_persist and possibly
-  * elsewhere).
+  * AND create a mask.  Note that several routines in bits WILL NOT
+  * WORK unless this is all set correctly, which actually complicates
+  * things because I stupidly didn't make this data into components
+  * of the rng object (difficult to do given that the latter is actually
+  * already defined in the GSL, admittedly).
   */
+ random_max = gsl_rng_max(rng);
  rmax = random_max;
  rmax_bits = 0;
  rmax_mask = 0;
@@ -180,57 +226,30 @@ reasonable amount of time).\n\
    rmax_bits++;
  }
 
+ if(output){
+   output_rnds();
+   /* We'll fix it so we don't have to exit here later, maybe. */
+   Exit(0);
+ }
+
  /*
   * TESTING PLAYGROUND.  bits.c code MUST be carefully validated as it is
   * quite complex and crucial to happy testing.  We cannot test this until
   * AFTER rng is set up.
   testbits();
-  exit(0);
+  Exit(0);
   *
   */
 
- /*
-  * Allocate the global vector that will hold random integers
-  * loaded from gsl generators (usually) or from a file (sometimes).
-  * One day (soon) we'll need to figure out file I/O.  Not exactly
-  * trivial, as many of the tests determine how many rands they
-  * need depending strongly on the test parameters -- to be able
-  * to run arbitrary tests, the file will need to be quite large.
-  * We may need to write a routine that fills rand_int on demand
-  * from either the file or a generator.
-  *
-  * This size is possibly overkill, but otherwise we'd have to
-  * figure out how big it is per test.  This is big enough
-  * for all of them, I'm pretty sure.
-  *
-  * Actually, I'm hoping that this is cruft, but it probably isn't,
-  * yet.  We do need to alter how it is used, though, and ALWAYS
-  * allocate/free it on a per-test basis...
- rand_int = (uint *) malloc((size_t) (tsamples*sizeof(unsigned int)));
-  */
 
  /*
-  * This is the global vector of p-values generated by each test
-  * run many times.  It has to be oversized because resizing it
-  * to just right is more of a hassle then just spending the memory
-  * in an era where systems with less than a GB of active memory
-  * will be increasingly rare.  These p-values are ONLY used in
-  * the end-stage e.g. KS tests that globally validate the distribution
-  * of p-values returned by the test.  Set the kspi index to point to
-  * the first element of the vector.
-  *
-  * I think the following is cruft
- ks_pvalue = (double *)malloc((size_t) KS_SAMPLES_PER_TEST_MAX*psamples*sizeof(double));
- ks_pvalue2 = (double *)malloc((size_t) KS_SAMPLES_PER_TEST_MAX*psamples*sizeof(double));
-  *
-  * and I'm HOPING that every test uses an absolute maximum of psamples
-  * samples for its concluding KS test, although in the case of e.g. diehard
-  * tests this is probably not always true.  I actually think that the
-  * right way to do this at this point is to malloc the memory inside
-  * the test itself and free it at the end.  Why not?
+  * Probably cruft, but in any event the right solution is to malloc the
+  * memory inside the test itself and free it at the end.
   */
  ks_pvalue = 0;
  ks_pvalue2 = 0;
  kspi = 0;
+
+ firstcall = 0;
 
 }
