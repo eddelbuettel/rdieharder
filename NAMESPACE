@@ -7,4 +7,5 @@ export("dieharder",
        "plot.dieharder",
        "print.dieharder",
        "summary.dieharder",
-       "dieharderGenerators")
+       "dieharderGenerators",
+       "dieharderTests")

@@ -105,7 +105,7 @@ AC_CHECK_FILE(["${DH_LIBDIR}/libdieharder.so"],
 	AC_MSG_ERROR([Library libdieharder.so not in ${DH_LIBDIR}.]))
 
 # Expand into arguments
-DH_CFLAGS="-I${DH_INCDIR} -I. -DRDieHarder"
+DH_CFLAGS="-I${DH_INCDIR} -I. -DRDIEHARDER"
 DH_LIBS="-L${DH_LIBDIR} -ldieharder"
 
 # Now substitute these variables in src/Makevars.in to create src/Makevars

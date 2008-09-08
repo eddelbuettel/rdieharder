@@ -1,6 +1,6 @@
 
-R version 2.5.1 (2007-06-27)
-Copyright (C) 2007 The R Foundation for Statistical Computing
+R version 2.7.2 (2008-08-25)
+Copyright (C) 2008 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -29,8 +29,8 @@ p-value = 0.7904
 
 
 Summary for test data
-    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-0.004476 0.223400 0.449300 0.462500 0.678300 0.994700 
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0000  0.2234  0.4493  0.4624  0.6783  0.9947 
 
 
 Stem and leaf plot for test data
