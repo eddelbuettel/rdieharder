@@ -1,6 +1,6 @@
 /*
  *========================================================================
- * $Id: work.c 438 2008-09-05 11:16:01Z rgb $
+ * $Id: work.c 448 2008-09-07 17:58:00Z rgb $
  *
  * See copyright in copyright.h and the accompanying file COPYING
  *========================================================================
@@ -19,18 +19,28 @@
 void work()
 {
 
-/*
- if(output == YES){
+ if(output_file == YES){
    output_rnds();
  }
- */
+
+ /*
+  * Let us simply "always" check the timing of an rng -- it doesn't take
+  * and it seems like it should be part of a standard report regardless.
+  */
+ /* if(!fromfile){  */
+ /*   run_rgb_timing(); */
+ /* } */
+
+ if(table){
+   table_header();
+ }
 
  if(all == YES){
-   run_rgb_timing();
-   run_rgb_persist();
+   /* run_rgb_persist(); */
    run_rgb_bitdist();
    run_rgb_minimum_distance();
    run_rgb_permutations();
+   run_rgb_lagged_sums();
    /*  run_rgb_operm(); */
    run_diehard_birthdays();
    /* run_diehard_operm5(); */
@@ -133,11 +143,14 @@ void work()
    case RGB_MINIMUM_DISTANCE:
      run_rgb_minimum_distance();
      break;
-   case RGB_LMN:
-     rgb_lmn();
-     break;
    case RGB_PERMUTATIONS:
      run_rgb_permutations();
+     break;
+   case RGB_LAGGED_SUMS:
+     run_rgb_lagged_sums();
+     break;
+   case RGB_LMN:
+     rgb_lmn();
      break;
    case RGB_OPERM:
      run_rgb_operm();

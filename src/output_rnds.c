@@ -28,7 +28,7 @@ double output_rnds()
    seed = Seed;
    gsl_rng_set(rng,seed);
  } else {
-   seed = random_seed();
+    seed = random_seed();
    gsl_rng_set(rng,seed);
  }
 

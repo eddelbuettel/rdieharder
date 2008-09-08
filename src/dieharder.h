@@ -1,6 +1,6 @@
 /*
  *========================================================================
- * $Id: dieharder.h 420 2008-08-18 18:29:17Z rgb $
+ * $Id: dieharder.h 448 2008-09-07 17:58:00Z rgb $
  *
  * See copyright in copyright.h and the accompanying file COPYING
  *========================================================================
@@ -29,6 +29,12 @@
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_matrix.h>
 #include <dieharder/libdieharder.h>
+
+/*
+ * Flags to control all output formatting etc.
+ */
+#include "output.h"
+
 /*
  * user_template sources are here, not in library
  */
@@ -159,14 +165,16 @@
  int list;              /* List all tests flag */
  int List;              /* List all generators flag */
  int ntuple;            /* n-tuple size for n-tuple tests */
- int num_randoms;		/* the number of randoms stored into memory and usable */
- int output;		/* equals 1 if you output to file, otherwise 0. */
+ int num_randoms;	/* the number of randoms stored into memory and usable */
+ int output_file;	/* equals 1 if you output to file, otherwise 0. */
  int overlap;           /* equals 1 if you really want to use diehard overlap */
  int psamples;          /* Number of test runs in final KS test */
  int quiet;             /* quiet flag -- surpresses full output report */
  int rgb;               /* rgb test number */
  int sts;               /* sts test number */
  uint Seed;             /* user selected seed.  Surpresses reseeding per sample.*/
+ uint table;            /* selects "table" output mode */
+ uint tflag;            /* binary flag(s) to control what goes in the table */
  off_t tsamples;        /* Generally should be "a lot".  off_t is u_int64_t. */
  int user;              /* user defined test number */
  int verbose;           /* Default is not to be verbose. */
@@ -196,6 +204,7 @@
  double *ks_pvalue,*ks_pvalue2;
  unsigned int kspi;
  struct timeval tv_start,tv_stop;
+ double rng_avg_time_nsec,rng_rands_per_second;
  int dummy,idiot;
  FILE *fp;
 #define MAXFIELDNUMBER 8

@@ -29,7 +29,7 @@ SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SE
      */
     char *argv[] = { "dieharder" };
     optind = 0;
-    parsecl(1, argv); 
+    parsecl(1, argv); 			
 
     generator  = INTEGER_VALUE(genS);
     testarg = INTEGER_VALUE(testS);
@@ -43,7 +43,7 @@ SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SE
     } else {
 	user = testarg - 300;
     }
-    Seed = INTEGER_VALUE(seedS); /* (user-select) Seed, not (save switch) seed */
+    Seed = (unsigned long int) INTEGER_VALUE(seedS); /* (user-select) Seed, not (save switch) seed */
     psamples = INTEGER_VALUE(psamplesS);
     verb = INTEGER_VALUE(verbS);
     inputfile = (char*) CHARACTER_VALUE(infileS);
@@ -52,13 +52,13 @@ SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SE
     if (strcmp(inputfile, "") != 0) {
 	strncpy(filename, inputfile, 128);
 	fromfile = 1;		/* flag this as file input */
-	if (verb) Rprintf("Dieharder using input file %s generator %d fromfile %d seed %d\n", filename, generator, fromfile, Seed);
+	//if (verb) Rprintf("Dieharder using input file %s generator %d fromfile %d seed %d\n", filename, generator, fromfile, Seed);
     }
-
-    if (Seed == 0) {
-	seed = random_seed();
+ 
+   if (Seed == 0) {
+    	seed = random_seed();
     } else {
-	seed = (unsigned long int) Seed;
+    	seed = (unsigned long int) Seed;
     }
 
     if (verb) {
@@ -72,28 +72,16 @@ SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SE
 	hist_flag = 0;
     }
 
-    /*
-     * Note that most of my cpu_rates (except the terminally simple/stupid) 
-     * have three phases after parsecl():
-     *
-     * Startup: Allocate memory, initialize all derivative variables from
-     * command line values.  
-     */
-    if (verb) Rprintf("Dieharder before startup\n");
+    //if (verb) Rprintf("Dieharder before startup\n");
     startup();
-    if (verb) Rprintf("Dieharder after startup\n");
+    //if (verb) Rprintf("Dieharder after startup\n");
 
-    /*
-     * Work: Do all the work.  In a complicated cpu_rate, project_work would
-     * itself be a shell for a lot of other modular routines.
-     */
-    if (verb) Rprintf("Dieharder before work\n");
+    //if (verb) Rprintf("Dieharder before work\n");
     work();
-    if (verb) Rprintf("Dieharder after work\n");
+    //if (verb) Rprintf("Dieharder after work\n");
 
     gsl_rng_free(rng);
     reset_bit_buffers();
-
 
     /* vector of size three: [0] is scalar ks_pv, [1] is pvalues vec, [2] name */
     PROTECT(result = allocVector(VECSXP, 3)); 
