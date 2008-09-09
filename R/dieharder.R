@@ -112,14 +112,16 @@ dieharder.default <- function(rng="mt19937",
                  as.character(inputfile),
                  as.integer(ntuple),
                  PACKAGE="RDieHarder")
-    obj <- list(p.value=val[[1]],
+    obj <- list(p.value=val[[1]][1],
                 data=val[[2]],      ## not used by htest methods
                 method=val[[3]],
                 data.name=paste("Created by RNG `",
                                 .dieharder.generators[genpos,"names"], "' with seed=",
                                 as.integer(seed), ", sample of size ",
                                 as.integer(psamples), sep=""),
-                generator=as.character(.dieharder.generators[genpos,"names"])
+                generator=as.character(.dieharder.generators[genpos,"names"]),
+                nvalues=val[[4]],
+                p.values=val[[1]]
                 )
     class(obj) <- c("dieharder", "htest")
     return(obj)

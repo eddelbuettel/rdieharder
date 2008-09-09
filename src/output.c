@@ -169,9 +169,9 @@ void show_test_results(Dtest *dtest,Test **test)
 #ifdef RDIEHARDER
  rdh_dtestptr = dtest;
  /* we use R_alloc as R will free this upon return; see R Extensions manual */
- rdh_testptr = (Test **) R_alloc((size_t) dtest->nkps*sizeof(Test *));
+ rdh_testptr = (Test **) R_alloc((size_t) dtest->nkps, sizeof(Test *));
  for(i=0; i<dtest->nkps; i++) {
-     rdh_testptr[i] = (Test *) R_alloc(sizeof(Test));
+     rdh_testptr[i] = (Test *) R_alloc(1, sizeof(Test));
      memcpy(rdh_testptr[i], test[i], sizeof(Test));
  }
 #endif /* RDIEHARDER */
@@ -245,9 +245,9 @@ void table_line(Dtest *dtest,Test **test)
 #ifdef RDIEHARDER
  rdh_dtestptr = dtest;
  /* we use R_alloc as R will free this upon return; see R Extensions manual */
- rdh_testptr = (Test **) R_alloc((size_t) dtest->nkps*sizeof(Test *));
+ rdh_testptr = (Test **) R_alloc((size_t) dtest->nkps, sizeof(Test *));
  for(i=0; i<dtest->nkps; i++) {
-     rdh_testptr[i] = (Test *) R_alloc(sizeof(Test));
+     rdh_testptr[i] = (Test *) R_alloc(1, sizeof(Test));
      memcpy(rdh_testptr[i], test[i], sizeof(Test));
  }
 #endif /* RDIEHARDER */
