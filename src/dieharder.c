@@ -1,9 +1,12 @@
+
 /*
- *========================================================================
- * $Id: rdieharder.c 255 2007-01-27 15:09:15Z db $
+ * RDieHarder interface to DieHarder
+ * Copyright (C) 2006 - 2008 Dirk Eddelbuettel
+ * GPL'ed
  *
- * See copyright in copyright.h and the accompanying file COPYING
- *========================================================================
+ * Based on dieharder.c from DieHarder, and interfacing DieHarder
+ * DieHarder is (C) Robert G. Brown and GPL'ed
+ *
  */
 
 #ifdef RDIEHARDER
@@ -19,18 +22,17 @@
 
 SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SEXP infileS, SEXP ntupleS) {
 
-    int verb, testarg, nprotect=0;
+    int verb, testarg;
     unsigned int i;
     SEXP result = NULL, vec, pv, name, desc, nkps;
     char *inputfile;
 
-    /*
-     * Parse command line and set global variables
-     */
+    /* Setup argv to allow call of parsecl() to let dieharder set globals */
     char *argv[] = { "dieharder" };
     optind = 0;
     parsecl(1, argv); 			
 
+    /* Parse 'our' parameters from R */
     generator  = INTEGER_VALUE(genS);
     testarg = INTEGER_VALUE(testS);
     diehard = rgb = sts = user = 0;
@@ -52,7 +54,6 @@ SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SE
     if (strcmp(inputfile, "") != 0) {
 	strncpy(filename, inputfile, 128);
 	fromfile = 1;		/* flag this as file input */
-	//if (verb) Rprintf("Dieharder using input file %s generator %d fromfile %d seed %d\n", filename, generator, fromfile, Seed);
     }
  
    if (Seed == 0) {
@@ -66,61 +67,57 @@ SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SE
 		generator, diehard, seed);
 	quiet = 0;
 	hist_flag = 1;
-	/*verbose = D_ALL;*/
     } else {
 	quiet = 1; 			/* override dieharder command-line default */
 	hist_flag = 0;
     }
 
-    //if (verb) Rprintf("Dieharder before startup\n");
+    /* Now do the work that dieharder.c does */
     startup();
-    //if (verb) Rprintf("Dieharder after startup\n");
-
-    //if (verb) Rprintf("Dieharder before work\n");
     work();
-    //if (verb) Rprintf("Dieharder after work\n");
-
     gsl_rng_free(rng);
     reset_bit_buffers();
 
+    /* And bring our results back to R */
     /* vector of size three: [0] is scalar ks_pv, [1] is pvalues vec, [2] name */
-    PROTECT(result = allocVector(VECSXP, 3)); 
+    PROTECT(result = allocVector(VECSXP, 4)); 
 
     /* alloc scalar, and set it */
-    PROTECT(pv = allocVector(REALSXP, 1));
+    PROTECT(pv = allocVector(REALSXP, rdh_dtestptr->nkps));
     PROTECT(name = allocVector(STRSXP, 1));
+    PROTECT(nkps = allocVector(INTSXP, 1));
+
     if (rdh_testptr != NULL) {
-	REAL(pv)[0] = rdh_testptr->ks_pvalue;
+	for (i=0; i<rdh_dtestptr->nkps; i++) { 		/* there can be nkps p-values per test */
+	    REAL(pv)[i] = rdh_testptr[i]->ks_pvalue;
+	}
 	/* alloc vector and set it */
-	PROTECT(vec = allocVector(REALSXP, rdh_testptr->psamples)); 
-	nprotect++;
-	for (i = 0; i < rdh_testptr->psamples; i++) {
-	    REAL(vec)[i] = rdh_testptr->pvalues[i];
+	PROTECT(vec = allocVector(REALSXP, rdh_testptr[0]->psamples)); 
+	for (i = 0; i < rdh_testptr[0]->psamples; i++) {
+	    REAL(vec)[i] = rdh_testptr[0]->pvalues[i];
 	}
 	SET_STRING_ELT(name, 0, mkChar(rdh_dtestptr->name));
+	INTEGER(nkps)[0] = rdh_dtestptr->nkps;
     } else {
 	PROTECT(vec = allocVector(REALSXP, 1)); 
 	REAL(pv)[0] = R_NaN;
 	REAL(vec)[0] = R_NaN;
 	SET_STRING_ELT(name, 0, mkChar(""));
+	INTEGER(nkps)[0] = R_NaN;
     }
-    //PROTECT(desc = allocVector(STRSXP, 1));
-    //SET_STRING_ELT(desc, 0, mkChar(rdh_dtestptr->description));
-    //PROTECT(nkps = allocVector(REALSXP, 1));
-    //REAL(nkps)[0] = (double) rdh_testptr->nkps;
 
     /* insert scalar and vector */
     SET_VECTOR_ELT(result, 0, pv);
     SET_VECTOR_ELT(result, 1, vec);
     SET_VECTOR_ELT(result, 2, name);
+    SET_VECTOR_ELT(result, 3, nkps);
   
-    //SET_VECTOR_ELT(result, 3, desc);  /* too long, and C formatted */
-    //SET_VECTOR_ELT(result, 4, nkps);  /* not sure this is needed or useful */
-  
-    UNPROTECT(4);
+    UNPROTECT(5);
+
     return result;
 }
 
+#if 0
 SEXP dieharderVectorised(SEXP genS, SEXP testS, SEXP verbS) {
     //int *genvec = INTEGER(genS);
     int ngen, i;
@@ -169,6 +166,7 @@ SEXP dieharderVectorised(SEXP genS, SEXP testS, SEXP verbS) {
     UNPROTECT(1);
     return result;
 }
+#endif
 
 SEXP dieharderGenerators(void) {
     SEXP result, gens, genid;

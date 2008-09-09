@@ -14,6 +14,7 @@
  *========================================================================
  */
 
+#if !defined(RDIEHARDER)
 #include "dieharder.h"
 
 void testbits()
@@ -274,3 +275,4 @@ void testbits()
 
 }
 
+#endif
