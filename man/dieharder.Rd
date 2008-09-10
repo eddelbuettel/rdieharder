@@ -56,7 +56,7 @@
   The current list of generators can be generated dynamically
   using the \code{dieharderGenerators()} function.  Entries with
   \code{id} below 200 are from the GNU Scientific Library, entries with
-  \code{id} greater or equal to 200 and less than 300 are from Dieharder itself,
+  \code{id} greater or equal to 200 and less than 400 are from Dieharder itself,
   entries with \code{id} greater or equal to 400 and less than 500 are from GNU R,
   entries with \code{id} greater or equal to 500 and less than 600 are
   hardware-based (which is system-dependent), and entries with 
