@@ -5,7 +5,7 @@
  * GPL'ed
  *
  * Based on dieharder.c from DieHarder, and interfacing DieHarder
- * DieHarder is (C) Robert G. Brown and GPL'ed
+ * DieHarder is Copyright 2002 - 2008 (C) Robert G. Brown and GPL'ed
  *
  */
 
@@ -51,9 +51,12 @@ SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SE
     inputfile = (char*) CHARACTER_VALUE(infileS);
     ntuple = INTEGER_VALUE(ntupleS);
 
+    rdh_testptr = NULL;
+    rdh_dtestptr = NULL; 	/* to be safe, explicitly flag as NULL; cf test in output.c */
+
     if (strcmp(inputfile, "") != 0) {
 	strncpy(filename, inputfile, 128);
-	fromfile = 1;		/* flag this as file input */
+	fromfile = 1;			/* flag this as file input */
     }
  
    if (Seed == 0) {
@@ -63,8 +66,7 @@ SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SE
     }
 
     if (verb) {
-	Rprintf("Dieharder called with gen=%d test=%d seed=%lu\n", 
-		generator, diehard, seed);
+	Rprintf("Dieharder called with gen=%d test=%d seed=%lu\n", generator, diehard, seed);
 	quiet = 0;
 	hist_flag = 1;
     } else {
@@ -78,26 +80,26 @@ SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SE
     gsl_rng_free(rng);
     reset_bit_buffers();
 
-    /* And bring our results back to R */
-    /* vector of size three: [0] is scalar ks_pv, [1] is pvalues vec, [2] name */
+    /* And then bring our results back to R */
+
+    /* create vector of size four: [0] is vector (!!) ks_pv, [1] is pvalues vec, [2] name, [3] nkps */
     PROTECT(result = allocVector(VECSXP, 4)); 
 
-    /* alloc scalar, and set it */
+    /* alloc vector and scalars, and set it */
     PROTECT(pv = allocVector(REALSXP, rdh_dtestptr->nkps));
     PROTECT(name = allocVector(STRSXP, 1));
     PROTECT(nkps = allocVector(INTSXP, 1));
 
-    if (rdh_testptr != NULL) {
+    if (rdh_testptr != NULL && rdh_dtestptr != NULL) {
 	for (i=0; i<rdh_dtestptr->nkps; i++) { 		/* there can be nkps p-values per test */
 	    REAL(pv)[i] = rdh_testptr[i]->ks_pvalue;
 	}
-	/* alloc vector and set it */
-	PROTECT(vec = allocVector(REALSXP, rdh_testptr[0]->psamples)); 
+	PROTECT(vec = allocVector(REALSXP, rdh_testptr[0]->psamples)); /* alloc vector and set it */
 	for (i = 0; i < rdh_testptr[0]->psamples; i++) {
 	    REAL(vec)[i] = rdh_testptr[0]->pvalues[i];
 	}
 	SET_STRING_ELT(name, 0, mkChar(rdh_dtestptr->name));
-	INTEGER(nkps)[0] = rdh_dtestptr->nkps;
+	INTEGER(nkps)[0] = rdh_dtestptr->nkps; 		/* nb of Kuiper KS p-values in pv vector */
     } else {
 	PROTECT(vec = allocVector(REALSXP, 1)); 
 	REAL(pv)[0] = R_NaN;
@@ -106,7 +108,7 @@ SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SE
 	INTEGER(nkps)[0] = R_NaN;
     }
 
-    /* insert scalar and vector */
+    /* insert vectors and scalars into result vector */
     SET_VECTOR_ELT(result, 0, pv);
     SET_VECTOR_ELT(result, 1, vec);
     SET_VECTOR_ELT(result, 2, name);
@@ -117,56 +119,6 @@ SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SE
     return result;
 }
 
-#if 0
-SEXP dieharderVectorised(SEXP genS, SEXP testS, SEXP verbS) {
-    //int *genvec = INTEGER(genS);
-    int ngen, i;
-    diehard = INTEGER_VALUE(testS);
-    int verb = INTEGER_VALUE(verbS);
-    SEXP result = NULL;
-    ngen = length(genS);
-
-    if (verb) {
-	Rprintf("C function dieharder called with gen=%d test=%d\n", 
-		generator, diehard);
-    }
-    
-    /*
-     * Parse command line and set global variables
-     */
-    /*parsecl(argc,argv); */
-
-    quiet = 1; 			/* override dieharder command-line default */
-    
-    PROTECT(result = allocVector(REALSXP, ngen));
-
-    for (i=0; i<ngen; i++) {
-	generator = INTEGER( VECTOR_ELT(genS, i) )[0];
-
-
-	/*
-	 * Note that most of my cpu_rates (except the terminally simple/stupid) 
-	 * have three phases after parsecl():
-	 *
-	 * Startup: Allocate memory, initialize all derivative variables from
-	 * command line values.  
-	 */
-	startup();
-
-	/*
-	 * Work: Do all the work.  In a complicated cpu_rate, project_work would
-	 * itself be a shell for a lot of other modular routines.
-	 */
-
-	work();
-	Rprintf("C function dieharder called with gen=%d test=%d -> %f\n", generator, diehard, rdh_testptr->ks_pvalue);
-	REAL(result)[i] = rdh_testptr->ks_pvalue;
-    }
-
-    UNPROTECT(1);
-    return result;
-}
-#endif
 
 SEXP dieharderGenerators(void) {
     SEXP result, gens, genid;

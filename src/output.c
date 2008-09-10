@@ -5,6 +5,11 @@
  */
 
 #include "dieharder.h"
+
+#if defined(RDIEHARDER)
+#include <R_ext/Memory.h>
+#endif
+
 void table_line(Dtest *dtest,Test **test);
 
 
@@ -166,13 +171,15 @@ void show_test_results(Dtest *dtest,Test **test)
    #endif  /* !defined(RDIEHARDER) */
  }
 
-#ifdef RDIEHARDER
- rdh_dtestptr = dtest;
- /* we use R_alloc as R will free this upon return; see R Extensions manual */
- rdh_testptr = (Test **) R_alloc((size_t) dtest->nkps, sizeof(Test *));
- for(i=0; i<dtest->nkps; i++) {
+#if defined(RDIEHARDER)
+ if (rdh_dtestptr == NULL) {
+   rdh_dtestptr = dtest;
+   /* we use R_alloc as R will free this upon return; see R Extensions manual */
+   rdh_testptr = (Test **) R_alloc((size_t) dtest->nkps, sizeof(Test *));
+   for(i=0; i<dtest->nkps; i++) {
      rdh_testptr[i] = (Test *) R_alloc(1, sizeof(Test));
      memcpy(rdh_testptr[i], test[i], sizeof(Test));
+   }
  }
 #endif /* RDIEHARDER */
 }
@@ -243,12 +250,14 @@ void table_line(Dtest *dtest,Test **test)
 #endif  /* !defined(RDIEHARDER) */
 
 #ifdef RDIEHARDER
- rdh_dtestptr = dtest;
- /* we use R_alloc as R will free this upon return; see R Extensions manual */
- rdh_testptr = (Test **) R_alloc((size_t) dtest->nkps, sizeof(Test *));
- for(i=0; i<dtest->nkps; i++) {
+ if (rdh_dtestptr == NULL) {
+   rdh_dtestptr = dtest;
+   /* we use R_alloc as R will free this upon return; see R Extensions manual */
+   rdh_testptr = (Test **) R_alloc((size_t) dtest->nkps, sizeof(Test *));
+   for(i=0; i<dtest->nkps; i++) {
      rdh_testptr[i] = (Test *) R_alloc(1, sizeof(Test));
      memcpy(rdh_testptr[i], test[i], sizeof(Test));
+   }
  }
 #endif /* RDIEHARDER */
 
@@ -307,12 +316,6 @@ void table_header()
  fprintf(stdout,"#==============================================================================\n");
 
 #endif  /* !defined(RDIEHARDER) */
-
-#ifdef noooRDIEHARDER
- rdh_testptr = test[0]; /* NB we drop all but the first one!! */
- rdh_dtestptr = dtest;
-#endif /* RDIEHARDER */
-
 
 }
 

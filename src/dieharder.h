@@ -144,10 +144,10 @@
  void table_header(void);
  void run_rgb_lagged_sums(void);
 
-#ifdef RDIEHARDER
+#if defined(RDIEHARDER)
  int histogram(double *input, char *pvlabel, int inum, double min, double max, int nbins, char *label);
- Test **rdh_testptr;	/* kludge: need a global to report back to main + R */
- Dtest *rdh_dtestptr;	/* kludge: need a global to report back to main + R */
+ Test **rdh_testptr;		/* kludge: need a global to report back to main + R */
+ Dtest *rdh_dtestptr;		/* kludge: need a global to report back to main + R */
 #endif
 
 
