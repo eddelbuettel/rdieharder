@@ -14,17 +14,12 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include <R.h>
-#include <Rdefines.h>
-#include <Rinternals.h>
-
 #include "dieharder.h"		/* from the front-end sources */
 
 SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SEXP infileS, SEXP ntupleS) {
 
     int verb, testarg;
     unsigned int i;
-    SEXP result = NULL, vec, pv, name, desc, nkps;
     char *inputfile;
 
     /* Setup argv to allow call of parsecl() to let dieharder set globals */
@@ -51,8 +46,7 @@ SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SE
     inputfile = (char*) CHARACTER_VALUE(infileS);
     ntuple = INTEGER_VALUE(ntupleS);
 
-    rdh_testptr = NULL;
-    rdh_dtestptr = NULL; 	/* to be safe, explicitly flag as NULL; cf test in output.c */
+    result = NULL;
 
     if (strcmp(inputfile, "") != 0) {
 	strncpy(filename, inputfile, 128);
@@ -76,47 +70,11 @@ SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SE
 
     /* Now do the work that dieharder.c does */
     startup();
-    work();
+    work();				/* calls output() which fills the global SEXP result */
     gsl_rng_free(rng);
     reset_bit_buffers();
 
-    /* And then bring our results back to R */
-
-    /* create vector of size four: [0] is vector (!!) ks_pv, [1] is pvalues vec, [2] name, [3] nkps */
-    PROTECT(result = allocVector(VECSXP, 4)); 
-
-    /* alloc vector and scalars, and set it */
-    PROTECT(pv = allocVector(REALSXP, rdh_dtestptr->nkps));
-    PROTECT(name = allocVector(STRSXP, 1));
-    PROTECT(nkps = allocVector(INTSXP, 1));
-
-    if (rdh_testptr != NULL && rdh_dtestptr != NULL) {
-	for (i=0; i<rdh_dtestptr->nkps; i++) { 		/* there can be nkps p-values per test */
-	    REAL(pv)[i] = rdh_testptr[i]->ks_pvalue;
-	}
-	PROTECT(vec = allocVector(REALSXP, rdh_testptr[0]->psamples)); /* alloc vector and set it */
-	for (i = 0; i < rdh_testptr[0]->psamples; i++) {
-	    REAL(vec)[i] = rdh_testptr[0]->pvalues[i];
-	}
-	SET_STRING_ELT(name, 0, mkChar(rdh_dtestptr->name));
-	INTEGER(nkps)[0] = rdh_dtestptr->nkps; 		/* nb of Kuiper KS p-values in pv vector */
-    } else {
-	PROTECT(vec = allocVector(REALSXP, 1)); 
-	REAL(pv)[0] = R_NaN;
-	REAL(vec)[0] = R_NaN;
-	SET_STRING_ELT(name, 0, mkChar(""));
-	INTEGER(nkps)[0] = R_NaN;
-    }
-
-    /* insert vectors and scalars into result vector */
-    SET_VECTOR_ELT(result, 0, pv);
-    SET_VECTOR_ELT(result, 1, vec);
-    SET_VECTOR_ELT(result, 2, name);
-    SET_VECTOR_ELT(result, 3, nkps);
-  
-    UNPROTECT(5);
-
-    return result;
+    return result;    			/* And then bring our results back to R */
 }
 
 
@@ -229,4 +187,57 @@ SEXP dieharderGenerators(void) {
     UNPROTECT(3);
     return result;
 }
+
+void save_values_for_R(Dtest *dtest,Test **test) {
+    unsigned int i;
+	SEXP vec, pv, name, desc, nkps;
+
+	Test **rdh_testptr = NULL;
+	Dtest *rdh_dtestptr = NULL;
+
+	if (rdh_dtestptr == NULL) {
+		rdh_dtestptr = dtest;
+		/* we use R_alloc as R will free this upon return; see R Extensions manual */
+		rdh_testptr = (Test **) R_alloc((size_t) dtest->nkps, sizeof(Test *));
+		for(i=0; i<dtest->nkps; i++) {
+			rdh_testptr[i] = (Test *) R_alloc(1, sizeof(Test));
+			memcpy(rdh_testptr[i], test[i], sizeof(Test));
+		}
+	}
+
+    /* create vector of size four: [0] is vector (!!) ks_pv, [1] is pvalues vec, [2] name, [3] nkps */
+    PROTECT(result = allocVector(VECSXP, 4)); 
+
+    /* alloc vector and scalars, and set it */
+    PROTECT(pv = allocVector(REALSXP, rdh_dtestptr->nkps));
+    PROTECT(name = allocVector(STRSXP, 1));
+    PROTECT(nkps = allocVector(INTSXP, 1));
+
+    if (rdh_testptr != NULL && rdh_dtestptr != NULL) {
+	for (i=0; i<rdh_dtestptr->nkps; i++) { 		/* there can be nkps p-values per test */
+	    REAL(pv)[i] = rdh_testptr[i]->ks_pvalue;
+	}
+	PROTECT(vec = allocVector(REALSXP, rdh_testptr[0]->psamples)); /* alloc vector and set it */
+	for (i = 0; i < rdh_testptr[0]->psamples; i++) {
+	    REAL(vec)[i] = rdh_testptr[0]->pvalues[i];
+	}
+	SET_STRING_ELT(name, 0, mkChar(rdh_dtestptr->name));
+	INTEGER(nkps)[0] = rdh_dtestptr->nkps; 		/* nb of Kuiper KS p-values in pv vector */
+    } else {
+	PROTECT(vec = allocVector(REALSXP, 1)); 
+	REAL(pv)[0] = R_NaN;
+	REAL(vec)[0] = R_NaN;
+	SET_STRING_ELT(name, 0, mkChar(""));
+	INTEGER(nkps)[0] = R_NaN;
+    }
+
+    /* insert vectors and scalars into res vector */
+    SET_VECTOR_ELT(result, 0, pv);
+    SET_VECTOR_ELT(result, 1, vec);
+    SET_VECTOR_ELT(result, 2, name);
+    SET_VECTOR_ELT(result, 3, nkps);
+  
+    UNPROTECT(5);
+}
 #endif   /* RDIEHARDER */
+

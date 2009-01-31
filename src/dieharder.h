@@ -30,6 +30,13 @@
 #include <gsl/gsl_matrix.h>
 #include <dieharder/libdieharder.h>
 
+#if defined(RDIEHARDER)
+  #define STRICT_R_HEADERS 1
+  #include <R.h>
+  #include <Rdefines.h>
+  #include <Rinternals.h>
+#endif
+
 /*
  * Flags to control all output formatting etc.
  */
@@ -146,8 +153,8 @@
 
 #if defined(RDIEHARDER)
  int histogram(double *input, char *pvlabel, int inum, double min, double max, int nbins, char *label);
- Test **rdh_testptr;		/* kludge: need a global to report back to main + R */
- Dtest *rdh_dtestptr;		/* kludge: need a global to report back to main + R */
+ void save_values_for_R(Dtest *dtest,Test **test); /* called in output(), saves values for R in result */
+ SEXP result;				/* kludge: need a global to report back to main() and then R */
 #endif
 
 
