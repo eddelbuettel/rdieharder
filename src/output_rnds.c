@@ -55,9 +55,9 @@ double output_rnds()
   */
  if(binary == NO){
    fprintf(fp,"#==================================================================\n");
-   fprintf(fp,"# generator %s  seed = %u\n",gsl_rng_name(rng),seed);
+   fprintf(fp,"# generator %s  seed = %lu\n",gsl_rng_name(rng),seed);
    fprintf(fp,"#==================================================================\n");
-   fprintf(fp,"type: d\ncount: %i\nnumbit: 32\n",tsamples);
+   fprintf(fp,"type: d\ncount: %i\nnumbit: 32\n",(int)tsamples);
  } else {
    if(verbose && fp != stdout) {
      printf("Ascii values of binary data being written into file %s:\n",filename);
@@ -79,6 +79,6 @@ double output_rnds()
  }
 
  fclose(fp);
-
+ return(0);
 }
 

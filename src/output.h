@@ -1,16 +1,29 @@
  /*
-  * We need a set of binary flags to control table-style output
+  * These are all binary flags, used to control precisely what comes out
+  * of dieharder in its reports.  The vector of strings immediately
+  * below it can be used to match up names to the power of two of each
+  * entry.  Be sure to keep the two precisely in sync!
   */
  typedef enum {
-   TALL = 0,
+   TDEFAULT = 0,
    THEADER = 1,
-   TGEN = 2,
-   TNAME = 4,
-   TSNAME = 8,
+   TSHOW_RNG = 2,
+   TLINE_HEADER = 4,
+   TTEST_NAME = 8,
    TNTUPLE = 16,
    TTSAMPLES = 32,
    TPSAMPLES = 64,
-   TPVALUE = 128,
-   TASSESSMENT = 256
+   TPVALUES = 128,
+   TASSESSMENT = 256,
+   TPREFIX = 512,
+   TDESCRIPTION = 1024,
+   THISTOGRAM = 2048,
+   TSEED = 4096,
+   TRATE = 8192,
+   TNUM = 16384,
+   TNO_WHITE = 32768
  } Table;
+
+#define TCNT 16
+
 

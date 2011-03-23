@@ -38,9 +38,20 @@
 #endif
 
 /*
- * Flags to control all output formatting etc.
+ * Flags and variables to control all output formatting etc.  tflag_default
+ * is set in set_globals to a default to be used if -T 0 is selected.
+ * tflag is otherwise accumulated from a series of -T FLAG calls, where
+ * flag can be either numerical or a field/control name.  table_separator
+ * allows a user to pick their favorite field separator in the final output
+ * table: a blank is easy to parse, a | is easy to read, a , is easy to
+ * import into a spreadsheet (after filtering away e.g. # lines).  We make
+ * blank the default because it is hard to specify a blank on the CL but
+ * easy to specify the others?
  */
+uint tflag,tflag_default;
+char table_separator;
 #include "output.h"
+
 
 /*
  * user_template sources are here, not in library
@@ -104,7 +115,7 @@
  double kstest(double *pvalue,int count);
  double kstest_kuiper(double *pvalue,int count);
  double q_ks(double x);
- double q_ks_kuiper(double x);
+// double q_ks_kuiper(double x);
  void Exit(int);
 
  double output_rnds(void);
@@ -143,7 +154,7 @@
  void run_sts_serial(void);
  void run_user_template(void);
  void startup(void);
- void user_template(Test **test,int irun);
+ int user_template(Test **test,int irun);
  void work(void);
  void Xtest_eval(Xtest *xtest);
  void reset_bit_buffers(void);
@@ -152,11 +163,10 @@
  void run_rgb_lagged_sums(void);
 
 #if defined(RDIEHARDER)
- int histogram(double *input, char *pvlabel, int inum, double min, double max, int nbins, char *label);
+//int histogram(double *input, char *pvlabel, int inum, double min, double max, int nbins, char *label);
  void save_values_for_R(Dtest *dtest,Test **test); /* called in output(), saves values for R in result */
  SEXP result;				/* kludge: need a global to report back to main() and then R */
 #endif
-
 
  /*
   *========================================================================
@@ -165,34 +175,34 @@
   * The primary control variables, in alphabetical order, with comments.
   *========================================================================
   */
- int all;               /* Flag to do all tests on selected generator */
- int binary;            /* Flag to output rands in binary (with -o -f) */
- int bits;              /* bitstring size (in bits) */
- int diehard;           /* Diehard test number */
- int generator;         /* GSL generator id number to be tested */
- int help_flag;         /* Help flag */
- int hist_flag;         /* Histogram display flag */
- int iterations;	/* For timing loop, set iterations to be timed */
- int list;              /* List all tests flag */
- int List;              /* List all generators flag */
- int ntuple;            /* n-tuple size for n-tuple tests */
- int num_randoms;	/* the number of randoms stored into memory and usable */
- int output_file;	/* equals 1 if you output to file, otherwise 0. */
- int overlap;           /* equals 1 if you really want to use diehard overlap */
- int psamples;          /* Number of test runs in final KS test */
- int quiet;             /* quiet flag -- surpresses full output report */
- int rgb;               /* rgb test number */
- int sts;               /* sts test number */
+ //int all;               /* Flag to do all tests on selected generator */
+ //int binary;            /* Flag to output rands in binary (with -o -f) */
+ //int bits;              /* bitstring size (in bits) */
+ //int diehard;           /* Diehard test number */
+ //int generator;         /* GSL generator id number to be tested */
+ //int help_flag;         /* Help flag */
+ //int hist_flag;         /* Histogram display flag */
+ //int iterations;	/* For timing loop, set iterations to be timed */
+ //int list;              /* List all tests flag */
+ //int List;              /* List all generators flag */
+ //int ntuple;            /* n-tuple size for n-tuple tests */
+ //int num_randoms;	/* the number of randoms stored into memory and usable */
+ //int output_file;	/* equals 1 if you output to file, otherwise 0. */
+ //int overlap;           /* equals 1 if you really want to use diehard overlap */
+ //int psamples;          /* Number of test runs in final KS test */
+ //int quiet;             /* quiet flag -- surpresses full output report */
+ //int rgb;               /* rgb test number */
+ //int sts;               /* sts test number */
  uint Seed;             /* user selected seed.  Surpresses reseeding per sample.*/
  uint table;            /* selects "table" output mode */
  uint tflag;            /* binary flag(s) to control what goes in the table */
  off_t tsamples;        /* Generally should be "a lot".  off_t is u_int64_t. */
- int user;              /* user defined test number */
- int verbose;           /* Default is not to be verbose. */
+ //int user;              /* user defined test number */
+ //int verbose;           /* Default is not to be verbose. */
  double x_user;         /* General purpose command line inputs for use */
  double y_user;         /* in any test. */
  double z_user;
-  
+
  /*
   *========================================================================
   *
@@ -221,12 +231,13 @@
 #define MAXFIELDNUMBER 8
  char **fields;
 
+
  /*
   * Global variables and prototypes associated with file_input and
   * file_input_raw.
   */
  uint file_input_get_rewind_cnt(gsl_rng *rng);
- uint file_input_get_rtot(gsl_rng *rng);
+//uint file_input_get_rtot(gsl_rng *rng);
  void file_input_set_rtot(gsl_rng *rng,uint value);
 
  char filename[K];      /* Input file name */
@@ -255,4 +266,16 @@
  */
  GSL_VAR const gsl_rng_type *gsl_rng_empty_random;
  /* GSL_VAR const gsl_rng_type *gsl_rng_my_new_random; */
+
+
+/*
+ * Variables to handle test selection.  parsecl can EITHER be fed a
+ * test number OR a test name; we have to sort that out when we
+ * choose a test.
+ */
+int dtest_num;
+char dtest_name[128];
+char generator_name[128];
+
+double strategy;
 

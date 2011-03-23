@@ -23,33 +23,40 @@
  * This is a wrapping of the /dev/random hardware rng
  */
 
-static unsigned long int dev_random_get (void *vstate);
-static double dev_random_get_double (void *vstate);
-static void dev_random_set (void *vstate, unsigned long int s);
+//static unsigned long int dev_random_get (void *vstate);
+//static double dev_random_get_double (void *vstate);
+//static void dev_random_set (void *vstate, unsigned long int s);
 
 typedef struct
-  {
-  }
+{
+    int justSoThatGccWallPedanticIsHappy;
+}
 dev_random_state_t;
 
 static unsigned long int
 empty_random_get (void *vstate)
 {
-
+    if (vstate)
+	return(0);
+    else
+	return(1);
 }
 
 static double
 empty_random_get_double (void *vstate)
 {
-  return 0.0;
+    if (vstate)
+	return 0.0;
+    else
+	return 1.0;
 }
 
 static void
 empty_random_set (void *vstate, unsigned long int s)
 {
-
- return;
-
+    if (vstate)
+	s++;
+    return;
 }
 
 static const gsl_rng_type empty_random_type =

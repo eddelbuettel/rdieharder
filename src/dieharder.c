@@ -1,7 +1,7 @@
 
 /*
  * RDieHarder interface to DieHarder
- * Copyright (C) 2006 - 2008 Dirk Eddelbuettel
+ * Copyright (C) 2006 - 2011 Dirk Eddelbuettel
  * GPL'ed
  *
  * Based on dieharder.c from DieHarder, and interfacing DieHarder
@@ -16,30 +16,22 @@
 
 #include "dieharder.h"		/* from the front-end sources */
 
+void choose_rng();
+void run_all_tests();
+void run_test();
+
 SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SEXP infileS, SEXP ntupleS) {
 
-    int verb, testarg;
-    unsigned int i;
+    int verb;
     char *inputfile;
 
-    /* Setup argv to allow call of parsecl() to let dieharder set globals */
-    char *argv[] = { "dieharder" };
+    char *argv[] = { "dieharder" };	/* Setup argv to allow call of parsecl() to let dieharder set globals */
     optind = 0;
-    parsecl(1, argv); 			
+    parsecl(1, argv);			/* also covers part of setup_globals() */
 
-    /* Parse 'our' parameters from R */
-    generator  = INTEGER_VALUE(genS);
-    testarg = INTEGER_VALUE(testS);
-    diehard = rgb = sts = user = 0;
-    if (testarg < 100) {
-	diehard = testarg;
-    } else if (testarg < 200) {
-	rgb = testarg - 100;
-    } else if (testarg < 300) {
-	sts = testarg - 200;
-    } else {
-	user = testarg - 300;
-    }
+    generator  = INTEGER_VALUE(genS);	/* 'our' parameters from R; used below by choose_rng() and run_test() */
+    dtest_num = INTEGER_VALUE(testS);
+
     Seed = (unsigned long int) INTEGER_VALUE(seedS); /* (user-select) Seed, not (save switch) seed */
     psamples = INTEGER_VALUE(psamplesS);
     verb = INTEGER_VALUE(verbS);
@@ -60,7 +52,7 @@ SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SE
     }
 
     if (verb) {
-	Rprintf("Dieharder called with gen=%d test=%d seed=%lu\n", generator, diehard, seed);
+	Rprintf("Dieharder called with gen=%d test=%d seed=%lu\n", generator, dtest_num, seed);
 	quiet = 0;
 	hist_flag = 1;
     } else {
@@ -69,9 +61,73 @@ SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SE
     }
 
     /* Now do the work that dieharder.c does */
-    startup();
-    work();				/* calls output() which fills the global SEXP result */
-    gsl_rng_free(rng);
+    //startup();
+    //work();				/* calls output() which fills the global SEXP result */
+
+    /*
+     * This fills the global *dh_rng_types defined in libdieharder with all
+     * the rngs known directly to libdieharder including known hardware
+     * generators and file input "generators".  This routine also sets the
+     * counts of each "kind" of generator into global/shared variables.  This
+     * command must be run (by all UIs, not just the dieharder CLI) BEFORE
+     * adding any UI generators, and BEFORE selecting a generator or input
+     * stream to test.
+     */
+    dieharder_rng_types();
+
+    /*
+     * Similarly we load *dh_test_types[].
+     */
+    dieharder_test_types();
+
+    /*
+     * The following contains commands that are likely to be different for
+     * different UIs.  At the very least, they can be done more than once in
+     * an interactive UI, even though some of them will usually be done just
+     * one time in the dieharder CLI.  I'm indenting them to show their
+     * RELATIVE precedence in a core event loop in a UI.
+     */
+    
+    /*
+     * Pick a rng, establish a seed based on how things were initialized
+     * in parsecl() or elsewhere.  Note that choose_rng() times the selected
+     * rng as a matter of course now.
+     */
+    choose_rng();
+
+    /*
+     * At this point, a valid rng should be selected, allocated, and
+     * provisionally seeded.  It -a(ll) is set (CLI only) run all the
+     * available tests on the selected rng, reseeding at the beginning of
+     * each test if Seed is nonzero.  Otherwise, run the single selected
+     * test (which may still return a vector of pvalues) on the single
+     * selected rng.  The CLI then goes on to exit; an interactive UI would
+     * presumably loop back to permit the user to run another test on the
+     * selected rng or select a new rng (and run more tests on it) until the
+     * user elects to exit.
+     *
+     * It is the UI's responsibility to ensure that run_test() is not called
+     * without choosing a valid rng first!
+     */
+    /* if(all){ */
+    /* 	run_all_tests(); */
+    /* } else { */
+	run_test();
+    /* } */
+
+    /*
+     * This ends the core loop for a non-CLI interactive UI.  GUIs will
+     * typically exit directly from the event loop.  Tool UIs may well fall
+     * through, and the CLI simply proceeds sequentially to exit.  It isn't
+     * strictly necessary to execute an exit() command at the end, but it
+     * does make the code a bit clearer (and let's one choose an exit code,
+     * if that might ever matter.  Exit code 0 clearly means "completed
+     * normally".
+     */
+    if (rng != NULL) {
+	gsl_rng_free(rng);
+	rng = NULL;
+    }
     reset_bit_buffers();
 
     return result;    			/* And then bring our results back to R */
@@ -82,7 +138,10 @@ SEXP dieharderGenerators(void) {
     SEXP result, gens, genid;
     unsigned int i,j;
 
-    /* from startup.c */
+    dh_num_gsl_rngs = dh_num_dieharder_rngs = dh_num_R_rngs = dh_num_hardware_rngs = dh_num_user_rngs = 0;
+
+    dieharder_rng_types (); /* fills dh_rng_types[] -- from libdieharder/dieharder_rng_types.c */
+
     /*
      * We new have to work a bit harder to determine how many
      * generators we have of the different types because there are
@@ -90,46 +149,45 @@ SEXP dieharderGenerators(void) {
      *
      * We start with the basic GSL generators, which start at offset 0.
      */
-    types = dieharder_rng_types_setup ();
     i = 0;
-    while(types[i] != NULL){
+    while(dh_rng_types[i] != NULL){
 	i++;
 	j++;
     }
-    num_gsl_rngs = i;
+    dh_num_gsl_rngs = i;
 
     /*
      * Next come the dieharder generators, which start at offset 200.
      */
     i = 200;
     j = 0;
-    while(types[i] != NULL){
+    while(dh_rng_types[i] != NULL){
 	i++;
 	j++;
     }
-    num_dieharder_rngs = j;
+    dh_num_dieharder_rngs = j;
 
     /*
      * Next come the R generators, which start at offset 400.
      */
     i = 400;
     j = 0;
-    while(types[i] != NULL){
+    while(dh_rng_types[i] != NULL){
 	i++;
 	j++;
     }
-    num_R_rngs = j;
+    dh_num_R_rngs = j;
 
     /*
      * Next come the hardware generators, which start at offset 500.
      */
     i = 500;
     j = 0;
-    while(types[i] != NULL){
+    while(dh_rng_types[i] != NULL){
 	i++;
 	j++;
     }
-    num_hardware_rngs = j;
+    dh_num_hardware_rngs = j;
 
     /*
      * Finally, any generators added by the user at the interface level.
@@ -139,10 +197,10 @@ SEXP dieharderGenerators(void) {
      */
     i = 600;
     j = 0;
-    types[i] = gsl_rng_empty_random;  
+    dh_rng_types[i] = gsl_rng_empty_random;  
     i++;
     j++;
-    num_ui_rngs = j;
+    dh_num_user_rngs = j;
 
     /* /\* */
     /*  * Now add my own types and count THEM. */
@@ -152,35 +210,38 @@ SEXP dieharderGenerators(void) {
     /* 	i++; */
     /* } */
 
-    num_rngs = num_gsl_rngs + num_dieharder_rngs + num_R_rngs +
-	num_hardware_rngs + num_ui_rngs;
+    dh_num_rngs = dh_num_gsl_rngs + dh_num_dieharder_rngs + dh_num_R_rngs +
+	dh_num_hardware_rngs + dh_num_user_rngs;
 
-    /* vector of size onetwo: [0] is scalar ks_pv, [1] is vector of pvalues */
+    /* REprintf("RNGs: %d = %d GSL + %d DieHarder + %d R + %d Hardware + %d User \n",  */
+    /* 	     dh_num_rngs, dh_num_gsl_rngs, dh_num_dieharder_rngs, dh_num_R_rngs, dh_num_hardware_rngs, dh_num_user_rngs); */
+
+    /* vector of size two: [0] is string with description, [1] is int id number */
     PROTECT(result = allocVector(VECSXP, 2)); 
-    PROTECT(gens = allocVector(STRSXP, num_rngs)); 
-    PROTECT(genid = allocVector(INTSXP, num_rngs)); 
+    PROTECT(gens = allocVector(STRSXP, dh_num_rngs)); 
+    PROTECT(genid = allocVector(INTSXP, dh_num_rngs)); 
 
     j = 0;
-    for (i = 0; i < num_gsl_rngs; i++) {
-	SET_STRING_ELT(gens,  j,   mkChar(types[i]->name));
+    for (i = 0; i < dh_num_gsl_rngs; i++) {
+	SET_STRING_ELT(gens,  j,   mkChar(dh_rng_types[i]->name));
 	INTEGER(genid)[j++] = i;
     }
-    for (i = 200; i < 200 + num_dieharder_rngs; i++) {
-	SET_STRING_ELT(gens,  j,   mkChar(types[i]->name));
+    for (i = 200; i < 200 + dh_num_dieharder_rngs; i++) {
+	SET_STRING_ELT(gens,  j,   mkChar(dh_rng_types[i]->name));
 	INTEGER(genid)[j++] = i;
     }
-    for (i = 400; i < 400 + num_R_rngs; i++) {
-	SET_STRING_ELT(gens,  j,   mkChar(types[i]->name));
+    for (i = 400; i < 400 + dh_num_R_rngs; i++) {
+	SET_STRING_ELT(gens,  j,   mkChar(dh_rng_types[i]->name));
 	INTEGER(genid)[j++] = i;
     }
-    for (i = 500; i < 500 + num_hardware_rngs; i++) {
-	SET_STRING_ELT(gens,  j,   mkChar(types[i]->name));
+    for (i = 500; i < 500 + dh_num_hardware_rngs; i++) {
+	SET_STRING_ELT(gens,  j,   mkChar(dh_rng_types[i]->name));
 	INTEGER(genid)[j++] = i;
     }
-    for (i = 600; i < 600 + num_ui_rngs; i++) {
-	SET_STRING_ELT(gens,  j,   mkChar(types[i]->name));
-	INTEGER(genid)[j++] = i;
-    }
+    for (i = 600; i < 600 + dh_num_user_rngs; i++) { 
+     	SET_STRING_ELT(gens,  j,   mkChar(dh_rng_types[i]->name)); 
+     	INTEGER(genid)[j++] = i; 
+    } 
     SET_VECTOR_ELT(result, 0, gens);
     SET_VECTOR_ELT(result, 1, genid);
   
@@ -188,22 +249,64 @@ SEXP dieharderGenerators(void) {
     return result;
 }
 
+SEXP dieharderTests(void) {
+    SEXP result, gens, genid;
+    unsigned int i,j;
+
+    // just in case: reset everything
+    dh_num_diehard_tests = dh_num_sts_tests = dh_num_other_tests = dh_num_user_tests = 0;
+
+    dieharder_test_types (); /* fills dh_test_types[] -- from libdieharder/dieharder_test_types.c */
+
+    dh_num_tests = dh_num_diehard_tests + dh_num_sts_tests + dh_num_other_tests + dh_num_user_tests;
+    //REprintf("Tests: %d = %d DieHarder + %d STS + %d Other + %d User \n", dh_num_tests, dh_num_diehard_tests, dh_num_sts_tests, dh_num_other_tests, dh_num_user_tests); 
+
+    /* vector of size two: [0] is string with description, [1] is int id number */
+    PROTECT(result = allocVector(VECSXP, 2)); 
+    PROTECT(gens = allocVector(STRSXP, dh_num_tests)); 
+    PROTECT(genid = allocVector(INTSXP, dh_num_tests)); 
+
+    j = 0;
+    for (i = 0; i < dh_num_diehard_tests; i++) {
+	SET_STRING_ELT(gens,  j,   mkChar(dh_test_types[i]->sname));
+	INTEGER(genid)[j++] = i;
+    }
+    for (i = 100; i < 100 + dh_num_sts_tests; i++) {
+	SET_STRING_ELT(gens,  j,   mkChar(dh_test_types[i]->sname));
+	INTEGER(genid)[j++] = i;
+    }
+    for (i = 200; i < 200 + dh_num_other_tests; i++) {
+	SET_STRING_ELT(gens,  j,   mkChar(dh_test_types[i]->sname));
+	INTEGER(genid)[j++] = i;
+    }
+    for (i = 600; i < 600 + dh_num_user_tests; i++) { 
+     	SET_STRING_ELT(gens,  j,   mkChar(dh_test_types[i]->sname)); 
+     	INTEGER(genid)[j++] = i; 
+    } 
+    SET_VECTOR_ELT(result, 0, gens);
+    SET_VECTOR_ELT(result, 1, genid);
+  
+    UNPROTECT(3);
+    return result;
+}
+
+
 void save_values_for_R(Dtest *dtest,Test **test) {
     unsigned int i;
-	SEXP vec, pv, name, desc, nkps;
+    SEXP vec, pv, name, nkps;
 
-	Test **rdh_testptr = NULL;
-	Dtest *rdh_dtestptr = NULL;
-
-	if (rdh_dtestptr == NULL) {
-		rdh_dtestptr = dtest;
-		/* we use R_alloc as R will free this upon return; see R Extensions manual */
-		rdh_testptr = (Test **) R_alloc((size_t) dtest->nkps, sizeof(Test *));
-		for(i=0; i<dtest->nkps; i++) {
-			rdh_testptr[i] = (Test *) R_alloc(1, sizeof(Test));
-			memcpy(rdh_testptr[i], test[i], sizeof(Test));
-		}
+    Test **rdh_testptr = NULL;
+    Dtest *rdh_dtestptr = NULL;
+    
+    if (rdh_dtestptr == NULL) {
+	rdh_dtestptr = dtest;
+	/* we use R_alloc as R will free this upon return; see R Extensions manual */
+	rdh_testptr = (Test **) R_alloc((size_t) dtest->nkps, sizeof(Test *));
+	for(i=0; i<dtest->nkps; i++) {
+	    rdh_testptr[i] = (Test *) R_alloc(1, sizeof(Test));
+	    memcpy(rdh_testptr[i], test[i], sizeof(Test));
 	}
+    }
 
     /* create vector of size four: [0] is vector (!!) ks_pv, [1] is pvalues vec, [2] name, [3] nkps */
     PROTECT(result = allocVector(VECSXP, 4)); 

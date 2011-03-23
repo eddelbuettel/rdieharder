@@ -22,7 +22,7 @@ void Exit(int exitcode) {
 #if !defined(RDIEHARDER)
   exit(exitcode);
 #endif  /* !defined(RDIEHARDER) */
-
+  exitcode++;		    /* FIXME: silence -Wall -pedantic */
  /* Add any e.g. free() statements below */
 
 }

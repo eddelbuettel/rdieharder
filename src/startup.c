@@ -20,9 +20,7 @@ static int firstcall=1;
 void startup()
 {
 
- int i,imax,j,k;
- uint mask;
- struct stat sbuf;
+ int i,j;
 
  /*
   * Large chunks of the following should only be done on the first call
@@ -44,18 +42,15 @@ void startup()
    }
 
    /*
-    * Set up the built-in gls generators.  We have to
-    *
-    *  a) keep the numbers the same from version to version.
-    *
-    *  b) permit calling rngs by name.
-    *
-    * Here we set up for this.  This means counting and adding and
-    * optionally listing the available, built in gsl generators plus
-    * any added generators, plus a parse routine for selecting a generator
-    * from the command line.
+    * This fills the global *dh_rng_types defined in libdieharder with all
+    * the rngs known directly to libdieharder including known hardware
+    * generators and file input "generators".  This routine also sets the
+    * counts of each "kind" of generator into global/shared variables.  This
+    * command must be run (by all UIs, not just the dieharder CLI) BEFORE
+    * adding any UI generators, and BEFORE selecting a generator or input
+    * stream to test.
     */
-   types = dieharder_rng_types_setup();
+   dieharder_rng_types();
 
    /*
     * We new have to work a bit harder to determine how many
@@ -68,9 +63,9 @@ void startup()
    while(types[i] != NULL){
      i++;
    }
-   num_gsl_rngs = i;
+   dh_num_gsl_rngs = i;
    MYDEBUG(D_STARTUP){
-     printf("# startup:  Found %u GSL rngs.\n",num_gsl_rngs);
+     printf("# startup:  Found %u GSL rngs.\n",dh_num_gsl_rngs);
    }
 
    /*
@@ -82,9 +77,9 @@ void startup()
      i++;
      j++;
    }
-   num_dieharder_rngs = j;
+   dh_num_dieharder_rngs = j;
    MYDEBUG(D_STARTUP){
-     printf("# startup:  Found %u dieharder rngs.\n",num_dieharder_rngs);
+     printf("# startup:  Found %u dieharder rngs.\n",dh_num_dieharder_rngs);
    }
 
    /*
@@ -96,9 +91,9 @@ void startup()
      i++;
      j++;
    }
-   num_R_rngs = j;
+   dh_num_R_rngs = j;
    MYDEBUG(D_STARTUP){
-     printf("# startup:  Found %u R rngs.\n",num_R_rngs);
+     printf("# startup:  Found %u R rngs.\n",dh_num_R_rngs);
    }
 
    /*
@@ -110,9 +105,9 @@ void startup()
      i++;
      j++;
    }
-   num_hardware_rngs = j;
+   dh_num_hardware_rngs = j;
    MYDEBUG(D_STARTUP){
-     printf("# startup:  Found %u hardware rngs.\n",num_hardware_rngs);
+     printf("# startup:  Found %u hardware rngs.\n",dh_num_hardware_rngs);
    }
 
    /*
@@ -126,13 +121,13 @@ void startup()
    types[i] = gsl_rng_empty_random;
    i++;
    j++;
-   num_ui_rngs = j;
+   dh_num_user_rngs = j;
    MYDEBUG(D_STARTUP){
-     printf("# startup:  Found %u user interface generators.\n",num_ui_rngs);
+     printf("# startup:  Found %u user interface generators.\n",dh_num_user_rngs);
    }
 
-   num_rngs = num_gsl_rngs + num_dieharder_rngs + num_R_rngs +
-              num_hardware_rngs + num_ui_rngs;
+   dh_num_rngs = dh_num_gsl_rngs + dh_num_dieharder_rngs + dh_num_R_rngs +
+       dh_num_hardware_rngs + dh_num_user_rngs;
 
  }
 
@@ -141,12 +136,13 @@ void startup()
   * in a new call.  This is probably not a good way to manage it, but
   * it will do for now.
   */
- if(generator == -1){
+ //if (generator == -1){
+if (generator == 0){
    list_rngs();
    Exit(0);
  }
 
- if(generator < 0 || generator >= MAXRNGS){
+ if(generator == 0 || generator >= MAXRNGS){
    fprintf(stderr,"Error:  rng %d does not exist!\n",generator);
    list_rngs();
    Exit(0);
@@ -193,12 +189,12 @@ void startup()
  if(Seed == 0){
    seed = random_seed();
    if(verbose == D_STARTUP || verbose == D_SEED || verbose == D_ALL){
-     fprintf(stdout,"# startup(): Generating random seed %u\n",seed);
+     fprintf(stdout,"# startup(): Generating random seed %lu\n",seed);
    }
  } else {
    seed = Seed;
    if(verbose == D_STARTUP || verbose == D_SEED || verbose == D_ALL){
-     fprintf(stdout,"# startup(): Setting random seed %u by hand.\n",seed);
+     fprintf(stdout,"# startup(): Setting random seed %lu by hand.\n",seed);
    }
  }
  gsl_rng_set(rng,seed);

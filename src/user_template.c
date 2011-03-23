@@ -73,7 +73,7 @@
 
 #include "dieharder.h"
 
-void user_template(Test **test,int irun)
+int user_template(Test **test,int irun)
 {
 
  uint t,i,lag;
@@ -119,12 +119,6 @@ void user_template(Test **test,int irun)
  if(verbose == D_USER_TEMPLATE || verbose == D_ALL){
    printf("# user_template(): ks_pvalue[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
  }
-
+ return(0);
 }
 
-void help_user_template()
-{
-
-  printf("%s",user_template_dtest.description);
-
-}
