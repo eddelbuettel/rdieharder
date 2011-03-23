@@ -12,7 +12,7 @@
   of random number generators.
 }
 \usage{
-   \method{dieharder}{default}(rng="mt19937", test="runs", psamples=100,
+   \method{dieharder}{default}(rng="mt19937", test="diehard_runs", psamples=100,
                                seed=0, verbose=FALSE, inputfile="", ntuple=5) 
    \method{print}{dieharder}(x, ...)
    \method{summary}{dieharder}(object, ...)
@@ -76,7 +76,7 @@
 \examples{
   ## need to set this for the example to pass the R CMD check test
   .dieharder.generators <<- dieharderGenerators()
-  dh <- dieharder("randu", "runs", seed=12345)
+  dh <- dieharder(41, 15, seed=12345) # randu and diehard_runs
   dh
   summary(dh)
   plot(dh)
