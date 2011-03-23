@@ -1,0 +1,59 @@
+
+R version 2.8.1 (2008-12-22)
+Copyright (C) 2008 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> 
+> stopifnot(require(RDieHarder, quiet=TRUE))
+> 
+> if (Sys.getenv("RUN_EXPENSIVE_TEST") == "YES") {
++     ## RGB tests 3, 5 and 6 at ntuple=5
++     for (num in c(3,5,6)) {
++         print( dieharder(test=100+num, seed=1, ntuple=5)$p.value )
++     }
++ 
++     ## Dieharder tests 1 to 17 (18 is sloooow)
++     for (num in seq(1,17)) {
++         print( dieharder(test=num, seed=1, ntuple=5)$p.value )
++     }
++ 
++     ## STS tests 1 to 2 (3 is a sequence)
++     for (num in seq(1,2)) {
++         print( dieharder(test=200+num, seed=1, ntuple=5)$p.value )
++     }
++ }
+[1] 0.500454
+[1] 0.3487196
+[1] 0.9657916
+[1] 0.1571515
+[1] 0.007592353
+[1] 0.9022692
+[1] 0.9584744
+[1] 0.8267686
+[1] 0.5359032
+[1] 0.5844494
+[1] 0.05322157
+[1] 0.06910723
+[1] 0.7174484
+[1] 0.9622958
+[1] 0.791173
+[1] 0.8505419
+[1] 0.03169980
+[1] 0.69865
+[1] 0.2773172
+[1] 0.7028067
+[1] 0.3749252
+[1] 0.9807314
+> 
