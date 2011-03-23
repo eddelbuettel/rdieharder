@@ -8,7 +8,7 @@
 \setpapersize{USletter}                 % use USletter paper
 \setmarginsrb{1in}{1in}{1in}{1in}{0pt}{0pt}{\footheight}{\footskip}
 
-\hypersetup{  
+\hypersetup{
   hyperindex,%
   colorlinks,%
   linktocpage,%
@@ -35,7 +35,7 @@
 \newcommand{\dieharder}{\textrm{Die}\textsl{Harder}}
 \newcommand{\rdieharder}{\pkg{RDieHarder}}
 \newcommand{\wikinote}[2]{#2\footnote{C.f.~the Wikipedia entry \url{http://www.wikipedia.org/wiki/#1}.}}
-%% 
+%%
 
 \begin{document}
 
@@ -54,10 +54,10 @@ options(SweaveHooks=list(twofig=function() {par(mfrow=c(1,2))},
 
 \title{\pkg{RDieHarder}: An R interface to the \dieharder\ suite of Random
   Number Generator Tests}
-\author{\href{http://dirk.eddelbuettel.com}{Dirk Eddelbuettel} \\ 
-  Debian \\ \url{edd@debian.org} 
+\author{\href{http://dirk.eddelbuettel.com}{Dirk Eddelbuettel} \\
+  Debian \\ \url{edd@debian.org}
   \and
-  \href{http://www.phy.duke.edu/~rgb}{Robert G. Brown} \\ 
+  \href{http://www.phy.duke.edu/~rgb}{Robert G. Brown} \\
   Physics, Duke University \\ \url{rgb@phy.duke.edu} }
 \date{May 2007}
 
@@ -82,7 +82,7 @@ Random number generators are critically important for computational
 statistics.  Simulation methods are becoming ever more common for estimation;
 Monte Carlo Markov Chain is but one approach. Also, simulation methods such
 as the Bootstrap have long been used in inference and are becoming a standard
-part of a rigorous analysis.  As random number generators are at the heart of 
+part of a rigorous analysis.  As random number generators are at the heart of
 the simulation-based methods used throughout statistical computing, `good'
 random numbers are therefore a crucial aspect of a statistical, or
 quantitative, computing environment.  However, there are very few tools that
@@ -141,11 +141,11 @@ genuinely new tests were developed (see below).
 
 The National Institute of Standards and Technology (NIST) has developed its
 own test suite, the 'Statistical Test Suite' (STS). These tests are focussed
-on bit-level tests of randomness and bit sequences.   
+on bit-level tests of randomness and bit sequences.
 
 %\marginpar{TODO: expand}
 Currently, three tests based on the STS suite are provided by \dieharder:
-\textsl{STS Monobit}, \textsl{STS Runs} and \textsl{STS Block}. 
+\textsl{STS Monobit}, \textsl{STS Runs} and \textsl{STS Block}.
 
 \subsection{RGB extensions}
 
@@ -153,7 +153,7 @@ Currently, three tests based on the STS suite are provided by \dieharder:
 Three new tests have been developed by rgb. A fourth 'test' is a timing
 function: for many contexts, not only do the mathematical properties of a
 generator matter, but so does computational cost measured in computing time
-that is required for a number of draws.  
+that is required for a number of draws.
 
 \subsection{Basic methodology}
 
@@ -188,7 +188,7 @@ across the entire test region.
 
 \dieharder\ is primarily focussed on tests for RNGs. Re-implementing RNGs in
 order to supply input to the tests is therefore not an objective of the
-library.  The GNU Scientific Library (GSL), on the other hand, provides 
+library.  The GNU Scientific Library (GSL), on the other hand, provides
 over 1000 mathematical functions, including a large number of random number
 generators.  Using the GSL 1.9.0 release, the following generators
 are defined\footnote{This is based on the trailing term in each identifier
@@ -204,7 +204,7 @@ are defined\footnote{This is based on the trailing term in each identifier
     random64\_libc5 random8\_bsd random8\_glibc2 random8\_libc5 random\_bsd
     random\_glibc2 random\_libc5 randu ranf ranlux ranlux389 ranlxd1 ranlxd2
     ranlxs0 ranlxs1 ranlxs2 ranmar slatec taus taus2 taus113 transputer tt800
-    uni uni32 vax waterman14 zuf} 
+    uni uni32 vax waterman14 zuf}
 \end{quote}
 The GNU GSL, a well-known and readily available library of high quality,
 therefore provides a natural fit for \dieharder. All of these generators are
@@ -226,7 +226,7 @@ add-on package \pkg{random}, benchmark comparisons with the generators
 provided by the R language and environment have been a natural choice. To
 this end, one of the authors (edd) ported the R generator code (taken from R
 2.4.0) to the GNU GSL random number generator framework used by \dieharder.
-%\marginpar{TODO: use R sources from R 2.5.0} 
+%\marginpar{TODO: use R sources from R 2.5.0}
 This allows a direct comparison of the \pkg{random} generator with those it
 complements in R.
 
@@ -234,11 +234,11 @@ It then follows somewhat naturally that the other generators available in
 \dieharder, as well as the \dieharder\ tests, should also be available in R.
 This provided the motivation for the R package presented here.
 
-\subsection{Source code and building \dieharder} 
+\subsection{Source code and building \dieharder}
 
 Recent versions of \dieharder\ use the GNU autotools. On Unix system,
 the steps required to build and install \dieharder\ should only be the familiar
-steps \texttt{configure; make; sudo make install}. 
+steps \texttt{configure; make; sudo make install}.
 
 For Debian, initial packages have been provided and are currently available
 at \url{http://dirk.eddelbuettel.com/code/tmp}.  Within due course, these
@@ -247,7 +247,7 @@ Debian (and Ubuntu) releases.  \dieharder\ is also expected to be part of
 future Fedora Core (and other RPM-based distribution) releases.
 
 On Windows computers and other systems, manual builds should also be possible
-given that the source code is written in standard C. 
+given that the source code is written in standard C.
 
 \section{\rdieharder}
 
@@ -291,23 +291,23 @@ not reject the null at conventional levels for \texttt{ran0}.
 
 <<loaddata, echo=FALSE>>=
 if (file.exists("RDieHarder.Rdata")) load("RDieHarder.Rdata")
-@ 
+@
 
 
 \begin{figure}[htbp]
   \begin{center}
 %
 <<rd-example, echo=FALSE, eval=TRUE, fig=TRUE>>=
-  if (!exists("dh")) dh <- dieharder("ran0","2dsphere",seed=2)
+  if (!exists("dh")) dh <- dieharder("ran0","diehard_2dsphere",seed=2)
   #dh
   plot(dh)
-@ 
+@
 <<rd-example1, echo=FALSE, eval=TRUE, fig=TRUE>>=
-  if (!exists("dh1")) dh1 <- dieharder("mt19937","2dsphere",seed=2)
+  if (!exists("dh1")) dh1 <- dieharder("mt19937","diehard_2dsphere",seed=2)
   #dh1
   plot(dh1)
-@ 
-% 
+@
+%
 \caption{Comparison of \texttt{ran0} and \texttt{mt19937} under test \texttt{2dsphere}}
 \end{center}
 \end{figure}
@@ -323,11 +323,11 @@ qqplot.
     \begin{footnotesize}
 %
 <<r-rngs, echo=TRUE, fig=TRUE>>=
-rngs <- c("R_wichmann_hill", "R_marsaglia_multic", 
+rngs <- c("R_wichmann_hill", "R_marsaglia_multic",
           "R_super_duper", "R_mersenne_twister",
           "R_knuth_taocp", "R_knuth_taocp2")
 
-if (!exists("rl")) rl <- lapply(rngs, function(rng) dieharder(rng, "runs", seed=12345))
+if (!exists("rl")) rl <- lapply(rngs, function(rng) dieharder(rng, "diehard_runs", seed=12345))
 
 oldpar <- par(mfrow=c(2,3), mar=c(2,3,3,1))
 invisible(lapply(rl, function(res) {
@@ -335,18 +335,18 @@ invisible(lapply(rl, function(res) {
          main=paste(res$generator, ":", round(res$p.value, digits=3)),
          ylab="", type="S")
   abline(0, 1, col='gray')
-})) 
+}))
 par(oldpar) # reset graph defaults
 
-@ 
-% 
+@
+%
 \end{footnotesize}
 \caption{Comparing six GNU R generators under the \texttt{runs} test}
 \end{center}
 \end{figure}
 <<<savedata, echo=FALSE>>=
 save(dh, dh1, rl, file="RDieHarder.Rdata")
-@ 
+@
 
 All six generators provide $p$-value plots that are close to the ideal
 theoretical outcome (shown in gray). Unsurprisingly, $p$-values for the
@@ -402,7 +402,7 @@ One thing that one should remember while experimenting with \dieharder\ is
 that there really is no such thing as a {\em random} number {\em
 generator}.  It is therefore likely that {\em all} RNGs will fail any
 given (valid) test if one cranks up the ``resolution'' up high enough by
-accumulating enough samples per p-value, enough p-values per run.  
+accumulating enough samples per p-value, enough p-values per run.
 
 It is also true that a number of Marsaglia's tests have target
 distributions that were computed empirically by simulation (with the
