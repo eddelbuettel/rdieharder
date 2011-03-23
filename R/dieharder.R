@@ -4,45 +4,9 @@ dieharderGenerators <- function() {
     return(data.frame(names=val[[1]], id=val[[2]]))
 }
 
-## c.f. dieharder-x.y/includes/dieharder/tests.h
-.dieharder.tests <- data.frame(names=c("birthdays",
-                                       "operm5",
-                                       "rank_32x32",
-                                       "rank_6x8",
-                                       "bitstream",
-                                       "opso",
-                                       "oqso",
-                                       "dna",
-                                       "count_1s_stream",
-                                       "count_1s_byte",
-                                       "parking_lot",
-                                       "2dsphere",
-                                       "3dsphere",
-                                       "squeeze",
-                                       "sums",
-                                       "runs",
-                                       "craps",
-                                       "marsaglia_tsang_gcd",
-                                       "marsaglia_tsang_gorilla",
-                                       "rgb_timing",
-                                       "rgb_persist",
-                                       "rgb_bitdist",
-                                       "rgb_mindist",
-                                       "rgb_permutations",
-                                       "rgb_lagged_sums",
-                                       "rgb_lmn",
-                                       "rgb_operm",
-                                       "sts_monobit",
-                                       "sts_runs",
-                                       "sts_serial",
-                                       "user"),
-                               id=c(1:19,    # dieharder
-                                    101:108, # rgb
-                                    201:203, # sts
-                                    301))    # user
-
 dieharderTests <- function() {
-    return(.dieharder.tests)
+    val <- .Call("dieharderTests", PACKAGE="RDieHarder")
+    return(data.frame(names=val[[1]], id=val[[2]]))
 }
 
 dieharder <- function(rng="mt19937",
@@ -56,7 +20,7 @@ dieharder <- function(rng="mt19937",
 }
 
 dieharder.default <- function(rng="mt19937",
-                              test="runs",
+                              test="diehard_runs",
                               psamples=100,
                               seed=0,
                               verbose=FALSE,
@@ -69,7 +33,7 @@ dieharder.default <- function(rng="mt19937",
     }
 
     if (is.character(rng)) {
-        genpos <- charmatch(rng, .dieharder.generators$names)
+        genpos <- charmatch(rng, as.character(.dieharder.generators$names))
     } else {
         genpos = which(.dieharder.generators[,"id"] == rng)
     }
@@ -82,13 +46,14 @@ dieharder.default <- function(rng="mt19937",
         return(NULL)
     }
     gen <- .dieharder.generators$id[genpos]
+    ##cat("Genpos: ", genpos, " Gen: ", gen, "\n", sep="")
 
     if (length(test) > 1) {
         warning("Only one test argument supported in dieharder")
         return(NULL)
     }
     if (is.character(test)) {
-        runtestpos <- charmatch(test, .dieharder.tests$names)
+        runtestpos <- charmatch(test, as.character(.dieharder.tests$names))
         if (is.na(runtestpos)) {
             warning("test argumement ", test, " unknown")
             return(NULL)
