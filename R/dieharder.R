@@ -1,3 +1,5 @@
+## $Date$
+## $Id$
 
 dieharderGenerators <- function() {
     val <- .Call("dieharderGenerators", PACKAGE="RDieHarder")

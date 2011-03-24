@@ -1,12 +1,14 @@
-# $Id$
+## $Date$
+## $Id$
+
+# grab the namespace
+.NAMESPACE <- environment()
+
 .onLoad <- function(lib, pkg) {
     library.dynam("RDieHarder", pkg, lib )
-    .dieharder.generators <<- dieharderGenerators()
-    .dieharder.tests <<- dieharderTests()
-}
 
-#.First.lib <- function(lib, pkg) {
-#  library.dynam("RDieHarder", pkg, lib )
-#  .dieharder.generators <<- dieharderGenerators()
-#}
+    ## assign lists of generators and tests to hidden variables in namespace
+    assign(".dieharder.generators", dieharderGenerators(), .NAMESPACE)
+    assign(".dieharder.tests", dieharderTests(), .NAMESPACE)
+}
 
