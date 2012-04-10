@@ -1,7 +1,7 @@
 
 % $Id: RDieHarder.Rnw,v 1.3 2007/05/16 20:13:37 edd Exp $
 
-\documentclass[12pt]{article}
+\documentclass[10pt]{article}
 \usepackage{vmargin,url,hyperref,booktabs,graphicx,rotating}
 \usepackage[authoryear,round]{natbib}
 
@@ -50,6 +50,8 @@ library(RDieHarder)
 options(SweaveHooks=list(twofig=function() {par(mfrow=c(1,2))},
                          twofig2=function() {par(mfrow=c(2,1))},
                          onefig=function() {par(mfrow=c(1,1))}))
+prettyVersion <- packageDescription("RDieHarder")$Version
+prettyDate <- format(Sys.Date(), "%B %e, %Y")
 @
 
 \title{\pkg{RDieHarder}: An R interface to the \dieharder\ suite of Random
@@ -59,7 +61,8 @@ options(SweaveHooks=list(twofig=function() {par(mfrow=c(1,2))},
   \and
   \href{http://www.phy.duke.edu/~rgb}{Robert G. Brown} \\
   Physics, Duke University \\ \url{rgb@phy.duke.edu} }
-\date{May 2007}
+\date{Initial Version as of May 2007\\
+      \footnotesize Rebuilt on \Sexpr{prettyDate} using RDieHarder \Sexpr{prettyVersion}}
 
 \maketitle
 
