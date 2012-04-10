@@ -221,7 +221,7 @@ void parsecl(int argc, char **argv)
 
     if(errflg){
 	Usage();
-	exit(0);
+	Exit(0);
     }
 
     /*

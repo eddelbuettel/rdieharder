@@ -165,7 +165,7 @@ int select_rng(int gennum)
   */
  if(strncmp("file_input",dh_rng_types[gennum]->name,10) == 0){
    if(fromfile != 1){
-     fprintf(stderr,"Error: gennum %s uses file input but no filename has been specified",dh_rng_types[gennum]->name);
+     REprintf("Error: gennum %s uses file input but no filename has been specified",dh_rng_types[gennum]->name);
      return(-1);
    }
  }
@@ -181,7 +181,7 @@ int select_rng(int gennum)
  if(rng){
      REprintf("choose_rng:if(rng) true\n");
    MYDEBUG(D_SEED){
-     fprintf(stdout,"# choose_rng(): freeing old gennum %s\n",gsl_rng_name(rng));
+     Rprintf("# choose_rng(): freeing old gennum %s\n",gsl_rng_name(rng));
    }
    gsl_rng_free(rng);
    reset_bit_buffers();
@@ -192,7 +192,7 @@ int select_rng(int gennum)
   * without leaking memory.
   */
  MYDEBUG(D_SEED){
-   fprintf(stdout,"# choose_rng(): Creating and seeding gennum %s\n",dh_rng_types[gennum]->name);
+   Rprintf("# choose_rng(): Creating and seeding gennum %s\n",dh_rng_types[gennum]->name);
  }
  rng = gsl_rng_alloc(dh_rng_types[gennum]);
 
@@ -235,12 +235,12 @@ int select_rng(int gennum)
  if(Seed == 0){
    seed = random_seed();
    MYDEBUG(D_SEED){
-     fprintf(stdout,"# choose_rng(): Generating random seed %lu\n",seed);
+     Rprintf("# choose_rng(): Generating random seed %lu\n",seed);
    }
  } else {
    seed = Seed;
    MYDEBUG(D_SEED){
-     fprintf(stdout,"# choose_rng(): Setting fixed seed %lu\n",seed);
+     Rprintf("# choose_rng(): Setting fixed seed %lu\n",seed);
    }
  }
 
@@ -344,7 +344,7 @@ int select_XOR()
    if(strncmp("file_input",dh_rng_types[gnumbs[j]]->name,10) == 0){
      one_file++;
      if(fromfile != 1 || one_file > 1){
-       fprintf(stderr,"Error: generator %s uses file input but no filename has been specified",dh_rng_types[gnumbs[j]]->name);
+       REprintf("Error: generator %s uses file input but no filename has been specified",dh_rng_types[gnumbs[j]]->name);
        return(-1);
      }
    }
@@ -362,7 +362,7 @@ int select_XOR()
   */
  if(rng){
    MYDEBUG(D_SEED){
-     fprintf(stdout,"# choose_rng(): freeing old gennum %s\n",gsl_rng_name(rng));
+     Rprintf("# choose_rng(): freeing old gennum %s\n",gsl_rng_name(rng));
    }
    gsl_rng_free(rng);
    reset_bit_buffers();
@@ -375,7 +375,7 @@ int select_XOR()
  MYDEBUG(D_SEED){
  }
  for(j = 0;j < gvcount;j++){
-   fprintf(stdout,"# choose_XOR(): generator[%i] = %s\n",j,dh_rng_types[gnumbs[j]]->name);
+   Rprintf("# choose_XOR(): generator[%i] = %s\n",j,dh_rng_types[gnumbs[j]]->name);
  }
  /*
   * Change 14 to the actual number
@@ -421,12 +421,12 @@ int select_XOR()
  if(Seed == 0){
    seed = random_seed();
    MYDEBUG(D_SEED){
-     fprintf(stdout,"# choose_rng(): Generating random seed %lu\n",seed);
+     Rprintf("# choose_rng(): Generating random seed %lu\n",seed);
    }
  } else {
    seed = Seed;
    MYDEBUG(D_SEED){
-     fprintf(stdout,"# choose_rng(): Setting fixed seed %lu\n",seed);
+     Rprintf("# choose_rng(): Setting fixed seed %lu\n",seed);
    }
  }
 

@@ -34,8 +34,8 @@ void run_test()
  if(dtest_num >= 0){
    execute_test(dtest_num);
  } else {
-   fprintf(stderr,"Error:  dtest_num = %d.  No test found.\n",dtest_num);
-   exit(1);
+   REprintf("Error:  dtest_num = %d.  No test found.\n",dtest_num);
+   Exit(1);
  }
   
 }
@@ -59,12 +59,12 @@ int execute_test(int dtest_num)
    if(Seed == 0){
      seed = random_seed();
      MYDEBUG(D_SEED){
-       fprintf(stdout,"# execute_test(): Generating random seed %lu\n",seed);
+       Rprintf("# execute_test(): Generating random seed %lu\n",seed);
      }
    } else {
      seed = Seed;
      MYDEBUG(D_SEED){
-       fprintf(stdout,"# execute_test(): Setting fixed seed %lu\n",seed);
+       Rprintf("# execute_test(): Setting fixed seed %lu\n",seed);
      }
    }
    gsl_rng_set(rng,seed);

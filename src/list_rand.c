@@ -23,12 +23,12 @@ void list_rand()
 
  int i;
  
- printf("#==================================================================\n");
- printf("# generator type: %s\n", gsl_rng_name(rng));
- printf("# seed value: %lu, max value = %u  count = %d\n",seed, random_max, (int)tsamples);
- printf("# Count\t int rand\tuniform rand\n");
- printf("# ==================================================================\n");
- for(i = 1;i<=tsamples;i++) printf("%d\t%lu\t %10.8f\n",i,gsl_rng_get(rng),gsl_rng_uniform(rng));
+ Rprintf("#==================================================================\n");
+ Rprintf("# generator type: %s\n", gsl_rng_name(rng));
+ Rprintf("# seed value: %lu, max value = %u  count = %d\n",seed, random_max, (int)tsamples);
+ Rprintf("# Count\t int rand\tuniform rand\n");
+ Rprintf("# ==================================================================\n");
+ for(i = 1;i<=tsamples;i++) Rprintf("%d\t%lu\t %10.8f\n",i,gsl_rng_get(rng),gsl_rng_uniform(rng));
 
 }
 

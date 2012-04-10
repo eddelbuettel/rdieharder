@@ -24,7 +24,7 @@ void list_rngs()
   * listing rngs if verbose is set at all.
   */
  if(verbose){
-   printf("list_rngs():\n");
+   Rprintf("list_rngs():\n");
  }
 
  /*
@@ -40,15 +40,15 @@ void list_rngs()
 
  /* Version string seems like a good idea */
  dh_header();
- printf("#   %3s %-20s|%3s %-20s|%3s %-20s#\n"," Id","Test Name",
+ Rprintf("#   %3s %-20s|%3s %-20s|%3s %-20s#\n"," Id","Test Name",
          " Id","Test Name"," Id","Test Name");
- printf("#=============================================================================#\n");
+ Rprintf("#=============================================================================#\n");
  i = 0;
  j = 0;
  while(dh_rng_types[i] != NULL){
-   if(j%3 == 0) printf("|   ");
-   printf("%3.3d %-20s|", i, dh_rng_types[i]->name);
-   if(((j+1)%3) == 0 && i>0) printf("\n");
+   if(j%3 == 0) Rprintf("|   ");
+   Rprintf("%3.3d %-20s|", i, dh_rng_types[i]->name);
+   if(((j+1)%3) == 0 && i>0) Rprintf("\n");
    i++;
    j++;
  }
@@ -57,63 +57,63 @@ void list_rngs()
   * and do nothing.  Otherwise, pad to the end of the row.
   */
  j = j%3;
- if(j == 1) printf("                        |                        |\n");
- if(j == 2) printf("                        |\n");
- printf("#=============================================================================#\n");
+ if(j == 1) Rprintf("                        |                        |\n");
+ if(j == 2) Rprintf("                        |\n");
+ Rprintf("#=============================================================================#\n");
  i = 200;
  j = 0;
  while(dh_rng_types[i] != NULL){
-   if(j%3 == 0) printf("|   ");
-   printf("%3.3d %-20s|", i, dh_rng_types[i]->name);
-   if(((j+1)%3) == 0 && i>200) printf("\n");
+   if(j%3 == 0) Rprintf("|   ");
+   Rprintf("%3.3d %-20s|", i, dh_rng_types[i]->name);
+   if(((j+1)%3) == 0 && i>200) Rprintf("\n");
    i++;
    j++;
  }
  j = j%3;
- if(j == 1) printf("                        |                        |\n");
- if(j == 2) printf("                        |\n");
- printf("#=============================================================================#\n");
+ if(j == 1) Rprintf("                        |                        |\n");
+ if(j == 2) Rprintf("                        |\n");
+ Rprintf("#=============================================================================#\n");
  i = 400;
  j = 0;
  while(dh_rng_types[i] != NULL){
-   if(j%3 == 0) printf("|   ");
-   printf("%3d %-20s|", i, dh_rng_types[i]->name);
-   if(((j+1)%3) == 0 && i>400) printf("\n");
+   if(j%3 == 0) Rprintf("|   ");
+   Rprintf("%3d %-20s|", i, dh_rng_types[i]->name);
+   if(((j+1)%3) == 0 && i>400) Rprintf("\n");
    i++;
    j++;
  }
  j = j%3;
- if(j == 1) printf("                        |                        |\n");
- if(j == 2) printf("                        |\n");
- printf("#=============================================================================#\n");
+ if(j == 1) Rprintf("                        |                        |\n");
+ if(j == 2) Rprintf("                        |\n");
+ Rprintf("#=============================================================================#\n");
  i = 500;
  j = 0;
  while(dh_rng_types[i] != NULL){
-   if(j%3 == 0) printf("|   ");
-   printf("%3d %-20s|", i, dh_rng_types[i]->name);
-   if(((j+1)%3) == 0 && i>500) printf("\n");
+   if(j%3 == 0) Rprintf("|   ");
+   Rprintf("%3d %-20s|", i, dh_rng_types[i]->name);
+   if(((j+1)%3) == 0 && i>500) Rprintf("\n");
    i++;
    j++;
  }
  j = j%3;
- if(j == 1) printf("                        |                        |\n");
- if(j == 2) printf("                        |\n");
- printf("#=============================================================================#\n");
+ if(j == 1) Rprintf("                        |                        |\n");
+ if(j == 2) Rprintf("                        |\n");
+ Rprintf("#=============================================================================#\n");
  if(dh_num_user_rngs){
 
    i = 600;
    j = 0;
    while(dh_rng_types[i] != NULL){
-     if(j%3 == 0) printf("|   ");
-     printf("%3d %-20s|", i, dh_rng_types[i]->name);
-     if(((j+1)%3) == 0 && i>600) printf("\n");
+     if(j%3 == 0) Rprintf("|   ");
+     Rprintf("%3d %-20s|", i, dh_rng_types[i]->name);
+     if(((j+1)%3) == 0 && i>600) Rprintf("\n");
      i++;
      j++;
    }
    j = j%3;
-   if(j == 1) printf("                        |                        |\n");
-   if(j == 2) printf("                        |\n");
-   printf("#=============================================================================#\n");
+   if(j == 1) Rprintf("                        |                        |\n");
+   if(j == 2) Rprintf("                        |\n");
+   Rprintf("#=============================================================================#\n");
 
  }
 

@@ -37,11 +37,11 @@ double output_rnds()
   * filename is "-", use stdout.
   */
  if( (filename[0] == 0) || (strncmp("-",filename,1)==0) ){
-   fp = stdout;
+     /*fp = stdout;*/
  } else {
    if ((fp = fopen(filename,"w")) == NULL) {
-     fprintf(stderr,"Error: Cannot open %s, exiting.\n",filename);
-     exit(0);
+     REprintf("Error: Cannot open %s, exiting.\n",filename);
+     Exit(0);
    }
  }
 
@@ -53,32 +53,33 @@ double output_rnds()
   * it could.  I like a human readable header on a human readable
   * file, though, so mote it be.
   */
- if(binary == NO){
-   fprintf(fp,"#==================================================================\n");
-   fprintf(fp,"# generator %s  seed = %lu\n",gsl_rng_name(rng),seed);
-   fprintf(fp,"#==================================================================\n");
-   fprintf(fp,"type: d\ncount: %i\nnumbit: 32\n",(int)tsamples);
- } else {
-   if(verbose && fp != stdout) {
-     printf("Ascii values of binary data being written into file %s:\n",filename);
-   }
- }
+ /* if(binary == NO){ */
+   Rprintf("#==================================================================\n");
+   Rprintf("# generator %s  seed = %lu\n",gsl_rng_name(rng),seed);
+   Rprintf("#==================================================================\n");
+   Rprintf("type: d\ncount: %i\nnumbit: 32\n",(int)tsamples);
+ /* } else { */
+ /*   if(verbose && fp != stdout) { */
+ /*     printf("Ascii values of binary data being written into file %s:\n",filename); */
+ /*   } */
+ /* } */
  /*
   * make the samples and output them.
   */
  for(i=0;i<tsamples;i++){
    j = gsl_rng_get(rng);
-   if(binary){
-     fwrite(&j,sizeof(uint),1,fp);
-     if(verbose && fp != stdout) {
-       printf("%10u\n",j);
-     }
-   } else {
-     fprintf(fp,"%10u\n",j);
-   }
+   /* if(binary){ */
+   /*   fwrite(&j,sizeof(uint),1,fp); */
+   /*   if(verbose && fp != stdout) { */
+   /*     printf("%10u\n",j); */
+   /*   } */
+   /* } else { */
+     Rprintf("%10u\n",j);
+   /* } */
+
  }
 
- fclose(fp);
+ /*fclose(fp);*/
  return(0);
 }
 

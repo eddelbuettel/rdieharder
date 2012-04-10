@@ -22,18 +22,18 @@ void list_tests()
  dieharder_test_types();
 
  dh_header();
- fprintf(stdout,"Installed dieharder tests:\n");
- fprintf(stdout,"%12s\t%30s\t%30s\n","Test Number","Test Name","Test Reliability");
- fprintf(stdout,"===============================================================================\n");
+ Rprintf("Installed dieharder tests:\n");
+ Rprintf("%12s\t%30s\t%30s\n","Test Number","Test Name","Test Reliability");
+ Rprintf("===============================================================================\n");
  for(i=0;i<900;i++){
    if(dh_test_types[i]){
-     fprintf(stdout,"  -d %d  \t%40s",i,dh_test_types[i]->name);
+     Rprintf("  -d %d  \t%40s",i,dh_test_types[i]->name);
      if( i == 5 || i == 6 || i == 7 ){
-       fprintf(stdout,"\t%10s\n","Suspect");
+       Rprintf("\t%10s\n","Suspect");
      } else if(i == 14){
-       fprintf(stdout,"\t%10s\n","Do Not Use");
+       Rprintf("\t%10s\n","Do Not Use");
      } else {
-       fprintf(stdout,"\t%10s\n","Good");
+       Rprintf("\t%10s\n","Good");
      }
      
    }
@@ -47,7 +47,7 @@ void list_tests_old()
 
  dh_header();
 
- printf("\n\
+ Rprintf("\n\
 Bug/Development Key (use at your own risk):\n\
    rft = ready for testing (the test may - or may not - work correctly)\n\
    sus = suspect test (consistently fails \"good\" generators)\n\

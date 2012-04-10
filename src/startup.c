@@ -143,13 +143,13 @@ if (generator == 0){
  }
 
  if(generator == 0 || generator >= MAXRNGS){
-   fprintf(stderr,"Error:  rng %d does not exist!\n",generator);
+   REprintf("Error:  rng %d does not exist!\n",generator);
    list_rngs();
    Exit(0);
  }
 
  if(types[generator] == 0){
-   fprintf(stderr,"Error:  rng %d does not exist!\n",generator);
+   REprintf("Error:  rng %d does not exist!\n",generator);
    list_rngs();
    Exit(0);
  }
@@ -163,12 +163,12 @@ if (generator == 0){
   */
  if(strncmp("file_input",types[generator]->name,10) == 0){
    if(fromfile != 1){
-     fprintf(stderr,"Error: generator %s uses file input but no file has been loaded",types[generator]->name);
+     REprintf("Error: generator %s uses file input but no file has been loaded",types[generator]->name);
      list_rngs();
      Exit(0);
    }
    if(output_file){
-     fprintf(stderr,"Error: generator %s uses file input but output flag set.",types[generator]->name);
+     REprintf("Error: generator %s uses file input but output flag set.",types[generator]->name);
      Usage();
      Exit(0);
    }
@@ -183,18 +183,18 @@ if (generator == 0){
   * to re-allocate it or a new one now.
   */
  if(verbose == D_STARTUP || verbose == D_SEED || verbose == D_ALL){
-   fprintf(stdout,"# startup(): Creating and seeding generator %s\n",types[generator]->name);
+   Rprintf("# startup(): Creating and seeding generator %s\n",types[generator]->name);
  }
  rng = gsl_rng_alloc(types[generator]);
  if(Seed == 0){
    seed = random_seed();
    if(verbose == D_STARTUP || verbose == D_SEED || verbose == D_ALL){
-     fprintf(stdout,"# startup(): Generating random seed %lu\n",seed);
+     Rprintf("# startup(): Generating random seed %lu\n",seed);
    }
  } else {
    seed = Seed;
    if(verbose == D_STARTUP || verbose == D_SEED || verbose == D_ALL){
-     fprintf(stdout,"# startup(): Setting random seed %lu by hand.\n",seed);
+     Rprintf("# startup(): Setting random seed %lu by hand.\n",seed);
    }
  }
  gsl_rng_set(rng,seed);
