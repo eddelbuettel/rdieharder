@@ -9,7 +9,7 @@ Description: The RDieHarder packages provides an R interface to
   was developed by Robert G. Brown and David Bauer, extending 
   earlier work by George Marsaglia and others.
 Depends: R (>= 2.5.0)
-SystemRequirements: DieHarder library (>= 3.31.0) from
+SystemRequirements: DieHarder library (>= 3.31.1) from
   http://www.phy.duke.edu/~rgb/General/dieharder.php, 
   GNU GSL for the GSL random-number generators
 License: GPL (>= 2)

@@ -1,0 +1,115 @@
+2012-04-11  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Release 0.1.2
+
+2012-04-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/*: numerous changes prompted by current R CMD check:
+	  - removed stdout and stderr,
+	  - changed printf to Rprintf,
+	  - changed fprintf(stderr,...) to REprintf(...)
+	  - no exit() (but call Exit())
+
+	* inst/doc/RDieHarder.Rnw: minor cosmetic update
+
+	* inst/doc/*: Removed a few vignette temp files
+
+	* inst/doc/auto: removing temp dir
+	* inst/doc/auto/RDieHarder.el: removing temp file
+
+	* cleanup: also remove inst/doc/auto/
+
+2011-04-05  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/add_ui_rngs.c, src/list_rngs.c, src/list_tests.c: updated to
+	  current DieHarder versions
+
+	* src/Makevars.in: remove -W as it belongs in ~/.R/Makevars
+
+	* src/histogram.c: no longer needed with DieHarder 3.31.*
+
+2011-03-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/dieharder.R, R/zzz.R: .onLoad now uses assign into the
+	  namespace rather than hidden globals for the generator and test
+	  tables
+	  set SVN properties Date and URL on both files
+
+2011-03-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: updated too
+
+	* tests/longerRun.R, tests/longerRun.Rout.save: committing but
+	  somewhat work in progress and excluded from tarfile
+
+	* man/dieharder.Rd, tests/RDieHarder.R, tests/RDieHarder.Rout.save:
+	  minimal changes for DieHarder 3.31.0
+
+	* inst/doc/RDieHarder.Rnw, inst/doc/RDieHarder.pdf: minimal
+	  changes, needs rewrite and polish
+
+	* R/dieharder.R, R/zzz.R: committing with new initialization for
+	  tests as well
+
+	* .Rbuildignore: added to exclude a mostly internal test file from
+	  getting into the tarball
+
+	* inst/doc/RDieHarder-r-rngs.pdf,
+	  inst/doc/RDieHarder-rd-example.pdf, inst/doc/RDieHarder.tex:
+	  remove old files
+
+	* src/deprecated: remove old now-empty directory
+
+	* src/deprecated/db_gnu_r_rngs.c, src/deprecated/dieharder.c,
+	  src/deprecated/dieharder.h, src/deprecated/histogram.c,
+	  src/deprecated/list_rngs.c, src/deprecated/startup.c,
+	  src/deprecated/test.c, src/deprecated/testbits.c,
+	  src/deprecated/work.c: remove old unused files
+
+	* src/choose_rng.c, src/dieharder.c, src/dieharder.h,
+	  src/dieharder_exit.c, src/help.c, src/histogram.c,
+	  src/list_rand.c, src/output.c, src/output.h, src/output_rnds.c,
+	  src/parsecl.c, src/rng_empty_random.c, src/run_all_tests.c,
+	  src/run_test.c, src/startup.c, src/time_rng.c,
+	  src/user_template.c, src/user_template.h: new or modified files
+	  for Dieharder 3.31.0
+
+	* src/*:: remove files now in libdieharder or changed
+
+2009-01-31  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Version 0.1.1
+
+2008-09-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Version 0.1.0
+
+2008-08-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* configure: updated for release 0.0.7
+
+2008-08-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Version 0.0.7
+
+2008-07-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Version 0.0.6
+
+2007-08-05  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Version 0.0.5
+
+2007-06-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION, R/dieharder.R, inst/doc/*: tarball 0.0.3
+
+2007-06-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION, R/dieharder.R, R/zzz.R, inst/doc/*, src/dieharder.c:
+	tarball 0.0.2
+
+2007-06-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION, R/*, src/*, tests/*: tarball 0.0.1
+
