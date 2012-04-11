@@ -14,4 +14,3 @@ SystemRequirements: DieHarder library (>= 3.31.0) from
   GNU GSL for the GSL random-number generators
 License: GPL (>= 2)
 URL: http://code.google.com/p/rdieharder/
-Packaged: Wed May 16 15:14:57 2007; edd
