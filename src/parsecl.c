@@ -203,7 +203,7 @@ void parsecl(int argc, char **argv)
 	    break;
 	case 'v':
 	    verbose = strtol(optarg,(char **) NULL,10);
-	    printf("# Verbose is now %d\n",verbose);
+	    Rprintf("# Verbose is now %d\n",verbose);
 	    break;
 	case 'x':
 	    x_user = strtod(optarg,(char **) NULL);

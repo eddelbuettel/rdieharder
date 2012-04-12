@@ -283,7 +283,7 @@ Usage:\n\
 void help_test(Dtest *dtest)
 {
 
- printf("%s",dtest->description);
+ Rprintf("%s",dtest->description);
  
 }
  */

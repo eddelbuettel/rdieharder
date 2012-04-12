@@ -36,8 +36,8 @@ void add_ui_rngs()
  dh_num_rngs++;
  /* to here.*/
  MYDEBUG(D_STARTUP){
-   printf("# startup:  Found %u user interface generators.\n",dh_num_user_rngs);
-   printf("# startup:  A total of %u generators available.\n",dh_num_rngs);
+   Rprintf("# startup:  Found %u user interface generators.\n",dh_num_user_rngs);
+   Rprintf("# startup:  A total of %u generators available.\n",dh_num_rngs);
  }
 
  /*

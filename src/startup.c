@@ -65,7 +65,7 @@ void startup()
    }
    dh_num_gsl_rngs = i;
    MYDEBUG(D_STARTUP){
-     printf("# startup:  Found %u GSL rngs.\n",dh_num_gsl_rngs);
+     Rprintf("# startup:  Found %u GSL rngs.\n",dh_num_gsl_rngs);
    }
 
    /*
@@ -79,7 +79,7 @@ void startup()
    }
    dh_num_dieharder_rngs = j;
    MYDEBUG(D_STARTUP){
-     printf("# startup:  Found %u dieharder rngs.\n",dh_num_dieharder_rngs);
+     Rprintf("# startup:  Found %u dieharder rngs.\n",dh_num_dieharder_rngs);
    }
 
    /*
@@ -93,7 +93,7 @@ void startup()
    }
    dh_num_R_rngs = j;
    MYDEBUG(D_STARTUP){
-     printf("# startup:  Found %u R rngs.\n",dh_num_R_rngs);
+     Rprintf("# startup:  Found %u R rngs.\n",dh_num_R_rngs);
    }
 
    /*
@@ -107,7 +107,7 @@ void startup()
    }
    dh_num_hardware_rngs = j;
    MYDEBUG(D_STARTUP){
-     printf("# startup:  Found %u hardware rngs.\n",dh_num_hardware_rngs);
+     Rprintf("# startup:  Found %u hardware rngs.\n",dh_num_hardware_rngs);
    }
 
    /*
@@ -123,7 +123,7 @@ void startup()
    j++;
    dh_num_user_rngs = j;
    MYDEBUG(D_STARTUP){
-     printf("# startup:  Found %u user interface generators.\n",dh_num_user_rngs);
+     Rprintf("# startup:  Found %u user interface generators.\n",dh_num_user_rngs);
    }
 
    dh_num_rngs = dh_num_gsl_rngs + dh_num_dieharder_rngs + dh_num_R_rngs +
@@ -199,7 +199,7 @@ if (generator == 0){
  }
  gsl_rng_set(rng,seed);
  /* It is indeed the same on looped calls, so this is really cruft.
- printf("Just for grins, the first rand returned by the generator is %lu\n",
+ Rprintf("Just for grins, the first rand returned by the generator is %lu\n",
   gsl_rng_get(rng));
   */
 

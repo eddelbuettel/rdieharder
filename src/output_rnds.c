@@ -60,7 +60,7 @@ double output_rnds()
    Rprintf("type: d\ncount: %i\nnumbit: 32\n",(int)tsamples);
  /* } else { */
  /*   if(verbose && fp != stdout) { */
- /*     printf("Ascii values of binary data being written into file %s:\n",filename); */
+ /*     Rprintf("Ascii values of binary data being written into file %s:\n",filename); */
  /*   } */
  /* } */
  /*

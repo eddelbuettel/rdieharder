@@ -23,7 +23,7 @@ void run_test()
    for(i=0;i<MAXTESTS;i++){
      if(dh_test_types[i]){
        /* printf("Trying %s\n",dh_test_types[i]->sname); */
-       printf("Trying %s\n",dh_test_types[i]->sname); 
+       Rprintf("Trying %s\n",dh_test_types[i]->sname); 
        if(strncmp(dh_test_types[i]->sname,dtest_name,128)==0){
          dtest_num = i;
 	 break;

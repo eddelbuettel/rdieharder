@@ -120,6 +120,7 @@ char table_separator;
 
  double output_rnds(void);
  void add_my_types(void);
+ void add_ui_rngs(void);
  void help_user_template(void);
  void list_rngs(void);
  void list_tests(void);
