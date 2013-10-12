@@ -166,11 +166,12 @@ mean of the sum of all these values should, under the null hypothesis of a
 proper generator, converge closer and closer to $\mu = N / 2$. Each of these
 $N$ draws forms one experiment.  If $N$ is sufficiently large, then the means
 of all experiments should be normally distributed with a standard deviation
-of $\sigma = \sqrt{ N / 12}$. Given this asymptotic result, we can, for any
-given experiment $i \in 1, \ldots, M$ transform the given sum $x_i$ of $N$
-draws into a probability value $p_i$ using the inverse normal
-distribution.\footnote{Running \code{print(quantile(pnorm( replicate(M,
-    (sum(runif(N)) - N/2) / sqrt(N/12)) ), seq(0, 1, by=0.1) )*100,
+of $\sigma = \sqrt{ N / 12}$.\footnote{This is known as the Irwin-Hall
+  distribution, see \url{http://en.wikipedia.org/wiki/Irwin-Hall_distribution}.}
+Given this asymptotic result, we can, for any given experiment $i \in 1,
+\ldots, M$ transform the given sum $x_i$ of $N$ draws into a probability
+value $p_i$ using the inverse normal distribution.\footnote{Running
+  \code{print(quantile(pnorm(replicate(M,(sum(runif(N))-N/2)/sqrt(N/12))), seq(0,1,by=0.1))*100,
     digits=2)} performs a Monte Carlo simulation of $M$ experiments using $N$
   uniform deviates to illustrate this. Suitable values are e.g. \code{N <-
     1000; M <- 500}.}
