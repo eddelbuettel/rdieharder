@@ -1,5 +1,12 @@
 2014-02-20  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION: Release 0.1.3
+
+	* vignettes/: Moved files from inst/doc/
+
+	* R/dieharder.R (print.dieharder): Explicitly class result as htest
+	object so ensure dispatching to stats:::print.htest()
+
 	* .travis.yml: Added for GitHub / Travis CI support
 	* .gitignore: Added
 
