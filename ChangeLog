@@ -1,7 +1,11 @@
+2014-02-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .travis.yml: Added for GitHub / Travis CI support
+	* .gitignore: Added
+
 2013-10-12  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/RDieHarder.Rnw: Add note that about Irwin-Hall
-	distribution
+	* inst/doc/RDieHarder.Rnw: Add note about Irwin-Hall distribution
 
 2012-04-11  Dirk Eddelbuettel  <edd@debian.org>
 
