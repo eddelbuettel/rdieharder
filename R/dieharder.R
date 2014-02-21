@@ -127,7 +127,9 @@ plot.dieharder <- function(x, ...) {
 }
 
 print.dieharder <- function(x, ...) {
-    stats:::print.htest(x, ...)     # why do I need to explicitly dispatch?
+    z <- x
+    class(z) <- "htest"
+    print(z)
     invisible(x)
 }
 
