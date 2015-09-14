@@ -154,7 +154,6 @@ char table_separator;
  void run_sts_runs(void);
  void run_sts_serial(void);
  void run_user_template(void);
- void startup(void);
  int user_template(Test **test,int irun);
  void work(void);
  void Xtest_eval(Xtest *xtest);
@@ -259,9 +258,9 @@ char table_separator;
  void test_footer(Dtest *dtest, double pvalue, double *pvalues);
 
 /*
- * List new rng types to be added in startup.c.  Use "empty" or
+ * List new rng types to be added in diehard.c.  Use "empty" or
  * libdieharder rng sources as template, uncomment/clone the lines that
- * add your own type(s) in startup.c.  Consider sending "good" generators
+ * add your own type(s) in diehard.c.  Consider sending "good" generators
  * that pass all or most tests or "classic" generators good or bad that
  * people might want to test back to me to include in libdieharder.
  */
