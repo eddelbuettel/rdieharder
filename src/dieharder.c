@@ -22,6 +22,15 @@ void run_test();
 
 SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SEXP infileS, SEXP ntupleS) {
 
+    /* In the RDieHarder/R/zzz.R startup code, dieharderGenerators()
+     * has already called dieharder_rng_types(), and dieharderTests()
+     * has already called dieharder_rng_tests().  The results are
+     * stored in RDieHarder:::.dieharderGenerators and
+     * RDieHarder:::.dieharderTests, as well as C static variables
+     * used by libdieharder.  Since user defined generators and tests
+     * may have been added, we do not call these routines again. 
+     */
+
     int verb;
     char *inputfile;
 
@@ -60,33 +69,6 @@ SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SE
 	hist_flag = 0;
     }
 
-    /* Now do the work that dieharder.c does */
-    //startup();
-    //work();				/* calls output() which fills the global SEXP result */
-
-    /*
-     * This fills the global *dh_rng_types defined in libdieharder with all
-     * the rngs known directly to libdieharder including known hardware
-     * generators and file input "generators".  This routine also sets the
-     * counts of each "kind" of generator into global/shared variables.  This
-     * command must be run (by all UIs, not just the dieharder CLI) BEFORE
-     * adding any UI generators, and BEFORE selecting a generator or input
-     * stream to test.
-     */
-    dieharder_rng_types();
-
-    /*
-     * Similarly we load *dh_test_types[].
-     */
-    dieharder_test_types();
-
-    /*
-     * The following contains commands that are likely to be different for
-     * different UIs.  At the very least, they can be done more than once in
-     * an interactive UI, even though some of them will usually be done just
-     * one time in the dieharder CLI.  I'm indenting them to show their
-     * RELATIVE precedence in a core event loop in a UI.
-     */
     
     /*
      * Pick a rng, establish a seed based on how things were initialized
