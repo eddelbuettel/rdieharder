@@ -146,16 +146,5 @@ summary.dieharder <- function(object, ...) {
     invisible(object)
 }
 
-##
-
-#dieharderVec <- function(gen=c(22,69), test=1, verbose=FALSE) {
-#
-#  val <- .Call("dieharderVectorised",
-#                as.list(as.integer(gen)),
-#                as.integer(test),
-#                as.integer(verbose),
-#                PACKAGE="RDieHarder")
-#   return(val)
-#}
 
 
