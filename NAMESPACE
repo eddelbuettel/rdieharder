@@ -8,4 +8,5 @@ export("dieharder",
        "print.dieharder",
        "summary.dieharder",
        "dieharderGenerators",
-       "dieharderTests")
+       "dieharderTests",
+       "dieharderCallback")
