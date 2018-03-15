@@ -2,7 +2,8 @@
 
 	* DESCRIPTION (Version, Date): Release 0.1.4
 
-	* NAMESPACE: Added S3 method registration [CRAN request]
+	* NAMESPACE: Added S3 method registration [CRAN request]; added
+	imports from graphics and stats
 
 	* src/init.c: Added R_init_* registration
 

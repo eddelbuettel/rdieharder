@@ -10,3 +10,6 @@ S3method("dieharder", "default")
 S3method("plot", "dieharder")
 S3method("print", "dieharder")
 S3method("summary", "dieharder")
+
+importFrom("graphics", "hist", "lines", "mtext", "par", "plot", "segments", "stem")
+importFrom("stats", "density", "ecdf", "ks.test", "wilcox.test")
