@@ -1,3 +1,17 @@
+2018-03-15  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.1.4
+
+	* NAMESPACE: Added S3 method registration [CRAN request]; added
+	imports from graphics and stats
+
+	* src/init.c: Added R_init_* registration
+
+	* tests/RDieHarder.Rout.save: Minor update to tests reference output
+	due to what seems to be rounding issues on two lines
+
+	* .travis.yml: Use run.sh from r-travis
+
 2014-02-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Release 0.1.3
