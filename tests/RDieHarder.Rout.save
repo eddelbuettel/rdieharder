@@ -1,7 +1,6 @@
 
-R version 2.12.2 (2011-02-25)
-Copyright (C) 2011 The R Foundation for Statistical Computing
-ISBN 3-900051-07-0
+R Under development (unstable) (2018-03-15 r74410) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -25,13 +24,13 @@ Type 'q()' to quit R.
 
 	Diehard Runs Test
 
-data:  Created by RNG `rand' with seed=12345, sample of size 100 
+data:  Created by RNG `rand' with seed=12345, sample of size 100
 p-value = 0.4176
 
 
 Summary for test data
     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-0.004476 0.223400 0.449300 0.462500 0.678300 0.994700 
+0.004476 0.223410 0.449300 0.462522 0.678329 0.994671 
 
 
 Stem and leaf plot for test data
@@ -53,21 +52,24 @@ NULL
 
 	One-sample Kolmogorov-Smirnov test
 
-data:  object$data 
-D = 0.0911, p-value = 0.3566
-alternative hypothesis: two-sided 
+data:  object$data
+D = 0.091065, p-value = 0.3566
+alternative hypothesis: two-sided
 
 
 	Wilcoxon signed rank test with continuity correction
 
-data:  object$data 
+data:  object$data
 V = 2144, p-value = 0.1908
-alternative hypothesis: true location is not equal to 0.5 
+alternative hypothesis: true location is not equal to 0.5
 
 
 	Diehard Runs Test
 
-data:  Created by RNG `rand' with seed=12345, sample of size 100 
+data:  Created by RNG `rand' with seed=12345, sample of size 100
 p-value = 0.4176
 
 > 
+> proc.time()
+   user  system elapsed 
+  0.190   0.008   0.194 

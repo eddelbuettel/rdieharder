@@ -3,9 +3,10 @@ useDynLib(RDieHarder)
 
 ## and one and only one core function
 export("dieharder",
-       "dieharder.default",
-       "plot.dieharder",
-       "print.dieharder",
-       "summary.dieharder",
        "dieharderGenerators",
        "dieharderTests")
+
+S3method("dieharder", "default")
+S3method("plot", "dieharder")
+S3method("print", "dieharder")
+S3method("summary", "dieharder")
