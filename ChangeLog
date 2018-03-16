@@ -12,6 +12,10 @@
 
 	* .travis.yml: Use run.sh from r-travis
 
+	* DESCRIPTION: Also restrict with OS_type: unix
+
+	* README.md: One more URL using https
+
 2014-02-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Release 0.1.3
