@@ -2,7 +2,9 @@
 
 rm -f config.* src/Makedeps src/Makevars \
     src/*.o src/*.d src/*.a src/*.dll src/*.so src/*.rc */*~ *~ 
-rm -rf autom4te.cache
-rm -rf inst/doc/RDieHarder.out inst/doc/RDieHarder.log \
+rm -rf autom4te.cache \
+       inst/doc/RDieHarder.out inst/doc/RDieHarder.log \
        inst/doc/Rplots.pdf inst/doc/RDieHarder.aux \
-       inst/doc/auto
+       inst/doc/auto \
+       src/libdieharder/*.o src/libdieharder/libdieharder.a
+

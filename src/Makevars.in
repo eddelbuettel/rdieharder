@@ -4,8 +4,19 @@ GSL_CFLAGS = @GSL_CFLAGS@
 GSL_LIBS   = @GSL_LIBS@
 DH_CFLAGS  = @DH_CFLAGS@
 DH_LIBS    = @DH_LIBS@
+#DH_CFLAGS  = -I. -Ilibdieharder 
+#DH_LIBS    = -Llibdieharder -ldieharder
 
 # combine to standard arguments for R
 PKG_CFLAGS = $(DH_CFLAGS) $(GSL_CFLAGS)
 PKG_LIBS   = $(DH_LIBS) $(GSL_LIBS)
 
+LIBCFLAGS  = -std=c99 -fpic -DRDIEHARDER -Wall -Wno-unused
+
+all: 		@DH_TGT@ $(SHLIB)
+$(SHLIB): 	 
+
+libdieharder.a:
+		$(MAKE) CC="$(CC)" CFLAGS="$(CFLAGS) $(LIBCFLAGS)" \
+			AR="$(AR)" RANLIB="$(RANLIB)" \
+			--directory=libdieharder libdieharder.a
