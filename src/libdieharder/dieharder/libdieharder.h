@@ -83,6 +83,12 @@
 #define _QUOTEME(x) #x
 #define QUOTEME(x) _QUOTEME(x)
 
+#if !defined(uint)
+  #define uint unsigned int
+#endif
+#if !defined(M_PI)
+  #define M_PI PI
+#endif
 
  /*
   *========================================================================
