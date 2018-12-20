@@ -1,3 +1,30 @@
+2018-12-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/Makevars.in: Use standard compilation flags
+	* src/Makevars.win: Idem
+	* src/libdieharder/: Assign return value from fread
+
+	* configure.ac: Query R for endianness
+	* configure: Idem
+	* src/libdieharder/Makefile.in: Set endianness
+
+	* README.md: Add dependency badge
+	* configure.ac: Renamed from configure.in
+
+2018-12-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/Makevars.win: Add Windows support
+	* tools/winlibs.R: Fetch GSL on Windows
+	* DESCRIPTION: Remove 'OS_type: unix'
+	* src/Makevars.in: Refine build process
+
+2018-12-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/libdieharder/: Include DieHarder library
+	* configure.in: Compile libdieharder if none on system
+	* configure: Idem
+	* src/Makevars.in: Idem
+
 2018-03-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.1.4

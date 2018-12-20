@@ -6,6 +6,22 @@
 # The version set here will propagate to other files from here
 AC_INIT(RDieHarder, 0.1.5)
 
+# Ensure C++ is set up as R expects
+: ${R_HOME=`R RHOME`}
+if test -z "${R_HOME}"; then
+    AC_MSG_ERROR([Could not determine R_HOME.])   
+fi
+
+AC_MSG_CHECKING([endianness])
+ENDIAN=`"${R_HOME}/bin/Rscript" -e 'cat(.Platform$endian)'`
+if test "${ENDIAN}" == "little"; then
+   AC_MSG_RESULT([little])
+   endianness=1
+else
+   AC_MSG_RESULT([big])
+   endianness=0
+fi
+
 # Checks for common programs using default macros
 AC_PROG_CC
 
@@ -34,7 +50,7 @@ else
     # Now search for dieharder.h
     DH_INCDIR=""
     DH_TARGET=""
-    AC_MSG_NOTICE([checking for DieHarder header files])
+    AC_MSG_CHECKING([DieHarder header files])
     for dir in \
         /usr/include \
 	/usr/include/dieharder \
@@ -53,13 +69,14 @@ else
     done
 
     if [ test -n "${DH_INCDIR}" ] ; then
+        AC_MSG_RESULT([found])
         # Test for sanity by looking for libdieharder.h and libdieharder.so, 
         # no explicit action on found, error on failure
         AC_CHECK_FILE(["${DH_INCDIR}/libdieharder.h"],
             ,
             AC_MSG_ERROR([File libdieharder.h not in ${DH_INCDIR}.]))
     else
-        AC_MSG_NOTICE([need to build local DieHarder library])
+        AC_MSG_RESULT([need to build library])
         if test -f src/libdieharder/dieharder/libdieharder.h; then
             DH_TARGET="libdieharder.a"
             DH_INCDIR="libdieharder"
@@ -79,8 +96,9 @@ AC_ARG_WITH([dieharder-libdir],
 if test [ -n "$dh_lib_path" ] ; then
     DH_LIBDIR="$dh_lib_path"
 else
+    libfound=""
     # Now search for libdieharder.so
-    AC_MSG_NOTICE([checking for DieHarder library file])
+    AC_MSG_CHECKING([DieHarder library file])
     for dir in \
 	/usr/lib \
 	/usr/lib/dieharder \
@@ -93,9 +111,15 @@ else
     do
         if test -f ${dir}/libdieharder.so; then 
 	    DH_LIBDIR=${dir}
+            libfound=${dir}
 	    break
 	fi
     done
+    if test [ -n "$libfound" ] ; then
+        AC_MSG_RESULT([found])
+    else
+        AC_MSG_RESULT([none found])
+    fi
 fi
 
 # Test for sanity by looking for libdieharder.so, 
