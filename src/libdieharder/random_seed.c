@@ -42,7 +42,7 @@ unsigned long int random_seed()
    seed = tv.tv_sec + tv.tv_usec;
    if(verbose == D_SEED) printf("Got seed %u from gettimeofday()\n",seed);
  } else {
-   fread(&seed,sizeof(seed),1,devurandom);
+   int rc = fread(&seed,sizeof(seed),1,devurandom);
    if(verbose == D_SEED) printf("Got seed %u from /dev/urandom\n",seed);
    fclose(devurandom);
  }

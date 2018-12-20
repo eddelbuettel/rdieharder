@@ -24,7 +24,7 @@ dev_urandom_get (void *vstate)
   unsigned long int j;
 
   if(state->fp != NULL) {
-    fread(&j,sizeof(j),1,state->fp);
+    int rc = fread(&j,sizeof(j),1,state->fp);
     return j;
   } else {
     fprintf(stderr,"Error: /dev/urandom not open.  Exiting.\n");
