@@ -2,11 +2,11 @@
 
 suppressMessages(library(RDieHarder))
 
-rngs <- c("R_wichmann_hill", "R_marsaglia_multic", 
+rngs <- c("R_wichmann_hill", "R_marsaglia_multic",
           "R_super_duper", "R_mersenne_twister",
           "R_knuth_taocp", "R_knuth_taocp2")
 
-rl <- lapply(rngs, function(rng) dieharder(rng, "runs", seed=12345))
+rl <- lapply(rngs, function(rng) dieharder(rng, "diehard_runs", seed=12345))
 
 oldpar <- par(mfrow=c(2,3), mar=c(2,3,3,1))
 invisible( lapply(rl, function(res) {
