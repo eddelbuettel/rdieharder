@@ -1,5 +1,7 @@
 2018-12-20  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Release 0.2.0
+
 	* src/Makevars.in: Use standard compilation flags
 	* src/Makevars.win: Idem
 	* src/libdieharder/: Assign return value from fread
