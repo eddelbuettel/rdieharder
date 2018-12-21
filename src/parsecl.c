@@ -14,7 +14,7 @@ void parsecl(int argc, char **argv)
     extern char *optarg;
     extern int optind, opterr, optopt;
 
-#if 0 
+#if 0    
 // OLD
     /*
      * Within reason, the following user-controllable options are referenced
@@ -244,4 +244,3 @@ void parsecl(int argc, char **argv)
     Usage();
 
 }
-

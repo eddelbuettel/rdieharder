@@ -1,0 +1,19 @@
+
+DH_CFLAGS  = -Ilibdieharder -I. -DRDIEHARDER
+DH_LIBS    = -Llibdieharder -ldieharder
+
+# combine to standard arguments for R
+PKG_CFLAGS = $(DH_CFLAGS) -I../windows/gsl-2.4/include -I../inst/include
+PKG_LIBS   = $(DH_LIBS) -L../windows/gsl-2.4/lib${R_ARCH} -lgsl -lgslcblas
+
+LIBCFLAGS  = -std=c99 -DRDIEHARDER -I../../windows/gsl-2.4/include
+
+all: 		winlibs libdieharder.a $(SHLIB)
+$(SHLIB): 	 
+
+libdieharder.a:
+		$(MAKE) CC="$(CC)" CFLAGS="$(CFLAGS) $(LIBCFLAGS)" \
+			AR="$(AR)" RANLIB="$(RANLIB)" \
+			--directory=libdieharder libdieharder.a
+winlibs:
+		"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"

@@ -9,3 +9,12 @@ DH_LIBS    = @DH_LIBS@
 PKG_CFLAGS = $(DH_CFLAGS) $(GSL_CFLAGS)
 PKG_LIBS   = $(DH_LIBS) $(GSL_LIBS)
 
+LIBCFLAGS  = -std=c99 -fpic -DRDIEHARDER
+
+all: 		@DH_TGT@ $(SHLIB)
+$(SHLIB): 	 
+
+libdieharder.a:
+		$(MAKE) CC="$(CC)" CFLAGS="$(CFLAGS) $(LIBCFLAGS)" \
+			AR="$(AR)" RANLIB="$(RANLIB)" \
+			--directory=libdieharder libdieharder.a
