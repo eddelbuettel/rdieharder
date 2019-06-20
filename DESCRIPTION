@@ -1,7 +1,7 @@
 Package: RDieHarder
-Version: 0.2.0
-Date: 2018-12-20
-Author: Dirk Eddelbuettel <edd@debian.org>
+Version: 0.2.0.1
+Date: 2019-01-05
+Author: Dirk Eddelbuettel
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Title: R Interface to the 'DieHarder' RNG Test Suite
 Description: The 'RDieHarder' package provides an R interface to 
