@@ -48,8 +48,8 @@
  * blank the default because it is hard to specify a blank on the CL but
  * easy to specify the others?
  */
-uint tflag,tflag_default;
-char table_separator;
+extern uint tflag,tflag_default;
+extern char table_separator;
 #include "output.h"
 
 
@@ -166,7 +166,7 @@ char table_separator;
 #if defined(RDIEHARDER)
 //int histogram(double *input, char *pvlabel, int inum, double min, double max, int nbins, char *label);
  void save_values_for_R(Dtest *dtest,Test **test); /* called in output(), saves values for R in result */
- SEXP result;				/* kludge: need a global to report back to main() and then R */
+ extern SEXP result;				/* kludge: need a global to report back to main() and then R */
 #endif
 
  /*
@@ -177,7 +177,7 @@ char table_separator;
   *========================================================================
   */
  //int all;               /* Flag to do all tests on selected generator */
- unsigned int binary;     /* Flag to output rands in binary (with -o -f) */
+extern unsigned int binary;     /* Flag to output rands in binary (with -o -f) */
  //int bits;              /* bitstring size (in bits) */
  //int diehard;           /* Diehard test number */
  //int generator;         /* GSL generator id number to be tested */
@@ -194,15 +194,15 @@ char table_separator;
  //int quiet;             /* quiet flag -- surpresses full output report */
  //int rgb;               /* rgb test number */
  //int sts;               /* sts test number */
- uint Seed;             /* user selected seed.  Surpresses reseeding per sample.*/
- uint table;            /* selects "table" output mode */
- uint tflag;            /* binary flag(s) to control what goes in the table */
- off_t tsamples;        /* Generally should be "a lot".  off_t is u_int64_t. */
+extern uint Seed;             /* user selected seed.  Surpresses reseeding per sample.*/
+extern uint table;            /* selects "table" output mode */
+extern uint tflag;            /* binary flag(s) to control what goes in the table */
+extern off_t tsamples;        /* Generally should be "a lot".  off_t is u_int64_t. */
  //int user;              /* user defined test number */
  //int verbose;           /* Default is not to be verbose. */
- double x_user;         /* General purpose command line inputs for use */
- double y_user;         /* in any test. */
- double z_user;
+extern double x_user;         /* General purpose command line inputs for use */
+extern double y_user;         /* in any test. */
+extern double z_user;
 
  /*
   *========================================================================
@@ -223,14 +223,14 @@ char table_separator;
   */
 #define KS_SAMPLES_PER_TEST_MAX 256
  /* We need two of these to do diehard_craps.  Sigh. */
- double *ks_pvalue,*ks_pvalue2;
- unsigned int kspi;
- struct timeval tv_start,tv_stop;
- double rng_avg_time_nsec,rng_rands_per_second;
- int dummy,idiot;
- FILE *fp;
+extern double *ks_pvalue,*ks_pvalue2;
+extern unsigned int kspi;
+extern struct timeval tv_start,tv_stop;
+extern double rng_avg_time_nsec,rng_rands_per_second;
+extern int dummy,idiot;
+extern FILE *fp;
 #define MAXFIELDNUMBER 8
- char **fields;
+extern char **fields;
 
 
  /*
@@ -241,15 +241,15 @@ char table_separator;
 //uint file_input_get_rtot(gsl_rng *rng);
  void file_input_set_rtot(gsl_rng *rng,uint value);
 
- char filename[K];      /* Input file name */
- int fromfile;		/* set true if file is used for rands */
- int filenumbits;	/* number of bits per integer */
+extern char filename[K];      /* Input file name */
+extern int fromfile;		/* set true if file is used for rands */
+extern int filenumbits;	/* number of bits per integer */
  /*
   * If we have large files, we can have a lot of rands.  off_t is
   * automagically set to u_int64_t if FILE_OFFSET_BITS is set to 64.
   */
- off_t filecount;	/* number of rands in file */
- char filetype;         /* file type */
+extern off_t filecount;	/* number of rands in file */
+extern char filetype;         /* file type */
 
  void show_test_header(Dtest *dtest,Test **test);
  void show_test_header_debug(Dtest *dtest,Test **test);
@@ -274,9 +274,8 @@ char table_separator;
  * test number OR a test name; we have to sort that out when we
  * choose a test.
  */
-int dtest_num;
-char dtest_name[128];
-char generator_name[128];
+extern int dtest_num;
+extern char dtest_name[128];
+extern char generator_name[128];
 
-double strategy;
-
+extern double strategy;

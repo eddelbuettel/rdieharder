@@ -12,7 +12,7 @@
 #include <string.h>
 #include <dieharder/parse.h>
 
- int verbose;
+extern int verbose;
 
 /*
  * split() is a reusable routine to break up a string into char[PBUF]
@@ -140,4 +140,3 @@ void chop(char *buf)
  /* Reterminate one character earlier */
  *buf = 0;
 }
- 
