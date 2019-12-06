@@ -1,3 +1,45 @@
+2019-12-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version and date
+
+	* src/globals.c: New file with global variable defitions
+
+	* src/dieharder.h: Declare global variables 'extern'
+	* src/libdieharder/dieharder/libdieharder.h: Ditto
+	* src/libdieharder/dieharder/dieharder_rng_types.h: Ditto
+	* src/libdieharder/dieharder/dieharder_test_types.h: Ditto
+	* src/libdieharder/dieharder/parse.h: Ditto
+	* src/libdieharder/dieharder/rgb_operm.h: Ditto
+	* src/libdieharder/dieharder/rgb_persist.h: Ditto
+	* src/libdieharder/parse.c: Ditto
+
+	* configure.ac: No longer use external libdieharder as it does not
+	[yet or maybe ever] support the changes for -fno-common
+	* configure: Ditto
+	* src/libdieharder/Makefile.in: Minor configure use fix
+	* src/libdieharder/Makefile.win: Added for Windows build
+
+	* .travis.yml: No longer install libdieharder-dev
+
+	* src/libdieharder/bits.c: Comment-out unused variable
+	* src/libdieharder/chisq.c: Ditto
+	* src/libdieharder/dab_dct.c: Ditto
+	* src/libdieharder/dab_filltree2.c: Ditto
+	* src/libdieharder/diehard_runs.c: Ditto
+	* src/libdieharder/rank.c: Ditto
+
+	* src/libdieharder/dieharder/dab_opso2.h: Add attribute unused
+
+	* src/libdieharder/rng_ca.c: More explicit indentation for loop
+
+	* src/libdieharder/random_seed.c: Use return from fread
+	* src/libdieharder/rng_dev_arandom.c: Ditto
+	* src/libdieharder/rng_dev_random.c: Ditto
+	* src/libdieharder/rng_dev_urandom.c: Ditto
+
+	* vignettes/.install_extra: Added to support rds data cache
+	* vignettes/r_generators_result.rds: Cache result
+
 2019-06-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Author): Use name without email as in other packages

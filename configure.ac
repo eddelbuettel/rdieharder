@@ -1,15 +1,15 @@
 # Process this file with autoconf to produce a configure script.
 #
 # Configure.in for RDieHarder
-# Copyright (C) 2008 Dirk Eddelbuettel and licensed under GNU GPL
+# Copyright (C) 2008 - 2019  Dirk Eddelbuettel and licensed under GNU GPL
 
 # The version set here will propagate to other files from here
-AC_INIT(RDieHarder, 0.1.5)
+AC_INIT(RDieHarder, 0.2.1)
 
 # Ensure C++ is set up as R expects
 : ${R_HOME=`R RHOME`}
 if test -z "${R_HOME}"; then
-    AC_MSG_ERROR([Could not determine R_HOME.])   
+    AC_MSG_ERROR([Could not determine R_HOME.])
 fi
 
 AC_MSG_CHECKING([endianness])
@@ -25,7 +25,7 @@ fi
 # Checks for common programs using default macros
 AC_PROG_CC
 
-# Check for non-standard programs: gsl-config(1) 
+# Check for non-standard programs: gsl-config(1)
 AC_PATH_PROG([GSL_CONFIG], [gsl-config])
 
 # If gsl-config was found, let's use it
@@ -33,96 +33,96 @@ if test "${GSL_CONFIG}" != ""; then
     # Use gsl-config for header and linker arguments
     GSL_CFLAGS=`${GSL_CONFIG} --cflags`
     GSL_LIBS=`${GSL_CONFIG} --libs`
-else 
+else
     AC_MSG_ERROR([gsl-config not found, is GSL installed?])
 fi
 
-# offer configure argument support for dieharder includes
-AC_ARG_WITH([dieharder-include],
-            AC_HELP_STRING([--with-dieharder-include=INCLUDE_PATH],
-                           [Supply the location of DieHarder header files]),
-            [dh_include_path=$withval],
-            [dh_include_path=""])
+dnl # offer configure argument support for dieharder includes
+dnl AC_ARG_WITH([dieharder-include],
+dnl             AC_HELP_STRING([--with-dieharder-include=INCLUDE_PATH],
+dnl                            [Supply the location of DieHarder header files]),
+dnl             [dh_include_path=$withval],
+dnl             [dh_include_path=""])
 
-if test [ -n "$dh_include_path" ] ; then
-    DH_INCDIR="$dh_include_path"
-else
-    # Now search for dieharder.h
-    DH_INCDIR=""
-    DH_TARGET=""
-    AC_MSG_CHECKING([DieHarder header files])
-    for dir in \
-        /usr/include \
-	/usr/include/dieharder \
-	/usr/local/include \
-	/usr/local/include/dieharder \
-	/usr/local/dieharder/include \
-	/opt/include \
-	/opt/include/dieharder \ 
-	/opt/dieharder/include 
-    do
-        if test -f ${dir}/libdieharder.h
-	then 
-	    DH_INCDIR=${dir}
-	    break
-	fi
-    done
+dnl if test [ -n "$dh_include_path" ] ; then
+dnl     DH_INCDIR="$dh_include_path"
+dnl else
+dnl     # Now search for dieharder.h
+dnl     DH_INCDIR=""
+dnl     DH_TARGET=""
+dnl     AC_MSG_CHECKING([DieHarder header files])
+dnl     for dir in \
+dnl         /usr/include \
+dnl 	/usr/include/dieharder \
+dnl 	/usr/local/include \
+dnl 	/usr/local/include/dieharder \
+dnl 	/usr/local/dieharder/include \
+dnl 	/opt/include \
+dnl 	/opt/include/dieharder \
+dnl 	/opt/dieharder/include
+dnl     do
+dnl         if test -f ${dir}/libdieharder.h
+dnl 	then
+dnl 	    DH_INCDIR=${dir}
+dnl 	    break
+dnl 	fi
+dnl     done
 
-    if [ test -n "${DH_INCDIR}" ] ; then
-        AC_MSG_RESULT([found])
-        # Test for sanity by looking for libdieharder.h and libdieharder.so, 
-        # no explicit action on found, error on failure
-        AC_CHECK_FILE(["${DH_INCDIR}/libdieharder.h"],
-            ,
-            AC_MSG_ERROR([File libdieharder.h not in ${DH_INCDIR}.]))
-    else
-        AC_MSG_RESULT([need to build library])
-        if test -f src/libdieharder/dieharder/libdieharder.h; then
-            DH_TARGET="libdieharder.a"
-            DH_INCDIR="libdieharder"
-            DH_LIBDIR="libdieharder"
-        fi
-    fi
-fi
+dnl     if [ test -n "${DH_INCDIR}" ] ; then
+dnl         AC_MSG_RESULT([found])
+dnl         # Test for sanity by looking for libdieharder.h and libdieharder.so,
+dnl         # no explicit action on found, error on failure
+dnl         AC_CHECK_FILE(["${DH_INCDIR}/libdieharder.h"],
+dnl             ,
+dnl             AC_MSG_ERROR([File libdieharder.h not in ${DH_INCDIR}.]))
+dnl     else
+dnl         AC_MSG_RESULT([need to build library])
+dnl         if test -f src/libdieharder/dieharder/libdieharder.h; then
+DH_TARGET="libdieharder.a"
+DH_INCDIR="libdieharder"
+DH_LIBDIR="libdieharder"
+dnl         fi
+dnl     fi
+dnl fi
 
 
-# offer configure argument support for dieharder library
-AC_ARG_WITH([dieharder-libdir],
-            AC_HELP_STRING([--with-dieharder-libdir=LIBRARY_PATH],
-                           [Supply the location of DieHarder library file]),
-            [dh_lib_path=$withval],
-            [dh_lib_path=""])
+dnl # offer configure argument support for dieharder library
+dnl AC_ARG_WITH([dieharder-libdir],
+dnl             AC_HELP_STRING([--with-dieharder-libdir=LIBRARY_PATH],
+dnl                            [Supply the location of DieHarder library file]),
+dnl             [dh_lib_path=$withval],
+dnl             [dh_lib_path=""])
 
-if test [ -n "$dh_lib_path" ] ; then
-    DH_LIBDIR="$dh_lib_path"
-else
-    libfound=""
-    # Now search for libdieharder.so
-    AC_MSG_CHECKING([DieHarder library file])
-    for dir in \
-	/usr/lib \
-	/usr/lib/dieharder \
-	/usr/local/lib \
-	/usr/local/lib/dieharder \
-	/usr/local/dieharder/lib \
-	/opt/include \
-	/opt/lib/dieharder \ 
-	/opt/dieharder/lib
-    do
-        if test -f ${dir}/libdieharder.so; then 
-	    DH_LIBDIR=${dir}
-            libfound=${dir}
-	    break
-	fi
-    done
-    if test [ -n "$libfound" ] ; then
-        AC_MSG_RESULT([found])
-    else
-        AC_MSG_RESULT([none found])
-    fi
-fi
+dnl if test [ -n "$dh_lib_path" ] ; then
+dnl     DH_LIBDIR="$dh_lib_path"
+dnl else
+dnl     libfound=""
+dnl     # Now search for libdieharder.so
+dnl     AC_MSG_CHECKING([DieHarder library file])
+dnl     for dir in \
+dnl 	/usr/lib \
+dnl 	/usr/lib/dieharder \
+dnl 	/usr/local/lib \
+dnl 	/usr/local/lib/dieharder \
+dnl 	/usr/local/dieharder/lib \
+dnl 	/opt/include \
+dnl 	/opt/lib/dieharder \
+dnl 	/opt/dieharder/lib
+dnl     do
+dnl         if test -f ${dir}/libdieharder.so; then
+dnl 	    DH_LIBDIR=${dir}
+dnl             libfound=${dir}
+dnl 	    break
+dnl 	fi
+dnl     done
+dnl     if test [ -n "$libfound" ] ; then
+dnl         AC_MSG_RESULT([found])
+dnl     else
+dnl         AC_MSG_RESULT([none found])
+dnl     fi
+dnl fi
 
-# Test for sanity by looking for libdieharder.so, 
+# Test for sanity by looking for libdieharder.so,
 # no explicit action on found, error on failure
 #AC_CHECK_FILE(["${DH_LIBDIR}/libdieharder.so"],
 #	,
@@ -132,6 +132,7 @@ fi
 DH_CFLAGS="-I${DH_INCDIR} -I. -DRDIEHARDER"
 DH_LIBS="-L${DH_LIBDIR} -ldieharder"
 DH_TGT="${DH_TARGET}"
+ENDIANNESS="${endianness}"
 
 # Now substitute these variables in src/Makevars.in to create src/Makevars
 AC_SUBST(GSL_CFLAGS)
@@ -139,6 +140,7 @@ AC_SUBST(GSL_LIBS)
 AC_SUBST(DH_CFLAGS)
 AC_SUBST(DH_LIBS)
 AC_SUBST(DH_TGT)
+AC_SUBST(ENDIANNESS)
 AC_OUTPUT(src/Makevars)
 AC_OUTPUT(src/libdieharder/Makefile)
 
