@@ -25,6 +25,7 @@ dev_urandom_get (void *vstate)
 
   if(state->fp != NULL) {
     int rc = fread(&j,sizeof(j),1,state->fp);
+    if (rc == 0) fprintf(stderr, "Error: Nothing written.\n");
     return j;
   } else {
     fprintf(stderr,"Error: /dev/urandom not open.  Exiting.\n");

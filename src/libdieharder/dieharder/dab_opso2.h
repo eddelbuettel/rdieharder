@@ -7,7 +7,7 @@
  */
 int dab_opso2(Test **test, int irun);
 
-static Dtest dab_opso2_dtest = {
+static Dtest dab_opso2_dtest __attribute__((unused)) = {
   "DAB OPSO2",
   "dab_opso2",
   "\
@@ -55,4 +55,3 @@ static Dtest dab_opso2_dtest = {
   dab_opso2,
   0
 };
-

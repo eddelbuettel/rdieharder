@@ -11,7 +11,7 @@ before_install:
   - ./run.sh bootstrap
 
 install:
-  - ./run.sh install_aptget libdieharder-dev libgsl0-dev 
+  - ./run.sh install_aptget libgsl0-dev
   
 script:
   - ./run.sh run_tests
