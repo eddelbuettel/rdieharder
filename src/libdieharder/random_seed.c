@@ -43,7 +43,7 @@ unsigned long int random_seed()
    if(verbose == D_SEED) printf("Got seed %u from gettimeofday()\n",seed);
  } else {
    int rc = fread(&seed,sizeof(seed),1,devurandom);
-   if(verbose == D_SEED) printf("Got seed %u from /dev/urandom\n",seed);
+   if(verbose == D_SEED) printf("Got seed %u from /dev/urandom; rc=%d\n",seed,rc);
    fclose(devurandom);
  }
 
