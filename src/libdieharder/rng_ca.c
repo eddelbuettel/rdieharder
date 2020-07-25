@@ -1,6 +1,6 @@
 /*
  *  rng_ca.c
- * 
+ *
  *  Copyright (C) Tony Pasqualoni / Sept. 20, 2006
  *
  *  From:
@@ -19,12 +19,12 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
@@ -88,27 +88,27 @@ ca_get (void *vstate)
   unsigned char * cell_c;
 
   /* set cell addresses using address of current cell (cell_d) */
-  cell_c = cell_d - 1; 
-  cell_b = cell_c - 1; 
-  cell_a = cell_b - 1; 
+  cell_c = cell_d - 1;
+  cell_b = cell_c - 1;
+  cell_a = cell_b - 1;
 
   /* update cell states using rule table */
-  *cell_d = rule[*cell_c + *cell_d]; 
-  *cell_c = rule[*cell_b + *cell_c]; 
-  *cell_b = rule[*cell_a + *cell_b]; 
+  *cell_d = rule[*cell_c + *cell_d];
+  *cell_c = rule[*cell_b + *cell_c];
+  *cell_b = rule[*cell_a + *cell_b];
 
   /*
    * update the state of cell_a and shift current cell (cell_d) to the
    * left by 4 bytes (first_cell - 1 = last_cell)
    */
   if (cell_a == first_cell) {
-    *cell_a = rule[*cell_a]; 
-    cell_d = last_cell; 
-    return( *((unsigned int *)cell_a) ); 
-  } else { 
+    *cell_a = rule[*cell_a];
+    cell_d = last_cell;
+    return( *((unsigned int *)cell_a) );
+  } else {
     *cell_a = rule[*(cell_a - 1) + *cell_a];
-    cell_d -= 4; 
-    return( *((unsigned int *)cell_a) ); 
+    cell_d -= 4;
+    return( *((unsigned int *)cell_a) );
   }
 
 }
@@ -129,33 +129,32 @@ ca_set (void *vstate, unsigned long int s) {
  int i;
 
  /* clear cells */
- for (i = 0; i < CA_WIDTH - 1; i++) 
+ for (i = 0; i < CA_WIDTH - 1; i++)
+     init_config[i] = 0;
 
-   init_config[i] = 0;
-
-   /* set initial cell states using seed */
-   init_config[CA_WIDTH - 1] = (unsigned char)(seed);
-   init_config[CA_WIDTH - 2] = (unsigned char)(seed << 8);
-   init_config[CA_WIDTH - 3] = (unsigned char)(seed << 16);
-   init_config[CA_WIDTH - 4] = (unsigned char)(seed << 24);
-   if (seed != 0xFFFFFFFF)
-      seed++;
-   for (i = 0; i < CA_WIDTH - 4; i++) 
+ /* set initial cell states using seed */
+ init_config[CA_WIDTH - 1] = (unsigned char)(seed);
+ init_config[CA_WIDTH - 2] = (unsigned char)(seed << 8);
+ init_config[CA_WIDTH - 3] = (unsigned char)(seed << 16);
+ init_config[CA_WIDTH - 4] = (unsigned char)(seed << 24);
+ if (seed != 0xFFFFFFFF)
+     seed++;
+ for (i = 0; i < CA_WIDTH - 4; i++)
      init_config[i] = (unsigned char) ( seed >> (i % 32) );
 
-   /* define addresses of first_cell and last_cell */
-   first_cell = init_config;
-   last_cell = init_config + CA_WIDTH - 1;
+ /* define addresses of first_cell and last_cell */
+ first_cell = init_config;
+ last_cell = init_config + CA_WIDTH - 1;
 
-   /*
-    * set address of current cell to last_cell (automaton is updated right
-    * to left)
-    */
-   cell_d = last_cell;
+ /*
+  * set address of current cell to last_cell (automaton is updated right
+  * to left)
+  */
+ cell_d = last_cell;
 
-   /* evolve automaton before returning integers */
-   for (i = 0 ; i < ( (CA_WIDTH * CA_WIDTH) / 4.0); i++) 
-      ca_get(vstate);
+ /* evolve automaton before returning integers */
+ for (i = 0 ; i < ( (CA_WIDTH * CA_WIDTH) / 4.0); i++)
+     ca_get(vstate);
 
 }
 

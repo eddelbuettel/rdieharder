@@ -1,6 +1,6 @@
 2019-12-06  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version and date
+	* DESCRIPTION (Version, Date): Release 0.2.1
 
 	* src/globals.c: New file with global variable defitions
 
