@@ -1,11 +1,18 @@
-## RDieHarder  [![Build Status](https://travis-ci.org/eddelbuettel/rdieharder.svg)](https://travis-ci.org/eddelbuettel/rdieharder) [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) [![CRAN](http://www.r-pkg.org/badges/version/RDieHarder)](https://cran.r-project.org/package=RDieHarder) [![Dependencies](https://tinyverse.netlify.com/badge/RDieHarder)](https://cran.r-project.org/package=RDieHarder) [![Downloads](http://cranlogs.r-pkg.org/badges/RDieHarder?color=brightgreen)](http://www.r-pkg.org/pkg/RDieHarder)
+## RDieHarder  
+
+[![Build Status](https://travis-ci.org/eddelbuettel/rdieharder.svg)](https://travis-ci.org/eddelbuettel/rdieharder) 
+[![License](https://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](https://www.gnu.org/licenses/gpl-2.0.html) 
+[![CRAN](https://www.r-pkg.org/badges/version/RDieHarder)](https://cran.r-project.org/package=RDieHarder)
+[![Dependencies](https://tinyverse.netlify.com/badge/RDieHarder)](https://cran.r-project.org/package=RDieHarder)
+[![Downloads](https://cranlogs.r-pkg.org/badges/RDieHarder?color=brightgreen)](https://www.r-pkg.org/pkg/RDieHarder)
+[![Last Commit](https://img.shields.io/github/last-commit/eddelbuettel/rdieharder)](https://github.com/eddelbuettel/rdieharder)
 
 ### About
 
-The RDieHarder packages provides an R interface to 
-the dieharder suite of random number generators and tests that 
-was developed by Robert G. Brown and David Bauer, extending 
-earlier work by George Marsaglia and others.
+The RDieHarder package provides an R interface to the
+[DieHarder](https://webhome.phy.duke.edu/~rgb/General/dieharder.php) suite of
+random number generators and tests that was developed by Robert G. Brown and
+David Bauer, extending earlier work by George Marsaglia and others.
 
 ### License
 
