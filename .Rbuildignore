@@ -1,6 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-.travis.yml
+^\.travis\.yml$
 tests/longerRun.R
 tests/longerRun.Rout.save
 ^.*\.tar\.gz
+^\.github

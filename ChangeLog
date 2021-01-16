@@ -1,3 +1,7 @@
+2021-01-15  Dirk Eddelbuettel  <edd@debian.org>
+
+        * .github/workflows/ci.yaml: Add CI runner using r-ci
+
 2020-09-07  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Added 'Last Commit' badge
