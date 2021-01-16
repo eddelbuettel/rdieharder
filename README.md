@@ -1,6 +1,7 @@
 ## RDieHarder  
 
 [![Build Status](https://travis-ci.org/eddelbuettel/rdieharder.svg)](https://travis-ci.org/eddelbuettel/rdieharder) 
+[![CI](https://github.com/eddelbuettel/rdieharder/workflows/ci/badge.svg)](https://github.com/eddelbuettel/rdieharder/actions?query=workflow%3Aci)
 [![License](https://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](https://www.gnu.org/licenses/gpl-2.0.html) 
 [![CRAN](https://www.r-pkg.org/badges/version/RDieHarder)](https://cran.r-project.org/package=RDieHarder)
 [![Dependencies](https://tinyverse.netlify.com/badge/RDieHarder)](https://cran.r-project.org/package=RDieHarder)
