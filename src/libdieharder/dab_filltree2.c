@@ -92,7 +92,7 @@ static double targetData[128] = {  // size=128, exact
 4.45783630198697E-27,1.41554277734465E-28,2.24689329737247E-30,0
 };
 
-inline int insertBit(uint x, uchar *array, uint *i, uint *d);
+static inline int insertBit(uint x, uchar *array, uint *i, uint *d);
 
 int dab_filltree2(Test **test, int irun) {
  int size = (ntuple == 0) ? 128 : ntuple;
@@ -181,7 +181,7 @@ int dab_filltree2(Test **test, int irun) {
  * The function returns >= 0 if the path went too deep; the
  * returned value is the last position of the path.
  */
-inline int insertBit(uint x, uchar *array, uint *i, uint *d) {
+static inline int insertBit(uint x, uchar *array, uint *i, uint *d) {
  if (x != 0) {
    *i += *d;
  } else {
