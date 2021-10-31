@@ -25,11 +25,11 @@ dev_urandom_get (void *vstate)
 
   if(state->fp != NULL) {
     int rc = fread(&j,sizeof(j),1,state->fp);
-    if (rc == 0) fprintf(stderr, "Error: Nothing written.\n");
+    if (rc == 0) REprintf( "Error: Nothing written.\n");
     return j;
   } else {
-    fprintf(stderr,"Error: /dev/urandom not open.  Exiting.\n");
-    exit(0);
+    Rf_error("Error: /dev/urandom not open.  Exiting.\n");
+    //exit(0);
   }
 
 }
@@ -46,9 +46,9 @@ dev_urandom_set (void *vstate, unsigned long int s)
   dev_urandom_state_t *state = (dev_urandom_state_t *) vstate;
 
  if ((state->fp = fopen("/dev/urandom","r")) == NULL) {
-   fprintf(stderr,"Error: Cannot open /dev/urandom, exiting.\n");
-   fprintf(stderr,"/dev/urandom may only be available on Linux systems.\n");
-   exit(0);
+   Rf_error("Error: Cannot open /dev/urandom, exiting.\n"
+            "/dev/urandom may only be available on Linux systems.\n");
+   //exit(0);
  }
 
  return;

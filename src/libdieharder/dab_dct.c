@@ -196,7 +196,7 @@ int dab_dct(Test **test,int irun)
 
 void help_dab_dct()
 {
-  printf("%s",dab_dct_dtest.description);
+  Rprintf("%s",dab_dct_dtest.description);
 }
 
 /* Not sure why, but prototype is not included from header. */
@@ -318,7 +318,7 @@ int main_dab_dct() {
  fDCT2_fft(input, output3, 16);
 
  for (i = 0; i < 16; i++) {
-   printf("%d: %d %f %f %f\n", i, input[i], output1[i], output3[i], output2[i]);
+   Rprintf("%d: %d %f %f %f\n", i, input[i], output1[i], output3[i], output2[i]);
  }
 
  return 0;

@@ -164,17 +164,17 @@ int marsaglia_tsang_gcd(Test **test, int irun)
  /* Make data tables for one-time entry -- do not delete.
  uint nbin = 50;
  double pbin = 0.376;
- printf("double kprob[%u] = {\n",KTBLSIZE);
- printf(" %10.8f",gsl_ran_binomial_pdf(0,pbin,nbin));
+ Rprintf("double kprob[%u] = {\n",KTBLSIZE);
+ Rprintf(" %10.8f",gsl_ran_binomial_pdf(0,pbin,nbin));
  for(i=1;i<KTBLSIZE;i++){
    if(i%6 == 0) {
-     if((i)%6 == 0) printf(", \n");
-     printf(" %10.8f",gsl_ran_binomial_pdf(i,pbin,nbin));
+     if((i)%6 == 0) Rprintf(", \n");
+     Rprintf(" %10.8f",gsl_ran_binomial_pdf(i,pbin,nbin));
    } else {
-     printf(", %10.8f",gsl_ran_binomial_pdf(i,pbin,nbin));
+     Rprintf(", %10.8f",gsl_ran_binomial_pdf(i,pbin,nbin));
    }
  }
- printf("};\n");
+ Rprintf("};\n");
  exit(0);
  */
 
@@ -185,7 +185,7 @@ int marsaglia_tsang_gcd(Test **test, int irun)
   */
  if(gtblsize == 0) {
    gtblsize = sqrt((double)test[0]->tsamples*gnorm/100.0);
-   /* printf("gtblsize = %u\n",gtblsize); */
+   /* Rprintf("gtblsize = %u\n",gtblsize); */
  }
  if(gcd == 0) gcd = (uint *)malloc(gtblsize*sizeof(uint));
  memset(gcd,0,gtblsize*sizeof(uint));
@@ -198,7 +198,7 @@ int marsaglia_tsang_gcd(Test **test, int irun)
  /* exit(0); */
 
  MYDEBUG(D_MARSAGLIA_TSANG_GCD) {
-   printf("# user_marsaglia_tsang_gcd(): Beginning gcd test\n");
+   Rprintf("# user_marsaglia_tsang_gcd(): Beginning gcd test\n");
  }
 
  /* for(t=0;t<KCNT;t++){ */
@@ -246,12 +246,12 @@ int marsaglia_tsang_gcd(Test **test, int irun)
   * a mix of the best RNGs I have available.  Of course this ultimately
   * begs many questions...
   *
- printf("double kprob[KTBLSIZE] = {\n");
+ Rprintf("double kprob[KTBLSIZE] = {\n");
  for(i=0;i<KTBLSIZE;i++){
-   printf(" %10.12g,",(double)ktbl[i]/KCNT);
-   if((i+1)%6 == 0) printf("\n");
+   Rprintf(" %10.12g,",(double)ktbl[i]/KCNT);
+   if((i+1)%6 == 0) Rprintf("\n");
  }
- printf("};\n");
+ Rprintf("};\n");
 
  return;
   *
@@ -263,15 +263,15 @@ int marsaglia_tsang_gcd(Test **test, int irun)
   * target probabilities generated in commented fragement above.
   */
  MYDEBUG(D_MARSAGLIA_TSANG_GCD) {
-   printf(" Binomial probability table for k distribution.\n");
-   printf("  i\t  mean\n");
+   Rprintf(" Binomial probability table for k distribution.\n");
+   Rprintf("  i\t  mean\n");
  }
  vtest_k.cutoff = 5.0;
  for(i=0;i<KTBLSIZE;i++){
    vtest_k.x[i] = (double)ktbl[i];
    vtest_k.y[i] = test[0]->tsamples*kprob[i];
    MYDEBUG(D_MARSAGLIA_TSANG_GCD) {
-     printf(" %2u\t%f\t%f\t%f\n",i,vtest_k.x[i],vtest_k.y[i],vtest_k.x[i]-vtest_k.y[i]);
+     Rprintf(" %2u\t%f\t%f\t%f\n",i,vtest_k.x[i],vtest_k.y[i],vtest_k.x[i]-vtest_k.y[i]);
    }
  }
  /*
@@ -290,7 +290,7 @@ int marsaglia_tsang_gcd(Test **test, int irun)
        for(j=i;j<100000;j++){
          vtest_u.y[i] += test[0]->tsamples*gnorm/(1.0*j*j);
        }
-       /* printf(" %2u\t%f\t%f\t%f\n",i,vtest_u.x[i],vtest_u.y[i],vtest_u.x[i]-vtest_u.y[i]); */
+       /* Rprintf(" %2u\t%f\t%f\t%f\n",i,vtest_u.x[i],vtest_u.y[i],vtest_u.x[i]-vtest_u.y[i]); */
      } else {
        vtest_u.y[i] = test[0]->tsamples*gnorm/(i*i);
      }
@@ -299,7 +299,7 @@ int marsaglia_tsang_gcd(Test **test, int irun)
      vtest_u.y[i] = 0.0;
    }
    MYDEBUG(D_MARSAGLIA_TSANG_GCD) {
-     printf(" %2u\t%f\t%f\t%f\n",i,vtest_u.x[i],vtest_u.y[i],vtest_u.x[i]-vtest_u.y[i]);
+     Rprintf(" %2u\t%f\t%f\t%f\n",i,vtest_u.x[i],vtest_u.y[i],vtest_u.x[i]-vtest_u.y[i]);
    }
  }
 
@@ -315,8 +315,8 @@ int marsaglia_tsang_gcd(Test **test, int irun)
  
 
  MYDEBUG(D_MARSAGLIA_TSANG_GCD) {
-   printf("# diehard_runs(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
-   printf("# diehard_runs(): test[1]->pvalues[%u] = %10.5f\n",irun,test[1]->pvalues[irun]);
+   Rprintf("# diehard_runs(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# diehard_runs(): test[1]->pvalues[%u] = %10.5f\n",irun,test[1]->pvalues[irun]);
  }
 
 
@@ -325,7 +325,7 @@ int marsaglia_tsang_gcd(Test **test, int irun)
  Vtest_destroy(&vtest_u);
 
  MYDEBUG(D_MARSAGLIA_TSANG_GCD){
-   printf("# marsaglia_tsang_gcd(): ks_pvalue_k[%u] = %10.5f  ks_pvalue_w[%u] = %10.5f\n",kspi,ks_pvalue[kspi],kspi,ks_pvalue2[kspi]);
+   Rprintf("# marsaglia_tsang_gcd(): ks_pvalue_k[%u] = %10.5f  ks_pvalue_w[%u] = %10.5f\n",kspi,ks_pvalue[kspi],kspi,ks_pvalue2[kspi]);
  }
 
  kspi++;

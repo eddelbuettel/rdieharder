@@ -51,7 +51,7 @@ Test **create_test(Dtest *dtest, uint tsamples,uint psamples)
  Test **newtest;
 
  MYDEBUG(D_STD_TEST){
-   fprintf(stdout,"# create_test(): About to create test %s\n",dtest->sname);
+   Rprintf("# create_test(): About to create test %s\n",dtest->sname);
  }
 
  /*
@@ -119,14 +119,14 @@ Test **create_test(Dtest *dtest, uint tsamples,uint psamples)
    newtest[i]->ks_pvalue = 0.0;
 
    MYDEBUG(D_STD_TEST){
-     printf("Allocated and set newtest->tsamples = %d\n",newtest[i]->tsamples);
-     printf("Xtrategy = %u -> pcutoff = %u\n",Xtrategy,pcutoff);
-     printf("Allocated and set newtest->psamples = %d\n",newtest[i]->psamples);
+     Rprintf("Allocated and set newtest->tsamples = %d\n",newtest[i]->tsamples);
+     Rprintf("Xtrategy = %u -> pcutoff = %u\n",Xtrategy,pcutoff);
+     Rprintf("Allocated and set newtest->psamples = %d\n",newtest[i]->psamples);
    }
 
  }
 
- /* printf("Allocated complete test struct at %0x\n",newtest); */
+ /* Rprintf("Allocated complete test struct at %0x\n",newtest); */
  return(newtest);
 
 }
@@ -145,18 +145,18 @@ void destroy_test(Dtest *dtest, Test **test)
   * or leak.
   */
  /*
- printf("Destroying test %s\n",dtest->name);
- printf("Looping over %d test pvalue vectors\n",dtest->nkps);
+ Rprintf("Destroying test %s\n",dtest->name);
+ Rprintf("Looping over %d test pvalue vectors\n",dtest->nkps);
  */
  for(i=0;i<dtest->nkps;i++){
    free(test[i]->pvalues);
    free(test[i]->pvlabel);
  }
- /* printf("Freeing all the test structs\n"); */
+ /* Rprintf("Freeing all the test structs\n"); */
  for(i=0;i<dtest->nkps;i++){
    free(test[i]);
  }
- /* printf("Freeing the toplevel test struct at %0x\n",test); */
+ /* Rprintf("Freeing the toplevel test struct at %0x\n",test); */
  free(test);
 
 }
@@ -250,7 +250,7 @@ void add_2_test(Dtest *dtest, Test **test, int count)
    }
 
  }
- /* printf("test[0]->ks_pvalue = %f\n",test[0]->ks_pvalue); */
+ /* Rprintf("test[0]->ks_pvalue = %f\n",test[0]->ks_pvalue); */
 
 }
    

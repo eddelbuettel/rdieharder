@@ -89,12 +89,12 @@ void rgb_bitdist(Test **test,int irun)
  if(rgb_bitdist_ntuple>0){
    nb = rgb_bitdist_ntuple;
    if(verbose == D_RGB_BITDIST || verbose == D_ALL){
-     printf("# rgb_bitdist: Buffer size is %d\n",bsize);
-     printf("# rgb_bitdist: Testing ntuple = %u\n",nb);
+     Rprintf("# rgb_bitdist: Buffer size is %d\n",bsize);
+     Rprintf("# rgb_bitdist: Testing ntuple = %u\n",nb);
    }
  } else {
-   printf("Error:  rgb_bitdist_ntuple must be a positive integer.  Exiting.\n");
-   exit(0);
+   Rf_error("Error:  rgb_bitdist_ntuple must be a positive integer.  Exiting.\n");
+   //exit(0);
  }
 
 
@@ -111,7 +111,7 @@ void rgb_bitdist(Test **test,int irun)
   */
  value_max = (uint) pow(2,nb);
  if(verbose == D_RGB_BITDIST || verbose == D_ALL){
-   printf("# rgb_bitdist(): value_max = %u\n",value_max);
+   Rprintf("# rgb_bitdist(): value_max = %u\n",value_max);
  }
 
  /*
@@ -129,11 +129,11 @@ void rgb_bitdist(Test **test,int irun)
   */
  ntuple_prob = 1.0/(double)value_max;
  if(verbose == D_RGB_BITDIST || verbose == D_ALL){
-   printf("# rgb_bitdist(): ntuple_prob = %f\n",ntuple_prob);
-   printf("# rgb_bitdist(): Testing %u samples of %u bit strings\n",test[0]->tsamples,bits);
-   printf("# rgb_bitdist():=====================================================\n");
-   printf("# rgb_bitdist():            vtest table\n");
-   printf("# rgb_bitdist(): Outcome   bit          x           y       sigma\n");
+   Rprintf("# rgb_bitdist(): ntuple_prob = %f\n",ntuple_prob);
+   Rprintf("# rgb_bitdist(): Testing %u samples of %u bit strings\n",test[0]->tsamples,bits);
+   Rprintf("# rgb_bitdist():=====================================================\n");
+   Rprintf("# rgb_bitdist():            vtest table\n");
+   Rprintf("# rgb_bitdist(): Outcome   bit          x           y       sigma\n");
  }
  for(i=0;i<value_max;i++){
    Vtest_create(&vtest[i],bsamples+1,"rgb_bitdist",gsl_rng_name(rng));
@@ -147,12 +147,12 @@ void rgb_bitdist(Test **test,int irun)
        vtest[i].y[b] = vtest[0].y[b];
      }
      if(verbose == D_RGB_BITDIST || verbose == D_ALL){
-       printf("# rgb_bitdist():  %3u     %3u   %10.5f  %10.5f\n",
+       Rprintf("# rgb_bitdist():  %3u     %3u   %10.5f  %10.5f\n",
          i,b,vtest[i].x[b],vtest[i].y[b]);
      }
    }
    if(verbose == D_RGB_BITDIST || verbose == D_ALL){
-     printf("# rgb_bitdist():=====================================================\n");
+     Rprintf("# rgb_bitdist():=====================================================\n");
    }
  }
 
@@ -173,7 +173,7 @@ void rgb_bitdist(Test **test,int irun)
     * CRUFT.
     */
    if(verbose == D_RGB_BITDIST || verbose == D_ALL){
-      printf("# rgb_bitdist(): randbuf = %10u = ",randbuf[0]);
+      Rprintf("# rgb_bitdist(): randbuf = %10u = ",randbuf[0]);
       dumpbits(&randbuf[0],CHAR_BIT*sizeof(uint));
    }
 
@@ -210,7 +210,7 @@ void rgb_bitdist(Test **test,int irun)
       */
      count[value]++;
      if(verbose == D_RGB_BITDIST || verbose == D_ALL){
-       printf("# rgb_bitdist():b=%u boffset = %u count[%u] = %u\n",b,boffset,value,count[value]);
+       Rprintf("# rgb_bitdist():b=%u boffset = %u count[%u] = %u\n",b,boffset,value,count[value]);
      }
 
      /*
@@ -231,11 +231,11 @@ void rgb_bitdist(Test **test,int irun)
      vtest[i].x[count[i]]++;
      ctotal += count[i];
      if(verbose == D_RGB_BITDIST || verbose == D_ALL){
-       printf("# rgb_bitdist(): vtest[%u].x[%u] = %u\n",i,count[i],(uint)vtest[i].x[count[i]]);
+       Rprintf("# rgb_bitdist(): vtest[%u].x[%u] = %u\n",i,count[i],(uint)vtest[i].x[count[i]]);
      }
    }
    if(verbose == D_RGB_BITDIST || verbose == D_ALL){
-     printf("# rgb_bitdist(): Sample %u: total count = %u (should be %u, count of bits)\n",t,ctotal,bits);
+     Rprintf("# rgb_bitdist(): Sample %u: total count = %u (should be %u, count of bits)\n",t,ctotal,bits);
    }
  }
 
@@ -246,22 +246,22 @@ void rgb_bitdist(Test **test,int irun)
   */
 
  if(verbose == D_RGB_BITDIST || verbose == D_ALL){
-   printf("# rgb_bitdist(): ntuple_prob = %f\n",ntuple_prob);
-   printf("# rgb_bitdist(): Testing %u samples of %u bit strings\n",test[0]->tsamples,bits);
-   printf("# rgb_bitdist():=====================================================\n");
-   printf("# rgb_bitdist():            vtest table\n");
-   printf("# rgb_bitdist(): Outcome   bit          x           y       sigma\n");
+   Rprintf("# rgb_bitdist(): ntuple_prob = %f\n",ntuple_prob);
+   Rprintf("# rgb_bitdist(): Testing %u samples of %u bit strings\n",test[0]->tsamples,bits);
+   Rprintf("# rgb_bitdist():=====================================================\n");
+   Rprintf("# rgb_bitdist():            vtest table\n");
+   Rprintf("# rgb_bitdist(): Outcome   bit          x           y       sigma\n");
  }
  ri = gsl_rng_uniform_int(rng,value_max);
  for(i=0;i<value_max;i++){
    for(b=0;b<=bsamples;b++){
      if(verbose == D_RGB_BITDIST || verbose == D_ALL){
-       printf("# rgb_bitdist():  %3u     %3u   %10.5f  %10.5f\n",
+       Rprintf("# rgb_bitdist():  %3u     %3u   %10.5f  %10.5f\n",
          i,b,vtest[i].x[b],vtest[i].y[b]);
      }
    }
    if(verbose == D_RGB_BITDIST || verbose == D_ALL){
-     printf("# rgb_bitdist():=====================================================\n");
+     Rprintf("# rgb_bitdist():=====================================================\n");
    }
    Vtest_eval(&vtest[i]);
    /*
@@ -272,7 +272,7 @@ void rgb_bitdist(Test **test,int irun)
    if(i == ri ) {
      test[0]->pvalues[irun] = vtest[i].pvalue;
      MYDEBUG(D_RGB_BITDIST) {
-       printf("# rgb_bitdist(): test[%u]->pvalues[%u] = %10.5f\n",
+       Rprintf("# rgb_bitdist(): test[%u]->pvalues[%u] = %10.5f\n",
           0,irun,test[0]->pvalues[irun]);
      }
    }

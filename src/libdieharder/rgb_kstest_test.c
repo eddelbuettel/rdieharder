@@ -45,7 +45,7 @@ int rgb_kstest_test(Test **test, int irun)
  testvec = (double *)malloc(tsamples*sizeof(double));
 
  if(verbose == D_RGB_KSTEST_TEST || verbose == D_ALL){
-     printf("Generating a vector of %u uniform deviates.\n",test[0]->tsamples);
+     Rprintf("Generating a vector of %u uniform deviates.\n",test[0]->tsamples);
  }
  for(t=0;t<tsamples;t++){
 
@@ -54,7 +54,7 @@ int rgb_kstest_test(Test **test, int irun)
     */
    testvec[t] = gsl_rng_uniform_pos(rng);
    if(verbose == D_RGB_KSTEST_TEST || verbose == D_ALL){
-       printf("testvec[%u] = %f",t,testvec[t]);
+       Rprintf("testvec[%u] = %f",t,testvec[t]);
    }
  }
 
@@ -74,7 +74,7 @@ int rgb_kstest_test(Test **test, int irun)
  free(testvec);
 
  if(verbose == D_RGB_KSTEST_TEST || verbose == D_ALL){
-   printf("# rgb_kstest_test(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# rgb_kstest_test(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
  }
 
  /*

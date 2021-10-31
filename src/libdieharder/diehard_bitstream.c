@@ -85,8 +85,8 @@ int diehard_bitstream(Test **test, int irun)
      bitstream[i] = get_rand_bits_uint(32,0xffffffff,rng);
    }
    MYDEBUG(D_DIEHARD_BITSTREAM) {
-     printf("# diehard_bitstream: Filled bitstream with %u rands for overlapping\n",BS_OVERLAP);
-     printf("# diehard_bitstream: samples.  Target is mean 141909, sigma = 428.\n");
+     Rprintf("# diehard_bitstream: Filled bitstream with %u rands for overlapping\n",BS_OVERLAP);
+     Rprintf("# diehard_bitstream: samples.  Target is mean 141909, sigma = 428.\n");
    }
  } else {
    ptest.sigma = 290.0;
@@ -96,8 +96,8 @@ int diehard_bitstream(Test **test, int irun)
    }
    cbitstream = (unsigned char *)bitstream;   /* To allow us to access it by bytes */
    MYDEBUG(D_DIEHARD_BITSTREAM) {
-     printf("# diehard_bitstream: Filled bitstream with %u rands for non-overlapping\n",BS_NO_OVERLAP);
-     printf("# diehard_bitstream: samples.  Target is mean 141909, sigma = 290.\n");
+     Rprintf("# diehard_bitstream: Filled bitstream with %u rands for non-overlapping\n",BS_NO_OVERLAP);
+     Rprintf("# diehard_bitstream: samples.  Target is mean 141909, sigma = 290.\n");
    }
  }
 
@@ -114,7 +114,7 @@ int diehard_bitstream(Test **test, int irun)
  memset(w,0,M*sizeof(char));
 
  MYDEBUG(D_DIEHARD_BITSTREAM) {
-   printf("# diehard_bitstream: w[] (counter vector) is allocated and zeroed\n");
+   Rprintf("# diehard_bitstream: w[] (counter vector) is allocated and zeroed\n");
  }
 
  i = 0;
@@ -138,36 +138,36 @@ int diehard_bitstream(Test **test, int irun)
      if(boffset == 0) {      /* Get a new byte */
        wscratch = wscratch << 8;  /* make room for next byte */
        /*
-       printf("# diehard_bitstream: left shift 8 wscratch = ");
+       Rprintf("# diehard_bitstream: left shift 8 wscratch = ");
        dumpuintbits(&wscratch, 1);
-       printf("\n");
+       Rprintf("\n");
        */
        newbyte = bitstream[i] << (8*coffset);
        /*
-       printf("# diehard_bitstream: left shift %u newbyte = ",8*coffset);
+       Rprintf("# diehard_bitstream: left shift %u newbyte = ",8*coffset);
        dumpuintbits(&newbyte, 1);
-       printf("\n");
+       Rprintf("\n");
        */
        newbyte = newbyte >> 24;
        /*
-       printf("# diehard_bitstream: newbyte = ");
+       Rprintf("# diehard_bitstream: newbyte = ");
        dumpuintbits(&newbyte, 1);
-       printf("\n");
+       Rprintf("\n");
        */
        wscratch += newbyte;
      }
      /*
      MYDEBUG(D_DIEHARD_BITSTREAM) {
-       printf("# diehard_bitstream: wscratch = ");
+       Rprintf("# diehard_bitstream: wscratch = ");
        dumpuintbits(&wscratch, 1);
-       printf("\n");
+       Rprintf("\n");
      }
      */
      w20 = ((wscratch << boffset) >> 12);
      MYDEBUG(D_DIEHARD_BITSTREAM) {
-       printf("# diehard_bitstream: w20 = ");
+       Rprintf("# diehard_bitstream: w20 = ");
        dumpuintbits(&w20, 1);
-       printf("\n");
+       Rprintf("\n");
      }
      w[w20]++;
 
@@ -179,7 +179,7 @@ int diehard_bitstream(Test **test, int irun)
       * cbitstream.  Then things are actually pretty straightforward.
       */
      MYDEBUG(D_DIEHARD_BITSTREAM) {
-       printf("# diehard_bitstream: Non-overlapping t = %u, i = %u\n",t,i);
+       Rprintf("# diehard_bitstream: Non-overlapping t = %u, i = %u\n",t,i);
      }
      if(t%2 == 0){
        w20 = 0;  /* Start with window clear, of course... */
@@ -187,52 +187,52 @@ int diehard_bitstream(Test **test, int irun)
          w20 = w20 << 8;          /* Does nothing on first call */
          w20 += cbitstream[i];  /* Shift in each byte */
          MYDEBUG(D_DIEHARD_BITSTREAM) {
-           printf("# diehard_bitstream: i = %u  cb = %u w20 = ",i,cbitstream[i]);
+           Rprintf("# diehard_bitstream: i = %u  cb = %u w20 = ",i,cbitstream[i]);
            dumpuintbits(&w20, 1);
-           printf("\n");
+           Rprintf("\n");
          }
 	 i++;
        }
        wscratch = (uint) (cbitstream[i] >> 4);    /* Get first 4 bits of next byte */
        MYDEBUG(D_DIEHARD_BITSTREAM) {
-         printf("# diehard_bitstream: wscratch = ");
+         Rprintf("# diehard_bitstream: wscratch = ");
          dumpuintbits(&wscratch, 1);
-         printf("\n");
+         Rprintf("\n");
        }
        w20 = (w20 << 4) + wscratch;               /* Gets evens */
        MYDEBUG(D_DIEHARD_BITSTREAM) {
-         printf("# diehard_bitstream: w20 = ");
+         Rprintf("# diehard_bitstream: w20 = ");
          dumpuintbits(&w20, 1);
-         printf("\n");
+         Rprintf("\n");
        }
      } else {
        wscratch = (uint) cbitstream[i];
        MYDEBUG(D_DIEHARD_BITSTREAM) {
-         printf("# diehard_bitstream: i = %u  wscratch = ",i);
+         Rprintf("# diehard_bitstream: i = %u  wscratch = ",i);
          dumpuintbits(&wscratch, 1);
-         printf("\n");
+         Rprintf("\n");
        }
        w20 = wscratch & 0x0000000F ; /* Get last 4 bits of next byte */
        MYDEBUG(D_DIEHARD_BITSTREAM) {
-         printf("# diehard_bitstream: i = %u  w20 = ",i);
+         Rprintf("# diehard_bitstream: i = %u  w20 = ",i);
          dumpuintbits(&w20, 1);
-         printf("\n");
+         Rprintf("\n");
        }
        i++;
        for(j=0;j<2;j++){          /* Get two more bytes */
          w20 = w20 << 8;
          w20 += cbitstream[i];  /* Shift in each byte */
          MYDEBUG(D_DIEHARD_BITSTREAM) {
-           printf("# diehard_bitstream: i = %u  w20 = ",i);
+           Rprintf("# diehard_bitstream: i = %u  w20 = ",i);
            dumpuintbits(&w20, 1);
-           printf("\n");
+           Rprintf("\n");
          }
 	 i++;
        }
        MYDEBUG(D_DIEHARD_BITSTREAM) {
-         printf("# diehard_bitstream: w20 = ");
+         Rprintf("# diehard_bitstream: w20 = ");
          dumpuintbits(&w20, 1);
-         printf("\n");
+         Rprintf("\n");
        }
      }
      w[w20]++;
@@ -247,24 +247,24 @@ int diehard_bitstream(Test **test, int irun)
  for(i=0;i<M;i++){
    if(w[i] == 0){
      ptest.x++;
-     /* printf("ptest.x = %f  Hole: w[%u] = %u\n",ptest.x,i,w[i]); */
+     /* Rprintf("ptest.x = %f  Hole: w[%u] = %u\n",ptest.x,i,w[i]); */
    }
  }
  if(verbose == D_DIEHARD_BITSTREAM || verbose == D_ALL){
-   printf("%f %f %f\n",ptest.y,ptest.x,ptest.x-ptest.y);
+   Rprintf("%f %f %f\n",ptest.y,ptest.x,ptest.x-ptest.y);
  }
  /*
   * I used this to prove that sigma = 288.6
   * So while it is cruft, let's leave it in case anybody else wants
   * to make a histogram and fit a normal and check.
- printf("%f\n",ptest.x);
+ Rprintf("%f\n",ptest.x);
   */
 
  Xtest_eval(&ptest);
  test[0]->pvalues[irun] = ptest.pvalue;
 
  MYDEBUG(D_DIEHARD_BITSTREAM) {
-   printf("# diehard_bitstream(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# diehard_bitstream(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
  }
 
  /*

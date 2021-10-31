@@ -157,16 +157,16 @@ static void uvag_set (void *vstate, unsigned long int s) {
    rmax_bits++;
  }
  for(i=0;i<256;i++){
-   /* if(i%32 == 0) printf("\n"); */
+   /* if(i%32 == 0) Rprintf("\n"); */
    get_rand_bits(&tmp8,sizeof(uint),8,seed_rng);
    if(i!=255){
      key[i] = tmp8;
    } else {
      key[i] = 0;
    }
-   /* printf("%02x",key[i]); */
+   /* Rprintf("%02x",key[i]); */
  }
- /* printf("\n"); */
+ /* Rprintf("\n"); */
 
  kp = key;
  tot = 0;
@@ -182,12 +182,12 @@ static void uvag_set (void *vstate, unsigned long int s) {
    }
  }
 /* For debugging of the original load'n'shuffle
- printf("svec = ");
+ Rprintf("svec = ");
  for(i=0;i<256;i++){
-   if(i%32 == 0) printf("\n");
-   printf("%02x|",svec[i]);
+   if(i%32 == 0) Rprintf("\n");
+   Rprintf("%02x|",svec[i]);
  }
- printf("\n");
+ Rprintf("\n");
  */
 
  sindex = 0;

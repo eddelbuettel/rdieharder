@@ -73,11 +73,11 @@ uint get_bit_ntuple(uint *bitstring,uint bslen,uint blen,uint boffset)
  /* dumpbits(&nmask,32); */
  
  if(verbose == D_BITS || verbose == D_ALL){
-   printf("# get_bit_ntuple(): bslen = %u, blen = %u, boffset = %u\n",bslen,blen,boffset);
-   printf("# get_bit_ntuple(): bitstring (uint) = %u\n",*bitstring);
-   printf("# get_bit_ntuple(): bitstring = ");
+   Rprintf("# get_bit_ntuple(): bslen = %u, blen = %u, boffset = %u\n",bslen,blen,boffset);
+   Rprintf("# get_bit_ntuple(): bitstring (uint) = %u\n",*bitstring);
+   Rprintf("# get_bit_ntuple(): bitstring = ");
    dumpbits(&bitstring[0],32);
-   printf("# get_bit_ntuple(): nmask     = ");
+   Rprintf("# get_bit_ntuple(): nmask     = ");
    dumpbits(&nmask,32);
  }
 
@@ -92,8 +92,8 @@ uint get_bit_ntuple(uint *bitstring,uint bslen,uint blen,uint boffset)
  ioffset = bslen - (uint) boffset/rmax_bits - 1;
  result = bitstring[ioffset];
  if(verbose == D_BITS || verbose == D_ALL){
-   printf("bitstring[%d] = %u\n",ioffset,result);
-   printf("Initial result =          ");
+   Rprintf("bitstring[%d] = %u\n",ioffset,result);
+   Rprintf("Initial result =          ");
    dumpbits(&result,32);
  }
  /*
@@ -104,7 +104,7 @@ uint get_bit_ntuple(uint *bitstring,uint bslen,uint blen,uint boffset)
   */
  boffset = boffset%rmax_bits;
  if(verbose == D_BITS || verbose == D_ALL){
-   printf("Shifting to bit offset %u\n",boffset);
+   Rprintf("Shifting to bit offset %u\n",boffset);
  }
 
  /*
@@ -112,7 +112,7 @@ uint get_bit_ntuple(uint *bitstring,uint bslen,uint blen,uint boffset)
   */
  for(b=0;b<boffset;b++) result = result >> 1;
  if(verbose == D_BITS || verbose == D_ALL){
-   printf("Shifted result =          ");
+   Rprintf("Shifted result =          ");
    dumpbits(&result,32);
  }
 
@@ -127,7 +127,7 @@ uint get_bit_ntuple(uint *bitstring,uint bslen,uint blen,uint boffset)
   */
  rlen = rmax_bits - boffset;
  if(verbose == D_BITS || verbose == D_ALL){
-   printf("Cumulated %u signifcant bits\n",rlen);
+   Rprintf("Cumulated %u signifcant bits\n",rlen);
  }
 
  while(blen > rlen){
@@ -140,8 +140,8 @@ uint get_bit_ntuple(uint *bitstring,uint bslen,uint blen,uint boffset)
    if(ioffset < 0) ioffset = bslen-1;
    carry = bitstring[ioffset];
    if(verbose == D_BITS || verbose == D_ALL){
-     printf("bitstring[%d] = %u\n",ioffset,carry);
-     printf("Next carry =              ");
+     Rprintf("bitstring[%d] = %u\n",ioffset,carry);
+     Rprintf("Next carry =              ");
      dumpbits(&carry,32);
    }
 
@@ -154,7 +154,7 @@ uint get_bit_ntuple(uint *bitstring,uint bslen,uint blen,uint boffset)
      carry = carry << 1;
    }
    if(verbose == D_BITS || verbose == D_ALL){
-     printf("Shifted carry =           ");
+     Rprintf("Shifted carry =           ");
      dumpbits(&carry,32);
    }
 
@@ -166,17 +166,17 @@ uint get_bit_ntuple(uint *bitstring,uint bslen,uint blen,uint boffset)
    result += carry;
    rlen += rmax_bits;
    if(verbose == D_BITS || verbose == D_ALL){
-     printf("Cumulated %u signifcant bits\n",rlen);
-     printf("result+carry =            ");
+     Rprintf("Cumulated %u signifcant bits\n",rlen);
+     Rprintf("result+carry =            ");
      dumpbits(&result,32);
    }
  }
 
  result = result & nmask;
    if(verbose == D_BITS || verbose == D_ALL){
-     printf("Returning Result =        ");
+     Rprintf("Returning Result =        ");
      dumpbits(&result,32);
-     printf("==========================================================\n");
+     Rprintf("==========================================================\n");
    }
  return(result);
 
@@ -198,13 +198,13 @@ void dumpbits(uint *data, unsigned int nbits)
  mask = (uint)pow(2,nbits-1);
  for(i=0;i<nbits;i++){
    if(verbose == -1){
-     printf("\nmask = %u = %04x :",mask,mask);
+     Rprintf("\nmask = %u = %04x :",mask,mask);
    }
    j = (mask & *data)?1:0;
-   printf("%1u",j);
+   Rprintf("%1u",j);
    mask = mask >> 1;
  }
- printf("\n");
+ Rprintf("\n");
 
 }
 
@@ -228,9 +228,9 @@ void cycle(unsigned int *data, unsigned int nbits)
   lmask = lmask << 1;
  }
  if(verbose){
-   printf("%u bit rmask = ",nbits);
+   Rprintf("%u bit rmask = ",nbits);
    dumpbits(&rmask,32);
-   printf("%u bit lmask = ",nbits);
+   Rprintf("%u bit lmask = ",nbits);
    dumpbits(&lmask,32);
  }
  /*
@@ -239,9 +239,9 @@ void cycle(unsigned int *data, unsigned int nbits)
   */
  result = *data & rmask;
  if(verbose){
-   printf("Original int: ");
+   Rprintf("Original int: ");
    dumpbits(data,32);
-   printf("  Masked int: ");
+   Rprintf("  Masked int: ");
    dumpbits(&result,32);
  }
  rbit = 1 & result;
@@ -249,7 +249,7 @@ void cycle(unsigned int *data, unsigned int nbits)
  result += rbit*lmask;
  *data = result;
  if(verbose){
-   printf(" Rotated int: ");
+   Rprintf(" Rotated int: ");
    dumpbits(data,32);
  }
 
@@ -299,8 +299,8 @@ int get_int_bit(uint i, uint n)
   * Note
   */
  if(n < 0 || n > 8*sizeof(uint)){
-   fprintf(stderr,"Error: bit offset %d exceeds length %d of uint.\n",n,8*sizeof(uint));
-   exit(0);
+   Rf_error("Error: bit offset %d exceeds length %d of uint.\n",n,8*sizeof(uint));
+   //exit(0);
  }
 
  
@@ -337,13 +337,13 @@ void dumpbits_left(unsigned int *data, unsigned int nbits)
  mask = 1;
  for(i=0;i<nbits;i++){
    if(mask & *data){
-     printf("1");
+     Rprintf("1");
    } else {
-     printf("0");
+     Rprintf("0");
    }
    mask = mask << 1;
  }
- printf("\n");
+ Rprintf("\n");
 }
 
 
@@ -355,7 +355,7 @@ unsigned int bit2uint(char *abit,unsigned int blen)
 
  /* Debugging
  if(verbose == D_BITS || verbose == D_ALL){
-   printf("# bit2uint(): converting %s\n",abit);
+   Rprintf("# bit2uint(): converting %s\n",abit);
  }
  */
 
@@ -366,14 +366,14 @@ unsigned int bit2uint(char *abit,unsigned int blen)
    result += bit;
    /* Debugging
    if(verbose == D_BITS || verbose == D_ALL){
-     printf("# bit2uint(): bit[%d] = %d, result = %u\n",i,bit,result);
+     Rprintf("# bit2uint(): bit[%d] = %d, result = %u\n",i,bit,result);
    }
    */
  }
 
  /* Debugging
  if(verbose == D_BITS || verbose == D_ALL){
-   printf("# bit2uint(): returning %0X\n",result);
+   Rprintf("# bit2uint(): returning %0X\n",result);
  }
  */
  return(result);
@@ -405,7 +405,7 @@ void fill_uint_buffer(uint *data,uint buflength)
   mask++;
  }
  if(verbose == D_BITS || verbose == D_ALL){
-   printf("rmax_bits = %d  bdelta = %d\n",rmax_bits,bdelta);
+   Rprintf("rmax_bits = %d  bdelta = %d\n",rmax_bits,bdelta);
  }
 
  for(i=0;i<buflength;i++){
@@ -413,36 +413,36 @@ void fill_uint_buffer(uint *data,uint buflength)
    /* put rmax_bits into tmp1 */
    tmp1 = gsl_rng_get(rng);
    /* Cruft
-   printf("tmp1 = %10u = ",tmp1);
+   Rprintf("tmp1 = %10u = ",tmp1);
    dumpbits(&tmp1,32);
    */
 
    /* Shift it over to the left */
    tmp1 = tmp1 << bdelta;
    /*
-   printf("tmp1 = %10u = ",tmp1);
+   Rprintf("tmp1 = %10u = ",tmp1);
    dumpbits(&tmp1,32);
    */
 
    /* put rmax_bits into tmp2 */
    tmp2 = gsl_rng_get(rng);
    /*
-   printf("tmp2 = %10u = ",tmp2);
-   printf("mask = %10u = ",mask);
+   Rprintf("tmp2 = %10u = ",tmp2);
+   Rprintf("mask = %10u = ",mask);
    dumpbits(&mask,32);
    */
 
    /* mask the second rand */
    tmp2 = tmp2&mask;
    /*
-   printf("tmp2 = %10u = ",tmp2);
+   Rprintf("tmp2 = %10u = ",tmp2);
    dumpbits(&tmp2,32);
    */
 
    /* Fill in the rest of the uint */
    tmp1 = tmp1 + tmp2;
    /* Cruft
-   printf("tmp1 = %10u = ",tmp1);
+   Rprintf("tmp1 = %10u = ",tmp1);
    dumpbits(&tmp1,32);
    */
 
@@ -494,8 +494,8 @@ uint b_umask(uint bstart,uint bstop)
  uint b,mask,blen;
 
  if(bstart < 0 || bstop > 31 || bstop < bstart){
-   printf("b_umask() error: bstart <= bstop must be in range 0-31.\n");
-   exit(0);
+   Rf_error("b_umask() error: bstart <= bstop must be in range 0-31.\n");
+   //exit(0);
  }
  blen = bstop-bstart+1;
 
@@ -541,12 +541,12 @@ uint b_window(uint input,uint bstart,uint bstop,uint boffset)
  int shift;
 
  if(bstart < 0 || bstop > 31 || bstop < bstart){
-   printf("b_umask() error: bstart <= bstop must be in range 0-31.\n");
-   exit(0);
+   Rf_error("b_umask() error: bstart <= bstop must be in range 0-31.\n");
+   //exit(0);
  }
  if(boffset < 0 || boffset > 31){
-   printf("b_window() error: boffset must be in range 0-31.\n");
-   exit(0);
+   Rf_error("b_window() error: boffset must be in range 0-31.\n");
+   //exit(0);
  }
  shift = bstart - boffset;
 
@@ -656,7 +656,7 @@ void get_ntuple_cyclic(uint *input,uint ilen,
   */
  istart = istart%ilen;
  iend = iend%ilen;
- printf("istart = %u, iend = %u, istartbit = %u, iendbit = %u\n",
+ Rprintf("istart = %u, iend = %u, istartbit = %u, iendbit = %u\n",
    istart,iend,istartbit,iendbit);
  /*
   * Now we have to do the same thing for the output vector.  Here life
@@ -674,7 +674,7 @@ void get_ntuple_cyclic(uint *input,uint ilen,
    ostart = olen - ntuple/uintlen - 1;
  }
  oend = olen - 1;
- printf("ostart = %u, oend = %u,\n",ostart,oend);
+ Rprintf("ostart = %u, oend = %u,\n",ostart,oend);
 
  /*
   * Now we do a double loop, iterating BACKWARDS.
@@ -706,12 +706,12 @@ void get_ntuple_cyclic(uint *input,uint ilen,
    /*
     * Second (least significant) part of output[j].
     */
-   printf("Starting Fill Right: i = %d j = %d bcnt = %d\n",i,j,bcnt);
+   Rprintf("Starting Fill Right: i = %d j = %d bcnt = %d\n",i,j,bcnt);
 
    /* Fill right to terminate */
    if((uintlen-istartbit) == (ntuple-bcnt)){
      bdelta = uintlen-istartbit;
-     printf("3 Fill right from %d: output[%d] = ",i,j);
+     Rprintf("3 Fill right from %d: output[%d] = ",i,j);
      output[j] = b_window(input[i],istartbit,uintlen-1,bdelta);
      bcnt += bdelta;
      dumpbits(&output[j],sizeof(uint)*CHAR_BIT);
@@ -720,7 +720,7 @@ void get_ntuple_cyclic(uint *input,uint ilen,
    
    /* Fill right to terminate */
    if((ntuple-bcnt) == (iendbit-istartbit)){
-     printf("2 Fill right from %d: output[%d] = ",i,j);
+     Rprintf("2 Fill right from %d: output[%d] = ",i,j);
      output[j] = b_window(input[i],istartbit,iendbit-1,uintlen-iendbit+istartbit);
      bcnt += iendbit-istartbit;
      dumpbits(&output[j],sizeof(uint)*CHAR_BIT);
@@ -728,11 +728,11 @@ void get_ntuple_cyclic(uint *input,uint ilen,
    }
 
    /* Plain old fill right (all other cases) */
-   printf("1 Fill right from %d: output[%d] = ",i,j);
+   Rprintf("1 Fill right from %d: output[%d] = ",i,j);
    output[j] = b_window(input[i],0,iendbit-1,uintlen-iendbit);
    bcnt += iendbit;
    dumpbits(&output[j],sizeof(uint)*CHAR_BIT);
-   printf("Finished Fill Right: i = %d j = %d bcnt = %d\n",i,j,bcnt);
+   Rprintf("Finished Fill Right: i = %d j = %d bcnt = %d\n",i,j,bcnt);
    if(bcnt == ntuple) break;
 
    /*
@@ -742,10 +742,10 @@ void get_ntuple_cyclic(uint *input,uint ilen,
     */
    i--;
    if(i == -1) i = ilen-1;
-   printf("Starting Fill Left: i = %d j = %d bcnt = %d\n",i,j,bcnt);
+   Rprintf("Starting Fill Left: i = %d j = %d bcnt = %d\n",i,j,bcnt);
 
    if((ntuple-bcnt) > iendbit){
-     printf("1 Fill left from %d: output[%d] = ",i,j);
+     Rprintf("1 Fill left from %d: output[%d] = ",i,j);
      output[j] += b_window(input[i],iendbit,uintlen-1,0);
      bcnt += uintlen-iendbit;
      dumpbits(&output[j],sizeof(uint)*CHAR_BIT);
@@ -753,7 +753,7 @@ void get_ntuple_cyclic(uint *input,uint ilen,
 
    /* Fill left to terminate */
    if((ntuple-bcnt) == (uintlen-iendbit)){
-      printf("2 Fill left from %d: output[%d] = ",i,j);
+      Rprintf("2 Fill left from %d: output[%d] = ",i,j);
       output[j] += b_window(input[i],iendbit,uintlen-1,0);
       bcnt += uintlen-iendbit;
       dumpbits(&output[j],sizeof(uint)*CHAR_BIT);
@@ -762,14 +762,14 @@ void get_ntuple_cyclic(uint *input,uint ilen,
 
    /* Fill left to terminate */
    if((ntuple-bcnt) == (uintlen-istartbit)){
-     printf("3 Fill left from %d: output[%d] = ",i,j);
+     Rprintf("3 Fill left from %d: output[%d] = ",i,j);
      output[j] += b_window(input[i],istartbit,uintlen-1,istartbit-iendbit);
      bcnt += uintlen-istartbit;
      dumpbits(&output[j],sizeof(uint)*CHAR_BIT);
      break;
    }
 
-   printf("Finished Fill Left: i = %d j = %d bcnt = %d\n",i,j,bcnt);
+   Rprintf("Finished Fill Left: i = %d j = %d bcnt = %d\n",i,j,bcnt);
    j--;
 
  }

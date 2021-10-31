@@ -137,10 +137,10 @@ int diehard_birthdays(Test **test, int irun)
       */
      get_rand_bits(&rand_uint[m],sizeof(uint),nbits,rng);
      MYDEBUG(D_DIEHARD_BDAY){
-       printf("  %d-bit int = ",nbits);
+       Rprintf("  %d-bit int = ",nbits);
        /* Should count dump from the right, sorry */
        dumpbits(&rand_uint[m],32);
-       printf("\n");
+       Rprintf("\n");
      }
    }
 
@@ -150,13 +150,13 @@ int diehard_birthdays(Test **test, int irun)
     */
    MYDEBUG(D_DIEHARD_BDAY){
      for(m=0;m<nms;m++){
-       printf("Before sort %u:  %u\n",m,rand_uint[m]);
+       Rprintf("Before sort %u:  %u\n",m,rand_uint[m]);
      }
    }
    gsl_sort_uint(rand_uint,1,nms);
    MYDEBUG(D_DIEHARD_BDAY){
      for(m=0;m<nms;m++){
-       printf("After sort %u:  %u\n",m,rand_uint[m]);
+       Rprintf("After sort %u:  %u\n",m,rand_uint[m]);
      }
    }
 
@@ -171,7 +171,7 @@ int diehard_birthdays(Test **test, int irun)
    gsl_sort_uint(intervals,1,nms);
    MYDEBUG(D_DIEHARD_BDAY){
      for(m=0;m<nms;m++){
-       printf("Sorted Intervals %u:  %u\n",m,intervals[m]);
+       Rprintf("Sorted Intervals %u:  %u\n",m,intervals[m]);
      }
    }
 
@@ -192,7 +192,7 @@ int diehard_birthdays(Test **test, int irun)
         k++;
        }
        MYDEBUG(D_DIEHARD_BDAY){
-         printf("repeated intervals[%u] = %u == intervals[%u] = %u\n",
+         Rprintf("repeated intervals[%u] = %u == intervals[%u] = %u\n",
             m,intervals[m],mnext,intervals[mnext]);
        }
        mnext++;
@@ -213,11 +213,11 @@ int diehard_birthdays(Test **test, int irun)
    if(k<kmax) {
      js[k]++;
      MYDEBUG(D_DIEHARD_BDAY){
-       printf("incremented js[%u] = %u\n",k,js[k]);
+       Rprintf("incremented js[%u] = %u\n",k,js[k]);
      }
    } else {
      MYDEBUG(D_DIEHARD_BDAY){
-       printf("%u >= %u: skipping increment of js[%u]\n",k,kmax,k);
+       Rprintf("%u >= %u: skipping increment of js[%u]\n",k,kmax,k);
      }
    }
        
@@ -229,10 +229,10 @@ int diehard_birthdays(Test **test, int irun)
   * position.
   */
  MYDEBUG(D_DIEHARD_BDAY){
-   printf("#==================================================================\n");
-   printf("# This is the repeated interval histogram:\n");
+   Rprintf("#==================================================================\n");
+   Rprintf("# This is the repeated interval histogram:\n");
    for(k=0;k<kmax;k++){
-     printf("js[%u] = %u\n",k,js[k]);
+     Rprintf("js[%u] = %u\n",k,js[k]);
    }
  }
 
@@ -247,7 +247,7 @@ int diehard_birthdays(Test **test, int irun)
   */
  test[0]->pvalues[irun] = chisq_poisson(js,lambda,kmax,test[0]->tsamples);
  MYDEBUG(D_DIEHARD_BDAY){
-   printf("# diehard_birthdays(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# diehard_birthdays(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
  }
 
  nullfree(intervals);

@@ -60,7 +60,7 @@ int rgb_lagged_sums(Test **test,int irun)
  ptest.sigma = sqrt(test[0]->tsamples/12.0);
 
  if(verbose == D_RGB_LAGGED_SUMS || verbose == D_ALL){
-   printf("# rgb_lagged_sums(): Doing a test with lag %u\n",lag);
+   Rprintf("# rgb_lagged_sums(): Doing a test with lag %u\n",lag);
  }
 
  for(t=0;t<test[0]->tsamples;t++){
@@ -82,7 +82,7 @@ int rgb_lagged_sums(Test **test,int irun)
  test[0]->pvalues[irun] = ptest.pvalue;
 
  if(verbose == D_RGB_LAGGED_SUMS || verbose == D_ALL){
-   printf("# rgb_lagged_sums(): ks_pvalue[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# rgb_lagged_sums(): ks_pvalue[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
  }
 
  return(0);
@@ -92,6 +92,6 @@ int rgb_lagged_sums(Test **test,int irun)
 void help_rgb_lagged_sums()
 {
 
-  printf("%s",rgb_lagged_sums_dtest.description);
+  Rprintf("%s",rgb_lagged_sums_dtest.description);
 
 }

@@ -83,8 +83,8 @@ static unsigned long int file_input_get (void *vstate)
     * Read in the next random number from the file
     */
    if(fgets(inbuf,K,state->fp) == 0){
-     fprintf(stderr,"# file_input(): Error: EOF on %s\n",filename);
-     exit(0);
+     Rf_error("# file_input(): Error: EOF on %s\n",filename);
+     //exit(0);
    }
    /*
     * Got one (as we pretty much have to unless the file is badly
@@ -99,8 +99,8 @@ static unsigned long int file_input_get (void *vstate)
      case 'i':
      case 'u':
        if(0 == sscanf(inbuf,"%u",&iret)){
-         fprintf(stderr,"Error: converting %s failed.  Exiting.\n", inbuf);
-         exit(0);
+         Rf_error("Error: converting %s failed.  Exiting.\n", inbuf);
+         //exit(0);
        }
        break;
      /*
@@ -112,8 +112,8 @@ static unsigned long int file_input_get (void *vstate)
      case 'F':
      case 'g':
        if(0 == sscanf(inbuf,"%lg",&f)){
-         fprintf(stderr,"Error: converting %s failed.  Exiting.\n", inbuf);
-         exit(0);
+         Rf_error("Error: converting %s failed.  Exiting.\n", inbuf);
+         //exit(0);
        }
        iret = (uint) f*UINT_MAX;
        break;
@@ -122,8 +122,8 @@ static unsigned long int file_input_get (void *vstate)
       */
      case 'o':
        if(0 == sscanf(inbuf,"%o",&iret)){
-         fprintf(stderr,"Error: converting %s failed.  Exiting.\n", inbuf);
-         exit(0);
+         Rf_error("Error: converting %s failed.  Exiting.\n", inbuf);
+         //exit(0);
        }
        break;
      /*
@@ -131,14 +131,14 @@ static unsigned long int file_input_get (void *vstate)
       */
      case 'x':
        if(0 == sscanf(inbuf,"%x",&iret)){
-         fprintf(stderr,"Error: converting %s failed.  Exiting.\n", inbuf);
-         exit(0);
+         Rf_error("Error: converting %s failed.  Exiting.\n", inbuf);
+         //exit(0);
        }
        break;
      case 'X':
        if(0 == sscanf(inbuf,"%X",&iret)){
-         fprintf(stderr,"Error: converting %s failed.  Exiting.\n", inbuf);
-         exit(0);
+         Rf_error("Error: converting %s failed.  Exiting.\n", inbuf);
+         //exit(0);
        }
        break;
      /*
@@ -150,8 +150,8 @@ static unsigned long int file_input_get (void *vstate)
        iret = bit2uint(inbuf,filenumbits);
        break;
      default:
-       fprintf(stderr,"# file_input(): Error. File type %c is not recognized.\n",filetype);
-       exit(0);
+       Rf_error("# file_input(): Error. File type %c is not recognized.\n",filetype);
+       //exit(0);
        break;
    }
 
@@ -162,7 +162,7 @@ static unsigned long int file_input_get (void *vstate)
    state->rptr++;
    state->rtot++;
    if(verbose){
-     fprintf(stdout,"# file_input() %lu: %lu/%lu -> %u\n", state->rtot, state->rptr,state->flen,(uint)iret);
+     Rprintf("# file_input() %lu: %lu/%lu -> %u\n", state->rtot, state->rptr,state->flen,(uint)iret);
    }
 
    /*
@@ -177,8 +177,8 @@ static unsigned long int file_input_get (void *vstate)
    }
    return iret;
  } else {
-   fprintf(stderr,"Error: %s not open.  Exiting.\n", filename);
-   exit(0);
+   Rf_error("Error: %s not open.  Exiting.\n", filename);
+   //exit(0);
  }
 
 }
@@ -205,8 +205,8 @@ static void file_input_set (void *vstate, unsigned long int s)
  file_input_state_t *state = (file_input_state_t *) vstate;
 
  if(verbose == D_FILE_INPUT || verbose == D_ALL){
-   fprintf(stdout,"# file_input(): entering file_input_set\n");
-   fprintf(stdout,"# file_input(): state->fp = %p, seed = %lu\n",(void*) state->fp,s);
+   Rprintf("# file_input(): entering file_input_set\n");
+   Rprintf("# file_input(): state->fp = %p, seed = %lu\n",(void*) state->fp,s);
  }
 
  /*
@@ -217,7 +217,7 @@ static void file_input_set (void *vstate, unsigned long int s)
   */
  if(state->fp && s ) {
    if(verbose == D_FILE_INPUT || verbose == D_ALL){
-     fprintf(stdout,"# file_input(): Closing/reopening/resetting %s\n",filename);
+     Rprintf("# file_input(): Closing/reopening/resetting %s\n",filename);
    }
    /* fclose(state->fp); */
    state->fp = NULL;
@@ -225,7 +225,7 @@ static void file_input_set (void *vstate, unsigned long int s)
 
  if (state->fp == NULL){
    if(verbose == D_FILE_INPUT || verbose == D_ALL){
-     fprintf(stdout,"# file_input(): Opening %s\n", filename);
+     Rprintf("# file_input(): Opening %s\n", filename);
    }
 
    /*
@@ -234,8 +234,8 @@ static void file_input_set (void *vstate, unsigned long int s)
     * that might keep the file from reading, e.g. permissions.
     */
    if ((state->fp = fopen(filename,"r")) == NULL) {
-     fprintf(stderr,"# file_input(): Error: Cannot open %s, exiting.\n", filename);
-     exit(0);
+     Rf_error("# file_input(): Error: Cannot open %s, exiting.\n", filename);
+     //exit(0);
    }
 
 
@@ -243,9 +243,9 @@ static void file_input_set (void *vstate, unsigned long int s)
     * OK, so if we get here, the file is open.
     */
    if(verbose == D_FILE_INPUT || verbose == D_ALL){
-     fprintf(stdout,"# file_input(): Opened %s for the first time at %p\n", filename,(void*) state->fp);
-     fprintf(stdout,"# file_input(): state->fp is %8p\n",(void*) state->fp);
-     fprintf(stdout,"# file_input(): Parsing header:\n");
+     Rprintf("# file_input(): Opened %s for the first time at %p\n", filename,(void*) state->fp);
+     Rprintf("# file_input(): state->fp is %8p\n",(void*) state->fp);
+     Rprintf("# file_input(): Parsing header:\n");
    }
    state->rptr = 0;  /* No rands read yet */
    /*
@@ -269,8 +269,8 @@ static void file_input_set (void *vstate, unsigned long int s)
      state->rptr = 0;
      state->rewind_cnt++;
      if(verbose == D_FILE_INPUT || verbose == D_ALL){
-       fprintf(stderr,"# file_input(): Rewinding %s at rtot = %u\n", filename,(uint) state->rtot);
-       fprintf(stderr,"# file_input(): Rewind count = %u, resetting rptr = %lu\n",state->rewind_cnt,state->rptr);
+       REprintf("# file_input(): Rewinding %s at rtot = %u\n", filename,(uint) state->rtot);
+       REprintf("# file_input(): Rewind count = %u, resetting rptr = %lu\n",state->rewind_cnt,state->rptr);
      }
    } else {
      return;
@@ -285,12 +285,12 @@ static void file_input_set (void *vstate, unsigned long int s)
  while(cnt < 3){
    if(state->fp != NULL) {
      if(fgets(inbuf,K,state->fp) == 0){
-       fprintf(stderr,"# file_input(): Error: EOF on %s\n",filename);
-       exit(0);
+       Rf_error("# file_input(): Error: EOF on %s\n",filename);
+       //exit(0);
      }
    }
    if(verbose){
-     fprintf(stdout,"%d: %s",cnt,inbuf);
+     Rprintf("%d: %s",cnt,inbuf);
    }
 
    /*
@@ -305,15 +305,15 @@ static void file_input_set (void *vstate, unsigned long int s)
      chop(inbuf);
      numfields = split(inbuf);
      if(numfields != 2){
-       fprintf(stderr,"# file_input(): Error: Wrong number of fields: format is 'fieldname: value'\n");
-       exit(0);
+       Rf_error("# file_input(): Error: Wrong number of fields: format is 'fieldname: value'\n");
+       //exit(0);
      }
      if(strncmp(splitbuf[0],"type",4) == 0){
        filetype = splitbuf[1][0];
        cnt++;
        if(verbose){
-         fprintf(stdout,"# file_input(): cnt = %d\n",cnt);
-         fprintf(stdout,"# file_input(): filenumtype set to %c\n",filetype);
+         Rprintf("# file_input(): cnt = %d\n",cnt);
+         Rprintf("# file_input(): filenumtype set to %c\n",filetype);
        }
      }
      if(strncmp(splitbuf[0],"count",5) == 0){
@@ -321,16 +321,16 @@ static void file_input_set (void *vstate, unsigned long int s)
        filecount = state->flen;
        cnt++;
        if(verbose){ 
-         fprintf(stdout,"# file_input(): cnt = %d\n",cnt);
-         fprintf(stdout,"# file_input(): state->flen set to %lu\n",state->flen);
+         Rprintf("# file_input(): cnt = %d\n",cnt);
+         Rprintf("# file_input(): state->flen set to %lu\n",state->flen);
        }
      }
      if(strncmp(splitbuf[0],"numbit",6) == 0){
        filenumbits = atoi(splitbuf[1]);
        cnt++;
        if(verbose){ 
-         fprintf(stdout,"# file_input(): cnt = %d\n",cnt);
-         fprintf(stdout,"# file_input(): filenumbits set to %i\n",filenumbits);
+         Rprintf("# file_input(): cnt = %d\n",cnt);
+         Rprintf("# file_input(): filenumbits set to %i\n",filenumbits);
        }
      }
    }

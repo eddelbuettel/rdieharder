@@ -61,7 +61,7 @@ int diehard_3dsphere(Test **test, int irun)
     */
    for(k=0;k<DIM_3D;k++) c3[j].x[k] = 1000.0*gsl_rng_uniform_pos(rng);
    if(verbose == D_DIEHARD_3DSPHERE || verbose == D_ALL){
-     printf("%d: (%8.2f,%8.2f,%8.2f)\n",j,c3[j].x[0],c3[j].x[1],c3[j].x[2]);
+     Rprintf("%d: (%8.2f,%8.2f,%8.2f)\n",j,c3[j].x[0],c3[j].x[1],c3[j].x[2]);
    }
 
    /*
@@ -76,7 +76,7 @@ int diehard_3dsphere(Test **test, int irun)
      r1 = sqrt(r2);
      r3 = r2*r1;
      if(verbose == D_DIEHARD_3DSPHERE || verbose == D_ALL){
-       printf("%d-%d: |(%6.2f,%6.2f,%6.2f)| = r1 = %f rmin = %f, \n",
+       Rprintf("%d-%d: |(%6.2f,%6.2f,%6.2f)| = r1 = %f rmin = %f, \n",
           j,k,xdelta,ydelta,zdelta,r1,rmin);
      }
      if(r1<rmin) {
@@ -87,12 +87,12 @@ int diehard_3dsphere(Test **test, int irun)
  }
 
  MYDEBUG(D_DIEHARD_3DSPHERE) {
-   printf("Found rmin = %f  (r^3 = %f)\n",rmin,r3min);
+   Rprintf("Found rmin = %f  (r^3 = %f)\n",rmin,r3min);
  }
  test[0]->pvalues[irun] = 1.0 - exp(-r3min/30.0);
 
  MYDEBUG(D_DIEHARD_3DSPHERE) {
-   printf("# diehard_3dsphere(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# diehard_3dsphere(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
  }
 
  nullfree(c3);

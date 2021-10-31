@@ -39,7 +39,7 @@ void marsaglia_tsang_gorilla(Test **test, int irun)
  }
 
  if(verbose == D_USER_TEMPLATE || verbose == D_ALL){
-   printf("# marsaglia_tsang_gorilla(): Doing a test on lag %u\n",lag);
+   Rprintf("# marsaglia_tsang_gorilla(): Doing a test on lag %u\n",lag);
  }
 
  for(t=0;t<test[0]->tsamples;t++){
@@ -60,7 +60,7 @@ void marsaglia_tsang_gorilla(Test **test, int irun)
  test[0]->pvalues[irun] = ptest.pvalue;
 
  MYDEBUG(D_MARSAGLIA_TSANG_GORILLA) {
-   printf("# marsaglia_tsang_gorilla(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# marsaglia_tsang_gorilla(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
  }
 
 }

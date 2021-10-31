@@ -48,7 +48,7 @@ int diehard_dna(Test **test, int irun)
  char **********w;
 
  MYDEBUG(D_DIEHARD_DNA){
-   fprintf(stdout,"# diehard_dna(): Starting test.\n");
+   Rprintf("# diehard_dna(): Starting test.\n");
  }
 
  /*
@@ -199,14 +199,14 @@ int diehard_dna(Test **test, int irun)
    }
  }
  MYDEBUG(D_DIEHARD_DNA) {
-   printf("%f %f %f\n",ptest.y,ptest.x,ptest.x-ptest.y);
+   Rprintf("%f %f %f\n",ptest.y,ptest.x,ptest.x-ptest.y);
  }
 
  Xtest_eval(&ptest);
  test[0]->pvalues[irun] = ptest.pvalue;
 
  MYDEBUG(D_DIEHARD_DNA) {
-   printf("# diehard_dna(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# diehard_dna(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
  }
 
  /*

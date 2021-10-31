@@ -83,7 +83,7 @@ int diehard_2dsphere(Test **test, int irun)
 
 
  if(verbose == D_DIEHARD_2DSPHERE || verbose == D_ALL){
-     printf("Generating a list of %u points in %d dimensions\n",test[0]->tsamples,test[0]->ntuple);
+     Rprintf("Generating a list of %u points in %d dimensions\n",test[0]->tsamples,test[0]->ntuple);
  }
  for(t=0;t<test[0]->tsamples;t++){
    /*
@@ -91,16 +91,16 @@ int diehard_2dsphere(Test **test, int irun)
     * periodic boundary conditions).
     */
    if(verbose == D_DIEHARD_2DSPHERE || verbose == D_ALL){
-       printf("points[%u]: (",t);
+       Rprintf("points[%u]: (",t);
    }
    for(d=0;d<2;d++) {
      points[t].c[d] = gsl_rng_uniform_pos(rng)*10000;
      if(verbose == D_DIEHARD_2DSPHERE || verbose == D_ALL){
-       printf("%6.4f",points[t].c[d]);
+       Rprintf("%6.4f",points[t].c[d]);
        if(d == 1){
-         printf(")\n");
+         Rprintf(")\n");
        } else {
-         printf(",");
+         Rprintf(",");
        }
      }
    }
@@ -116,15 +116,15 @@ int diehard_2dsphere(Test **test, int irun)
                     (gsl_comparison_fn_t) compare_points);
 
  if(verbose == D_DIEHARD_2DSPHERE || verbose == D_ALL){
-   printf("List of points sorted by first coordinate:\n");
+   Rprintf("List of points sorted by first coordinate:\n");
    for(t=0;t<test[0]->tsamples;t++){
-     printf("points[%u]: (",t);
+     Rprintf("points[%u]: (",t);
      for(d=0;d<2;d++) {
-       printf("%6.4f",points[t].c[d]);
+       Rprintf("%6.4f",points[t].c[d]);
        if(d == 1){
-         printf(")\n");
+         Rprintf(")\n");
        } else {
-         printf(",");
+         Rprintf(",");
        }
      }
    }
@@ -147,13 +147,13 @@ int diehard_2dsphere(Test **test, int irun)
      if(points[j].c[0] - points[i].c[0] > mindist) break;
      dist = distance(points[j],points[i],2);
      MYDEBUG(D_DIEHARD_2DSPHERE) {
-       printf("d(%d,%d) = %16.10e\n",i,j,dist);
+       Rprintf("d(%d,%d) = %16.10e\n",i,j,dist);
      }
      if( dist < mindist) mindist = dist;
    }
  }
  MYDEBUG(D_DIEHARD_2DSPHERE) {
-   printf("Found minimum distance = %16.10e\n",mindist);
+   Rprintf("Found minimum distance = %16.10e\n",mindist);
  }
 
  /*
@@ -172,7 +172,7 @@ int diehard_2dsphere(Test **test, int irun)
  free(points);
 
  MYDEBUG(D_DIEHARD_2DSPHERE) {
-   printf("# diehard_2dsphere(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# diehard_2dsphere(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
  }
 
  return(0);

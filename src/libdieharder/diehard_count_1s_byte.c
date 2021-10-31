@@ -109,8 +109,8 @@
        table[i] = 4;
        break;
      default:
-       fprintf(stderr,"Hahahahah\n");
-       exit(0);
+       Rf_error("Hahahahah\n");
+       //exit(0);
        break;
    }
  }
@@ -176,13 +176,13 @@ int diehard_count_1s_byte(Test **test, int irun)
   */
  if(verbose == -1){
    for(i=0;i<256;i++){
-     printf("%u, ",b5b[i]);
+     Rprintf("%u, ",b5b[i]);
      /* dumpbits(&i,8); */
      if((i+1)%16 == 0){
-       printf("\n");
+       Rprintf("\n");
      }
    }
-   exit(0);
+   //exit(0);
  }
 
  /*
@@ -210,7 +210,7 @@ int diehard_count_1s_byte(Test **test, int irun)
    /*
     * Digitize base 5, compute expected value for THIS integer i.
     */
-   /* printf("%u:  ",j); */
+   /* Rprintf("%u:  ",j); */
    for(k=0;k<4;k++){
      /*
       * Take the least significant "letter" of j in range 0-4
@@ -223,10 +223,10 @@ int diehard_count_1s_byte(Test **test, int irun)
      /*
       * Right shift j to get next digit.
       */
-     /* printf("%1u",letter); */
+     /* Rprintf("%1u",letter); */
      j /= 5;
    }
-   /* printf(" = %f\n",vtest4.y[i]); */
+   /* Rprintf(" = %f\n",vtest4.y[i]); */
  }
 
  Vtest_create(&vtest5,3125);
@@ -278,7 +278,7 @@ int diehard_count_1s_byte(Test **test, int irun)
      j = get_bit_ntuple_from_whole_uint(i,8,0x000000FF,boffset);
      index5 = LSHIFT5(index5,b5b[j]);
      if(verbose == D_DIEHARD_COUNT_1S_STREAM || verbose == D_ALL){
-       printf("b5b[%u] = %u, index5 = %u\n",j,b5b[j],index5);
+       Rprintf("b5b[%u] = %u, index5 = %u\n",j,b5b[j],index5);
        dumpbits(&j,8);
      }
    }
@@ -299,16 +299,16 @@ int diehard_count_1s_byte(Test **test, int irun)
   */
  if(verbose == D_DIEHARD_COUNT_1S_BYTE || verbose == D_ALL){
    for(i = 0;i<625;i++){
-     printf("%u:  %f    %f\n",i,vtest4.y[i],vtest4.x[i]);
+     Rprintf("%u:  %f    %f\n",i,vtest4.y[i],vtest4.x[i]);
    }
    for(i = 0;i<3125;i++){
-     printf("%u:  %f    %f\n",i,vtest5.y[i],vtest5.x[i]);
+     Rprintf("%u:  %f    %f\n",i,vtest5.y[i],vtest5.x[i]);
    }
  }
  Vtest_eval(&vtest4);
  Vtest_eval(&vtest5);
  if(verbose == D_DIEHARD_COUNT_1S_BYTE || verbose == D_ALL){
-   printf("vtest4.chisq = %f   vtest5.chisq = %f\n",vtest4.chisq,vtest5.chisq);
+   Rprintf("vtest4.chisq = %f   vtest5.chisq = %f\n",vtest4.chisq,vtest5.chisq);
  }
  ptest.x = vtest5.chisq - vtest4.chisq;
 
@@ -316,7 +316,7 @@ int diehard_count_1s_byte(Test **test, int irun)
  test[0]->pvalues[irun] = ptest.pvalue;
 
  MYDEBUG(D_DIEHARD_COUNT_1S_BYTE) {
-   printf("# diehard_count_1s_byte(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# diehard_count_1s_byte(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
  }
 
 

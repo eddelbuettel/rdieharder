@@ -62,9 +62,9 @@ int binary_rank(uint **mtx,int mrows,int ncols)
  uint_col_max = (ncols-1)/s_uint;
 
  if(verbose == D_BRANK || verbose == D_ALL){
-   printf("Starting bitmatrix:\n");
+   Rprintf("Starting bitmatrix:\n");
    for(m=0;m<mrows;m++){
-     printf("# br: ");
+     Rprintf("# br: ");
      dumpbits(&mtx[m][0],32);
    }
  }
@@ -97,13 +97,13 @@ int binary_rank(uint **mtx,int mrows,int ncols)
     * in this column (column fixed by mask).
     */
    if(verbose == D_BRANK || verbose == D_ALL){
-     printf("Checking column mask ");
+     Rprintf("Checking column mask ");
      dumpbits(&mask,32);
    }
    for(k=i;k<mrows;k++){
      colchk = mtx[k][col_ind]&mask;
      if(verbose == D_BRANK || verbose == D_ALL){
-       printf("row %d = ",k);
+       Rprintf("row %d = ",k);
        dumpbits(&colchk,32);
      }
      if(colchk) break;
@@ -122,27 +122,27 @@ int binary_rank(uint **mtx,int mrows,int ncols)
     */
    if(k < mrows){
      if(verbose == D_BRANK || verbose == D_ALL){
-       printf("Swapping %d and %d rows. before bitmatrix:\n",i,k);
+       Rprintf("Swapping %d and %d rows. before bitmatrix:\n",i,k);
        for(m=0;m<mrows;m++){
-         printf("# br: ");
+         Rprintf("# br: ");
          dumpbits(&mtx[m][col_ind],32);
        }
      }
      if(i != k){
        if(verbose == D_BRANK || verbose == D_ALL){
-         printf("before: mtx[%d] = %p  mtx[%d = %p\n",i,(void*) mtx[i],k,(void*) mtx[k]);
+         Rprintf("before: mtx[%d] = %p  mtx[%d = %p\n",i,(void*) mtx[i],k,(void*) mtx[k]);
        }
        rowp = mtx[i]; /* rowp is the ADDRESS of the ith row */
        mtx[i] = mtx[k];
        mtx[k] = rowp;
        if(verbose == D_BRANK || verbose == D_ALL){
-         printf("after mtx[%d] = %p  mtx[%d = %p\n",i,(void*) mtx[i],k,(void*) mtx[k]);
+         Rprintf("after mtx[%d] = %p  mtx[%d = %p\n",i,(void*) mtx[i],k,(void*) mtx[k]);
        }
      }
      if(verbose == D_BRANK || verbose == D_ALL){
-       printf("Swapped %d and %d rows. after bitmatrix:\n",i,k);
+       Rprintf("Swapped %d and %d rows. after bitmatrix:\n",i,k);
        for(m=0;m<mrows;m++){
-         printf("# br: ");
+         Rprintf("# br: ");
          dumpbits(&mtx[m][col_ind],32);
        }
      }
@@ -163,36 +163,36 @@ int binary_rank(uint **mtx,int mrows,int ncols)
           */
          n = uint_col_max - col_ind;
          if(verbose == D_BRANK || verbose == D_ALL){
-           printf("eliminating against row %2d = ",i);
+           Rprintf("eliminating against row %2d = ",i);
            dumpbits(&mtx[i][col_ind],32);
-           printf("eliminating row %2d, before = ",k);
+           Rprintf("eliminating row %2d, before = ",k);
            dumpbits(&mtx[k][col_ind],32);
          }
          while (n >= 0){
            if(verbose == D_BRANK || verbose == D_ALL){
-             printf("xoring column = %2d\n",n);
+             Rprintf("xoring column = %2d\n",n);
 	   }
            mtx[k][n] ^= mtx[i][n];
 	   n--;
          }
          if(verbose == D_BRANK || verbose == D_ALL){
-           printf("eliminating row %2d, after  = ",k);
+           Rprintf("eliminating row %2d, after  = ",k);
            dumpbits(&mtx[k][col_ind],32);
-           printf("\n");
+           Rprintf("\n");
          }
        }
        k++;
      }
      if(verbose == D_BRANK || verbose == D_ALL){
-       printf("Eliminated. New bitmatrix:\n");
+       Rprintf("Eliminated. New bitmatrix:\n");
        for(m=0;m<mrows;m++){
-         printf("# br: ");
+         Rprintf("# br: ");
          dumpbits(&mtx[m][col_ind],32);
        }
      }
      i++;
      if(verbose == D_BRANK || verbose == D_ALL){
-       printf("NEW RANK = %d\n",i);
+       Rprintf("NEW RANK = %d\n",i);
      }
    }
  }

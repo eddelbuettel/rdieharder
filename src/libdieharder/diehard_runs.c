@@ -104,13 +104,13 @@ int diehard_runs(Test **test, int irun)
   */
  ucount = dcount = 1;
  if(verbose){
-   printf("j    rand    ucount  dcount\n");
+   Rprintf("j    rand    ucount  dcount\n");
  }
  first = last = gsl_rng_get(rng);
  for(t=1;t<test[0]->tsamples;t++) {
    next = gsl_rng_get(rng);
    if(verbose){
-     printf("%d:  %10u   %u    %u\n",t,next,ucount,dcount);
+     Rprintf("%d:  %10u   %u    %u\n",t,next,ucount,dcount);
    }
 
    /*
@@ -148,11 +148,11 @@ int diehard_runs(Test **test, int irun)
  uv=0.0;
  dv=0.0;
  if(verbose){
-   printf(" i      upruns    downruns\n");
+   Rprintf(" i      upruns    downruns\n");
  }
  for(i=0;i<RUN_MAX;i++) {
    if(verbose){
-     printf("%d:   %7d   %7d\n",i,upruns[i],downruns[i]);
+     Rprintf("%d:   %7d   %7d\n",i,upruns[i],downruns[i]);
    }
    for(j=0;j<RUN_MAX;j++) {
      uv += ((double)upruns[i]   - test[0]->tsamples*b[i])*(upruns[j]   - test[0]->tsamples*b[j])*a[i][j];
@@ -171,14 +171,14 @@ int diehard_runs(Test **test, int irun)
  */
  
  MYDEBUG(D_DIEHARD_RUNS) {
-   printf("uv = %f   dv = %f\n",uv,dv);
+   Rprintf("uv = %f   dv = %f\n",uv,dv);
  }
  test[0]->pvalues[irun] = gsl_sf_gamma_inc_Q(3.0,uv/2.0);
  test[1]->pvalues[irun] = gsl_sf_gamma_inc_Q(3.0,dv/2.0);
 
  MYDEBUG(D_DIEHARD_RUNS) {
-   printf("# diehard_runs(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
-   printf("# diehard_runs(): test[1]->pvalues[%u] = %10.5f\n",irun,test[1]->pvalues[irun]);
+   Rprintf("# diehard_runs(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# diehard_runs(): test[1]->pvalues[%u] = %10.5f\n",irun,test[1]->pvalues[irun]);
  }
 
  return(0);

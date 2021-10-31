@@ -47,7 +47,7 @@ double sample(void *testfunc())
  double pks;
 
  if(verbose == D_SAMPLE || verbose == D_ALL){
-   printf("# samples():    sample\n");
+   Rprintf("# samples():    sample\n");
  }
  for(p=0;p<psamples;p++){
 
@@ -62,7 +62,7 @@ double sample(void *testfunc())
 
      
    if(verbose == D_SAMPLE || verbose == D_ALL){
-     printf("# sample():  %6u\n",p);
+     Rprintf("# sample():  %6u\n",p);
    }
    (*testfunc)();
 
@@ -75,7 +75,7 @@ double sample(void *testfunc())
   */
  pks = kstest_kuiper(ks_pvalue,kspi);
  if(verbose == D_SAMPLE || verbose == D_ALL){
-   printf("# sample(): p = %6.3f from Kuiper Kolmogorov-Smirnov test on %u pvalue.\n",pks,kspi);
+   Rprintf("# sample(): p = %6.3f from Kuiper Kolmogorov-Smirnov test on %u pvalue.\n",pks,kspi);
  }
 
  return(pks);

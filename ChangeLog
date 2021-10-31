@@ -10,6 +10,9 @@
 	* src/libdieharder/dab_filltree.c (insert): Use 'static inline'
 	* src/libdieharder/dab_filltree2.c (insertBit): Idem
 
+	* src/libdieharder/*: Adapted for R use by converting all stdout
+	messaging to Rprintf and REprintf, comment-out exit
+
 2021-05-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (BugReports): Add to DESCRIPTION

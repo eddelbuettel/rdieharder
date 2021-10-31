@@ -25,11 +25,11 @@ dev_arandom_get (void *vstate)
 
   if(state->fp != NULL) {
     int rc = fread(&j,sizeof(j),1,state->fp);
-    if (rc == 0) fprintf(stderr, "Error: Nothing written.\n");
+    if (rc == 0) REprintf( "Error: Nothing written.\n");
     return j;
   } else {
-    fprintf(stderr,"Error: /dev/arandom not open.  Exiting.\n");
-    exit(0);
+    Rf_error("Error: /dev/arandom not open.  Exiting.\n");
+    //exit(0);
   }
 
 }
@@ -46,9 +46,9 @@ dev_arandom_set (void *vstate, unsigned long int s)
   dev_arandom_state_t *state = (dev_arandom_state_t *) vstate;
 
  if ((state->fp = fopen("/dev/arandom","r")) == NULL) {
-   fprintf(stderr,"Error: Cannot open /dev/arandom, exiting.\n");
-   fprintf(stderr,"/dev/arandom may only be available on BSD systems.\n");
-   exit(0);
+   Rf_error("Error: Cannot open /dev/arandom, exiting.\n"
+            "/dev/arandom may only be available on BSD systems.\n");
+   //exit(0);
  }
 
  return;

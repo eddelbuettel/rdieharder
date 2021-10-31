@@ -40,10 +40,10 @@ unsigned long int random_seed()
  if ((devurandom = fopen("/dev/urandom","r")) == NULL) {
    gettimeofday(&tv,0);
    seed = tv.tv_sec + tv.tv_usec;
-   if(verbose == D_SEED) printf("Got seed %u from gettimeofday()\n",seed);
+   if(verbose == D_SEED) Rprintf("Got seed %u from gettimeofday()\n",seed);
  } else {
    int rc = fread(&seed,sizeof(seed),1,devurandom);
-   if(verbose == D_SEED) printf("Got seed %u from /dev/urandom; rc=%d\n",seed,rc);
+   if(verbose == D_SEED) Rprintf("Got seed %u from /dev/urandom; rc=%d\n",seed,rc);
    fclose(devurandom);
  }
 

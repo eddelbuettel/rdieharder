@@ -40,7 +40,7 @@ int diehard_rank_6x8(Test **test, int irun)
  Vtest vtest;
 
  MYDEBUG(D_DIEHARD_RANK_6x8){
-   fprintf(stdout,"# diehard_rank_6x8():  Starting test.\n");
+   Rprintf("# diehard_rank_6x8():  Starting test.\n");
  }
 
  /*
@@ -78,11 +78,11 @@ int diehard_rank_6x8(Test **test, int irun)
     * of the row/slot of mtx.
     */
    MYDEBUG(D_DIEHARD_RANK_6x8){
-     fprintf(stdout,"# diehard_rank_6x8(): Input random matrix = \n");
+     Rprintf("# diehard_rank_6x8(): Input random matrix = \n");
    }
    for(i=0;i<6;i++){
      MYDEBUG(D_DIEHARD_RANK_6x8){
-       fprintf(stdout,"# ");
+       Rprintf("# ");
      }
 
      bitstring = get_rand_bits_uint(32,0xffffffff,rng);
@@ -90,13 +90,13 @@ int diehard_rank_6x8(Test **test, int irun)
 
      MYDEBUG(D_DIEHARD_RANK_6x8){
        dumpbits(mtx[i],32);
-       fprintf(stdout,"\n");
+       Rprintf("\n");
      }
    }
 
    rank = binary_rank(mtx,6,8);
    MYDEBUG(D_DIEHARD_RANK_6x8){
-     printf("binary rank = %d\n",rank);
+     Rprintf("binary rank = %d\n",rank);
    }
 
    if(rank <= 2){
@@ -111,7 +111,7 @@ int diehard_rank_6x8(Test **test, int irun)
  Vtest_eval(&vtest);
  test[0]->pvalues[irun] = vtest.pvalue;
  MYDEBUG(D_DIEHARD_RANK_6x8) {
-   printf("# diehard_rank_6x8(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# diehard_rank_6x8(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
  }
 
  Vtest_destroy(&vtest);

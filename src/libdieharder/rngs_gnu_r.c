@@ -63,18 +63,18 @@ typedef void * (*DL_FUNC)();
 void error(const char *txt, ...); 
 char *_(char *txt) { return(txt); };
 */
-void dieharder_error(const char *format, ...)
-{
+/* void dieharder_error(const char *format, ...) */
+/* { */
 
-	va_list ap;
-	va_start(ap, format);
-	vfprintf(stderr, format, ap);
-	va_end(ap);
+/* 	va_list ap; */
+/* 	va_start(ap, format); */
+/* 	vfprintf(stderr, format, ap); */
+/* 	va_end(ap); */
 
-}
+/* } */
 
-#define error dieharder_error
-#define _(x) x
+/* #define error dieharder_error */
+/* #define _(x) x */
 
 
 /* UINT_MAX from limits.h */
@@ -229,7 +229,7 @@ double unif_rand(void)
 #endif
 
     default:
-	error(_("unif_rand: unimplemented RNG kind %d"), RNG_kind);
+	REprintf("unif_rand: unimplemented RNG kind %d", RNG_kind);
 	return -1.;
     }
 }
@@ -294,7 +294,7 @@ static void FixupSeeds(RNGtype RNG_kind, int initial)
     case USER_UNIF:
 	break;
     default:
-	error(_("FixupSeeds: unimplemented RNG kind %d"), RNG_kind);
+	REprintf("FixupSeeds: unimplemented RNG kind %d", RNG_kind);
     }
 }
 
@@ -334,7 +334,7 @@ static void RNG_Init(RNGtype kind, Int32 seed)
     case USER_UNIF:
 #if GNU_R_MODE
 	User_unif_fun = R_FindSymbol("user_unif_rand", "", NULL);
-	if (!User_unif_fun) error(_("'user_unif_rand' not in load table"));
+	if (!User_unif_fun) REprintf("'user_unif_rand' not in load table");
 	User_unif_init = R_FindSymbol("user_unif_init", "", NULL);
 	if (User_unif_init) (void) User_unif_init(seed);
 	User_unif_nseed = R_FindSymbol("user_unif_nseed", "", NULL);
@@ -356,7 +356,7 @@ static void RNG_Init(RNGtype kind, Int32 seed)
 	break;
 #endif
     default:
-	error(_("RNG_Init: unimplemented RNG kind %d"), kind);
+	REprintf("RNG_Init: unimplemented RNG kind %d", kind);
     }
 }
 
@@ -559,12 +559,12 @@ void GetRNGstate()
     else {
 	seeds = coerceVector(seeds, INTSXP);
 	if (seeds == R_MissingArg)
-	    error(_(".Random.seed is a missing argument with no default"));
+	    REprintf(".Random.seed is a missing argument with no default");
 	if (!isVector(seeds))
-	    error(_(".Random.seed is not a vector"));
+	    REprintf(".Random.seed is not a vector");
 	tmp = INTEGER(seeds)[0];
     if (tmp == NA_INTEGER)
-	error(_(".Random.seed[1] is not a valid integer"));
+	REprintf(".Random.seed[1] is not a valid integer");
 	newRNG = tmp % 100;
 	newN01 = tmp / 100;
 	/*if (RNG_kind > USER_UNIF || RNG_kind < 0) {
@@ -572,7 +572,7 @@ void GetRNGstate()
 	    RNG_kind = RNG_DEFAULT;
 	    }*/
     if (newN01 < 0 || newN01 > KINDERMAN_RAMAGE)
-	error(_(".Random.seed[0] is not a valid Normal type"));
+	REprintf(".Random.seed[0] is not a valid Normal type");
     switch(newRNG) {
     case WICHMANN_HILL:
     case MARSAGLIA_MULTICARRY:
@@ -583,16 +583,16 @@ void GetRNGstate()
 	break;
     case USER_UNIF:
 	if(!User_unif_fun)
-	    error(_(".Random.seed[1] = 5 but no user-supplied generator"));
+	    REprintf".Random.seed[1] = 5 but no user-supplied generator");
 	break;
     default:
-	error(_(".Random.seed[1] is not a valid RNG kind (code)"));
+	REprintf(".Random.seed[1] is not a valid RNG kind (code)");
     }
     RNG_kind = newRNG; N01_kind = newN01;
 	len_seed = RNG_Table[RNG_kind].n_seed;
 	/* Not sure whether this test is needed: wrong for USER_UNIF */
 	if(LENGTH(seeds) > 1 && LENGTH(seeds) < len_seed + 1)
-	    error(_(".Random.seed has wrong length"));
+	    REprintf(".Random.seed has wrong length");
 	if(LENGTH(seeds) == 1 && RNG_kind != USER_UNIF)
 	    Randomize(RNG_kind);
 	else {
@@ -649,7 +649,7 @@ static void RNGkind(RNGtype newkind)
     case USER_UNIF:
 	break;
     default:
-	error(_("RNGkind: unimplemented RNG kind %d"), newkind);
+	REprintf("RNGkind: unimplemented RNG kind %d", newkind);
     }
 
     GetRNGstate();
@@ -662,10 +662,10 @@ static void Norm_kind(N01type kind)
 {
     if (kind == -1) kind = N01_DEFAULT;
     if (kind < 0 || kind > KINDERMAN_RAMAGE)
-	error(_("invalid Normal type in RNGkind"));
+	REprintf("invalid Normal type in RNGkind");
     if (kind == USER_NORM) {
 	User_norm_fun = R_FindSymbol("user_norm_rand", "", NULL);
-	if (!User_norm_fun) error(_("'user_norm_rand' not in load table"));
+	if (!User_norm_fun) REprintf("'user_norm_rand' not in load table");
     }
     GetRNGstate(); /* might not be initialized */
     if (kind == BOX_MULLER)
@@ -706,7 +706,7 @@ SEXP attribute_hidden do_setseed (SEXP call, SEXP op, SEXP args, SEXP env)
     checkArity(op,args);
     seed = asInteger(CAR(args));
     if (seed == NA_INTEGER)
-	error(_("supplied seed is not a valid integer"));
+	REprintf("supplied seed is not a valid integer");
     skind = CADR(args);
     if (!isNull(skind)) {
 	kind = asInteger(skind);

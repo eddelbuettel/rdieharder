@@ -88,7 +88,7 @@ int sts_runs(Test **test, int irun)
        break;
    }
    MYDEBUG(D_STS_RUNS) {
-     printf("# sts_runs(): ptest.x = %f, pone = %f\n",ptest.x,pones);
+     Rprintf("# sts_runs(): ptest.x = %f, pone = %f\n",ptest.x,pones);
    }
  }
  /*
@@ -107,14 +107,14 @@ int sts_runs(Test **test, int irun)
  ptest.sigma = 2.0*sqrt(bits)*pones*(1.0-pones);
 
  MYDEBUG(D_STS_RUNS) {
-   printf(" p = %f c00 = %f c01 = %f c10 = %f c11 = %f\n",pones,c00,c01,c10,c11);
+   Rprintf(" p = %f c00 = %f c01 = %f c10 = %f c11 = %f\n",pones,c00,c01,c10,c11);
  }
 
  Xtest_eval(&ptest);
  test[0]->pvalues[irun] = ptest.pvalue;
 
  MYDEBUG(D_STS_RUNS) {
-   printf("# sts_runs(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# sts_runs(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
  }
 
  free(rand_int);

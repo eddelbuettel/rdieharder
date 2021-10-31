@@ -22,6 +22,9 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include <R_ext/Print.h>
+#include <R_ext/Error.h>
+
 /* This turns on M_PI in math.h */
 #define __USE_BSD 1
 #include <math.h>

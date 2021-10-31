@@ -125,6 +125,7 @@ static inline int insert(double x, double *array, unsigned int startVal) {
 
 #include<time.h>
 
+#if FALSE
 int main_filltree(int argc, char **argv) {
  int size = 64;
  int startVal = (size / 2) - 1;
@@ -144,11 +145,11 @@ int main_filltree(int argc, char **argv) {
      i++;
    } while (insert(x, array, startVal) == 0);
 
-   printf("%d\n", i);
+   Rprintf("%d\n", i);
  }
 
  //  for (i = 0; i < size; i++) printf("%f\n", array[i]);
 
  return(0);
 }
-
+#endif

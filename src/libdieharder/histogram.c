@@ -42,18 +42,18 @@ void histogram(double *input,char *pvlabel,int inum,double min,double max,int nb
   * of run time...
   */
  binmax = 0;
- printf("#==================================================================\n");
- printf("#                Histogram of %s\n",label);
- printf("%s",pvlabel);
- printf("# Counting histogram bins, binscale = %f\n",binscale);
+ Rprintf("#==================================================================\n");
+ Rprintf("#                Histogram of %s\n",label);
+ Rprintf("%s",pvlabel);
+ Rprintf("# Counting histogram bins, binscale = %f\n",binscale);
  for(i=0;i<inum;i++){
    hindex = (int) (input[i]/binscale);
-   /* printf("ks_pvalue = %f: bin[%d] = ",input[i],hindex); */
+   /* Rprintf("ks_pvalue = %f: bin[%d] = ",input[i],hindex); */
    if(hindex < 0) hindex = 0;
    if(hindex >= nbins) hindex = nbins-1;
    bin[hindex]++;
    if(bin[hindex] > binmax) binmax = bin[hindex];
-   /* printf("%d\n",bin[hindex]); */
+   /* Rprintf("%d\n",bin[hindex]); */
  }
  
  /*
@@ -65,10 +65,10 @@ void histogram(double *input,char *pvlabel,int inum,double min,double max,int nb
   * to check the actual bins to ensure that we're good.
   */
  vscale = ceil(psamples/100.0);
- /* printf("psamples = %u   vscale = %u\n",psamples,vscale); */
+ /* Rprintf("psamples = %u   vscale = %u\n",psamples,vscale); */
  while(binmax >= 20*vscale) {
    vscale++;
-   /* printf("binmax = %u   vscale = %u\n",binmax,vscale); */
+   /* Rprintf("binmax = %u   vscale = %u\n",binmax,vscale); */
  }
 
  /*
@@ -77,24 +77,24 @@ void histogram(double *input,char *pvlabel,int inum,double min,double max,int nb
   */
  for(i=20;i>0;i--){
    if(i%2 == 0){
-     printf("#  %5d|",i*vscale);
+     Rprintf("#  %5d|",i*vscale);
    } else {
-     printf("#       |");
+     Rprintf("#       |");
    }
    for(j=0;j<nbins;j++){
      if(bin[j] >= i*vscale ){
-       printf("****|");
+       Rprintf("****|");
      } else {
-       printf("    |");
+       Rprintf("    |");
      }
    }
-   printf("\n");
+   Rprintf("\n");
  }
- printf("#       |--------------------------------------------------\n");
- printf("#       |");
- for(i=0;i<nbins;i++) printf("%4.1f|",(i+1)*binscale);
- printf("\n");
- printf("#==================================================================\n");
+ Rprintf("#       |--------------------------------------------------\n");
+ Rprintf("#       |");
+ for(i=0;i<nbins;i++) Rprintf("%4.1f|",(i+1)*binscale);
+ Rprintf("\n");
+ Rprintf("#==================================================================\n");
 
 }
 

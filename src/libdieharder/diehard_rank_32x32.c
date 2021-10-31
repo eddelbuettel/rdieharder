@@ -49,7 +49,7 @@ int diehard_rank_32x32(Test **test, int irun)
  }
 
  MYDEBUG(D_DIEHARD_RANK_32x32){
-   fprintf(stdout,"# diehard_rank_32x32(): Starting test\n");
+   Rprintf("# diehard_rank_32x32(): Starting test\n");
  }
 
  Vtest_create(&vtest,33);
@@ -83,12 +83,12 @@ int diehard_rank_32x32(Test **test, int irun)
  for(t=0;t<test[0]->tsamples;t++) {
 
    MYDEBUG(D_DIEHARD_RANK_32x32){
-     fprintf(stdout,"# diehard_rank_32x32(): Input random matrix = \n");
+     Rprintf("# diehard_rank_32x32(): Input random matrix = \n");
    }
 
    for(i=0;i<32;i++){
      MYDEBUG(D_DIEHARD_RANK_32x32){
-       fprintf(stdout,"# ");
+       Rprintf("# ");
      }
 
      bitstring = get_rand_bits_uint(32,0xffffffff,rng);
@@ -96,7 +96,7 @@ int diehard_rank_32x32(Test **test, int irun)
 
      MYDEBUG(D_DIEHARD_RANK_32x32){
        dumpbits(mtx[i],32);
-       fprintf(stdout,"\n");
+       Rprintf("\n");
      }
    }
 
@@ -105,7 +105,7 @@ int diehard_rank_32x32(Test **test, int irun)
     */
    rank = binary_rank(mtx,32,32);
    MYDEBUG(D_DIEHARD_RANK_32x32){
-     fprintf(stdout,"# binary rank = %d\n",rank);
+     Rprintf("# binary rank = %d\n",rank);
    }
 
    if(rank <= 29){
@@ -120,7 +120,7 @@ int diehard_rank_32x32(Test **test, int irun)
  Vtest_eval(&vtest);
  test[0]->pvalues[irun] = vtest.pvalue;
  MYDEBUG(D_DIEHARD_RANK_32x32) {
-   printf("# diehard_rank_32x32(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# diehard_rank_32x32(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
  }
 
  Vtest_destroy(&vtest);

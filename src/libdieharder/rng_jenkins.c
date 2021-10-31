@@ -37,11 +37,11 @@ main(int argc,
         /* Write the hash value to stdout as binary in the byte order
          * of the machine. */
         if (fwrite(&b, sizeof(b), 1, stdout) != 1) {
-            if (feof(stdout)) {
-                fprintf(stderr, "*** Error: fwrite: Unexpected EOF.\n");
-            } else {
-                fprintf(stderr, "*** Error: fwrite: %s\n", strerror(errno));
-            }
+            /* if (feof(stdout)) { */
+            /*     REprintf( "*** Error: fwrite: Unexpected EOF.\n"); */
+            /* } else { */
+                REprintf( "*** Error: fwrite: %s\n", strerror(errno));
+            /* } */
             rv = 1;
             break;
         }

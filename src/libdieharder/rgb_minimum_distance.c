@@ -110,7 +110,7 @@ int rgb_minimum_distance(Test **test, int irun)
  rgb_md_dim = test[0]->ntuple;
 
  if(verbose == D_RGB_MINIMUM_DISTANCE || verbose == D_ALL){
-     printf("Generating a list of %u points in %d dimensions\n",test[0]->tsamples,rgb_md_dim);
+     Rprintf("Generating a list of %u points in %d dimensions\n",test[0]->tsamples,rgb_md_dim);
  }
  for(t=0;t<test[0]->tsamples;t++){
 
@@ -119,16 +119,16 @@ int rgb_minimum_distance(Test **test, int irun)
     * periodic boundary conditions).
     */
    if(verbose == D_RGB_MINIMUM_DISTANCE || verbose == D_ALL){
-       printf("points[%u]: (",t);
+       Rprintf("points[%u]: (",t);
    }
    for(d=0;d<rgb_md_dim;d++) {
      points[t].c[d] = gsl_rng_uniform_pos(rng);
      if(verbose == D_RGB_MINIMUM_DISTANCE || verbose == D_ALL){
-       printf("%6.4f",points[t].c[d]);
+       Rprintf("%6.4f",points[t].c[d]);
        if(d == rgb_md_dim - 1){
-         printf(")\n");
+         Rprintf(")\n");
        } else {
-         printf(",");
+         Rprintf(",");
        }
      }
    }
@@ -144,15 +144,15 @@ int rgb_minimum_distance(Test **test, int irun)
                     (gsl_comparison_fn_t) compare_points);
 
  if(verbose == D_RGB_MINIMUM_DISTANCE || verbose == D_ALL){
-   printf("List of points sorted by first coordinate:\n");
+   Rprintf("List of points sorted by first coordinate:\n");
    for(t=0;t<test[0]->tsamples;t++){
-     printf("points[%u]: (",t);
+     Rprintf("points[%u]: (",t);
      for(d=0;d<rgb_md_dim;d++) {
-       printf("%6.4f",points[t].c[d]);
+       Rprintf("%6.4f",points[t].c[d]);
        if(d == rgb_md_dim - 1){
-         printf(")\n");
+         Rprintf(")\n");
        } else {
-         printf(",");
+         Rprintf(",");
        }
      }
    }
@@ -175,13 +175,13 @@ int rgb_minimum_distance(Test **test, int irun)
      if(points[j].c[0] - points[i].c[0] > mindist) break;
      dist = distance(points[j],points[i],rgb_md_dim);
      MYDEBUG(D_RGB_MINIMUM_DISTANCE) {
-       printf("d(%d,%d) = %16.10e\n",i,j,dist);
+       Rprintf("d(%d,%d) = %16.10e\n",i,j,dist);
      }
      if( dist < mindist) mindist = dist;
    }
  }
  MYDEBUG(D_RGB_MINIMUM_DISTANCE) {
-   printf("Found rmin = %16.10e\n",mindist);
+   Rprintf("Found rmin = %16.10e\n",mindist);
  }
  rgb_mindist_avg += mindist;
 
@@ -201,7 +201,7 @@ int rgb_minimum_distance(Test **test, int irun)
  earg = -1.0*test[0]->tsamples*(test[0]->tsamples-1)*dvolume/2.0;
  qarg = 1.0 + ((2.0+rgb_md_Q[rgb_md_dim])/6.0)*pow(1.0*test[0]->tsamples,3)*dvolume*dvolume;
  MYDEBUG(D_RGB_MINIMUM_DISTANCE) {
-   printf("V_min = %16.10e, earg = %16.10e, qarg = %16.10e\n",dvolume,earg,qarg);
+   Rprintf("V_min = %16.10e, earg = %16.10e, qarg = %16.10e\n",dvolume,earg,qarg);
  }
  /* qarg = 1.0; */
  test[0]->pvalues[irun] = 1.0 - exp(earg)*qarg;
@@ -209,7 +209,7 @@ int rgb_minimum_distance(Test **test, int irun)
  free(points);
 
  MYDEBUG(D_RGB_MINIMUM_DISTANCE) {
-   printf("# diehard_2dsphere(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# diehard_2dsphere(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
  }
 
  /*

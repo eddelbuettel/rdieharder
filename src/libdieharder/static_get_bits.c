@@ -44,8 +44,8 @@ inline static uint get_rand_bits_uint (uint nbits, uint mask, gsl_rng *rng)
    mask = 0xFFFFFFFF;
  }
  if(nbits > 32){
-   fprintf(stderr,"Warning!  dieharder cannot yet work with\b");
-   fprintf(stderr,"           %u > 32 bit chunks.  Exiting!\n\n",nbits);
+   Rf_error("Warning!  dieharder cannot yet work with\b"
+            "           %u > 32 bit chunks.  Exiting!\n\n",nbits);
    exit(0);
  }
 
@@ -108,25 +108,25 @@ and so on.  Very nice.
  }
   
  MYDEBUG(D_BITS) {
-   printf("Entering get_rand_bits_uint. nbits = %d\n",nbits);
-   printf(" Mask = ");
+   Rprintf("Entering get_rand_bits_uint. nbits = %d\n",nbits);
+   Rprintf(" Mask = ");
    dumpuintbits(&mask,1);
-   printf("\n");
-   printf("%u bits left\n",bits_left_in_bit_buffer);
-   printf(" Buff = ");
+   Rprintf("\n");
+   Rprintf("%u bits left\n",bits_left_in_bit_buffer);
+   Rprintf(" Buff = ");
    dumpuintbits(&bit_buffer,1);
-   printf("\n");
+   Rprintf("\n");
  }
 
  if (bits_left_in_bit_buffer >= nbits) {
    bits_left_in_bit_buffer -= nbits;
    bits = (bit_buffer >> bits_left_in_bit_buffer);
    MYDEBUG(D_BITS) {
-     printf("Enough:\n");
-     printf(" Bits = ");
+     Rprintf("Enough:\n");
+     Rprintf(" Bits = ");
      breturn = bits & mask;
      dumpuintbits(&breturn,1);
-     printf("\n");
+     Rprintf("\n");
    }
    return bits & mask;
  }
@@ -150,21 +150,21 @@ and so on.  Very nice.
    bits = (bit_buffer << nbits);
  }
  MYDEBUG(D_BITS) {
-   printf("Not enough, need %u:\n",nbits);
-   printf(" Bits = ");
+   Rprintf("Not enough, need %u:\n",nbits);
+   Rprintf(" Bits = ");
    dumpuintbits(&bits,1);
-   printf("\n");
+   Rprintf("\n");
  }
  while (1) {
    bit_buffer = gsl_rng_get (rng);
    bits_left_in_bit_buffer = rmax_bits;
 
    MYDEBUG(D_BITS) {
-     printf("Refilled bit_buffer\n");
-     printf("%u bits left\n",bits_left_in_bit_buffer);
-     printf(" Buff = ");
+     Rprintf("Refilled bit_buffer\n");
+     Rprintf("%u bits left\n",bits_left_in_bit_buffer);
+     Rprintf(" Buff = ");
      dumpuintbits(&bit_buffer,1);
-     printf("\n");
+     Rprintf("\n");
    }
 
    if (bits_left_in_bit_buffer >= nbits) {
@@ -172,11 +172,11 @@ and so on.  Very nice.
      bits |= (bit_buffer >> bits_left_in_bit_buffer);
 
      MYDEBUG(D_BITS) {
-       printf("Returning:\n");
-       printf(" Bits = ");
+       Rprintf("Returning:\n");
+       Rprintf(" Bits = ");
        breturn = bits & mask;
        dumpuintbits(&breturn,1);
-       printf("\n");
+       Rprintf("\n");
      }
 
      return bits & mask;
@@ -185,10 +185,10 @@ and so on.  Very nice.
    bits |= (bit_buffer << nbits);
 
    MYDEBUG(D_BITS) {
-     printf("This should never execute:\n");
-     printf("  Bits = ");
+     Rprintf("This should never execute:\n");
+     Rprintf("  Bits = ");
      dumpuintbits(&bits,1);
-     printf("\n");
+     Rprintf("\n");
    }
 
  }

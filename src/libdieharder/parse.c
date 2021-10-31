@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <dieharder/parse.h>
+#include <R_ext/Print.h>
 
 extern int verbose;
 
@@ -28,7 +29,7 @@ int split(char *inbuffer)
  char delim[7],*nextval;
 
  if(verbose){
-   printf("split(%s)\n",inbuffer);
+   Rprintf("split(%s)\n",inbuffer);
  }
 
   
@@ -50,7 +51,7 @@ int split(char *inbuffer)
  int i = 0;
  strncpy(splitbuf[i],nextval,PBUF);
  if(verbose){
-   printf("split(): split field[%d] = %s.\n",i,splitbuf[i]);
+   Rprintf("split(): split field[%d] = %s.\n",i,splitbuf[i]);
  }
  i++;
 
@@ -59,7 +60,7 @@ int split(char *inbuffer)
    if(nextval == (char *)NULL) break;
    strncpy(splitbuf[i], nextval,PBUF);
    if(verbose){
-     printf("split(): split field[%d] = %s.\n",i,splitbuf[i]);
+     Rprintf("split(): split field[%d] = %s.\n",i,splitbuf[i]);
    }
    i++;
  }
@@ -67,8 +68,8 @@ int split(char *inbuffer)
  /* Null the last field */
  memset(splitbuf[i],0,PBUF);
  if(verbose){
-   printf("split(): Terminated split field[%d] = %s.\n",i,splitbuf[i]);
-   printf("split(): Returning %d as the field count\n",i);
+   Rprintf("split(): Terminated split field[%d] = %s.\n",i,splitbuf[i]);
+   Rprintf("split(): Returning %d as the field count\n",i);
  }
 
  return i;
@@ -87,7 +88,7 @@ int parse(char *inbuffer,char **outfields,int maxfields,int maxfieldlength)
  int i = 0;
 
  if(verbose){
-   printf("parse():\n");
+   Rprintf("parse():\n");
  }
 
 
@@ -109,7 +110,7 @@ int parse(char *inbuffer,char **outfields,int maxfields,int maxfieldlength)
  if(nextval == (char *)NULL) return 0;
  strncpy(outfields[i++],nextval,maxfieldlength);
  if(verbose){
-   printf("parse(): Parsed field[%d] = %s.\n",i-1,outfields[i-1]);
+   Rprintf("parse(): Parsed field[%d] = %s.\n",i-1,outfields[i-1]);
  }
 
  while(i < maxfields-1){
@@ -117,14 +118,14 @@ int parse(char *inbuffer,char **outfields,int maxfields,int maxfieldlength)
    if(nextval == (char *)NULL) break;
    strncpy(outfields[i++], nextval,maxfieldlength);
    if(verbose){
-     printf("parse(): Parsed field[%d] = %s.\n",i-1,outfields[i-1]);
+     Rprintf("parse(): Parsed field[%d] = %s.\n",i-1,outfields[i-1]);
    }
  }
 
  /* Null the last field */
  memset(outfields[i],0,maxfieldlength);
  if(verbose){
-   printf("parse(): Terminated field[%d] = %s.\n",i,outfields[i]);
+   Rprintf("parse(): Terminated field[%d] = %s.\n",i,outfields[i]);
  }
 
  return i;

@@ -64,7 +64,7 @@ void dieharder_rng_types()
  }
  dh_num_gsl_rngs = i;
  MYDEBUG(D_TYPES){
-   printf("# startup:  Found %u GSL rngs.\n",dh_num_gsl_rngs);
+   Rprintf("# startup:  Found %u GSL rngs.\n",dh_num_gsl_rngs);
  }
 
  /*
@@ -101,7 +101,7 @@ void dieharder_rng_types()
  ADD(gsl_rng_superkiss);
  dh_num_dieharder_rngs++;
  MYDEBUG(D_TYPES){
-   printf("# startup:  Found %u dieharder rngs.\n",dh_num_dieharder_rngs);
+   Rprintf("# startup:  Found %u dieharder rngs.\n",dh_num_dieharder_rngs);
  }
 
 
@@ -124,7 +124,7 @@ void dieharder_rng_types()
  ADD(gsl_rng_r_knuth_taocp2);
  dh_num_R_rngs++;
  MYDEBUG(D_TYPES){
-   printf("# startup:  Found %u R rngs.\n",dh_num_R_rngs);
+   Rprintf("# startup:  Found %u R rngs.\n",dh_num_R_rngs);
  }
 
  /*
@@ -152,7 +152,7 @@ void dieharder_rng_types()
    dh_num_hardware_rngs++;
  }
  MYDEBUG(D_TYPES){
-   printf("# startup:  Found %u hardware rngs.\n",dh_num_hardware_rngs);
+   Rprintf("# startup:  Found %u hardware rngs.\n",dh_num_hardware_rngs);
  }
 
  /*

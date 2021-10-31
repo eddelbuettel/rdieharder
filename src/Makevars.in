@@ -81,7 +81,6 @@ SOURCES = \
 	libdieharder/rng_file_input_raw.c \
 	libdieharder/rngs_gnu_r.c \
 	libdieharder/rng_kiss.c \
-	libdieharder/rng_jenkins.c \
 	libdieharder/rng_superkiss.c \
 	libdieharder/rng_stdin_input_raw.c \
 	libdieharder/rng_threefish.c \
@@ -117,6 +116,8 @@ SOURCES = \
 	startup.c \
 	time_rng.c \
 	user_template.c
+
+#	libdieharder/rng_jenkins.c \
 
 OBJECTS = $(SOURCES:.c=.o)
 

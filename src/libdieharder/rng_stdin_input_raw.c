@@ -16,12 +16,12 @@ stdin_input_raw_get (void *vstate)
 {
   unsigned int j;
   if (fread(&j,sizeof(j),1,stdin) != 1) {
-      if (feof(stdin)) {
-          fprintf(stderr,"# stdin_input_raw(): Error: EOF\n");
-      } else {
-          fprintf(stderr,"# stdin_input_raw(): Error: %s\n", strerror(errno));
-      }
-      exit(0);
+      //if (feof(stdin)) {
+      //    REprintf("# stdin_input_raw(): Error: EOF\n");
+      //} else {
+          Rf_error("# stdin_input_raw(): Error: %s\n", strerror(errno));
+      //}
+      //exit(0);
   }
   /* printf("raw: %10u\n",j); */
   return j;

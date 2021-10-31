@@ -190,7 +190,7 @@ void rgb_lmn_test()
  }
 
  if(verbose == D_USER_TEMPLATE || verbose == D_ALL){
-   printf("# rgb_lmn(): Doing a test on lag %u\n",lag);
+   Rprintf("# rgb_lmn(): Doing a test on lag %u\n",lag);
  }
 
  for(t=0;t<tsamples;t++){
@@ -211,7 +211,7 @@ void rgb_lmn_test()
  ks_pvalue[kspi] = ptest.pvalue;
 
  if(verbose == D_USER_TEMPLATE || verbose == D_ALL){
-   printf("# rgb_lmn(): ks_pvalue[%u] = %10.5f\n",kspi,ks_pvalue[kspi]);
+   Rprintf("# rgb_lmn(): ks_pvalue[%u] = %10.5f\n",kspi,ks_pvalue[kspi]);
  }
 
  kspi++;
@@ -221,6 +221,6 @@ void rgb_lmn_test()
 void help_rgb_lmn()
 {
 
-  printf("%s",dtest->description);
+  Rprintf("%s",dtest->description);
 
 }

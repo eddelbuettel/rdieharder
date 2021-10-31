@@ -45,7 +45,7 @@ double kstest(double *pvalue,int count)
   */
  dmax = 0.0;
  if(verbose == D_KSTEST || verbose == D_ALL){
-   printf("       p             y              d             d1           d2         dmax\n");
+   Rprintf("       p             y              d             d1           d2         dmax\n");
  }
  for(i=1;i<=count;i++){
    y = (double) i/(count+1.0);
@@ -72,7 +72,7 @@ double kstest(double *pvalue,int count)
 
    if(d1 > dmax) dmax = d1;
    if(verbose == D_KSTEST || verbose == D_ALL){
-     printf("%11.6f   %11.6f    %11.6f   %11.6f  %11.6f  %11.6f\n",pvalue[i-1],y,d,d1,d2,dmax);
+     Rprintf("%11.6f   %11.6f    %11.6f   %11.6f  %11.6f  %11.6f\n",pvalue[i-1],y,d,d1,d2,dmax);
    }
 
  }
@@ -113,7 +113,7 @@ double kstest(double *pvalue,int count)
    x = (csqrt + 0.12 + 0.11/csqrt)*dmax;
    p = q_ks(x);
    if(verbose == D_KSTEST || verbose == D_ALL){
-     printf("# kstest: returning p = %f\n",p);
+     Rprintf("# kstest: returning p = %f\n",p);
    }
    return(p);
  }
@@ -126,11 +126,11 @@ double kstest(double *pvalue,int count)
   */
  
  if(verbose == D_KSTEST || verbose == D_ALL){
-   printf("# kstest: calling p_ks_new(count = %d,dmax = %f)\n",count,dmax);
+   Rprintf("# kstest: calling p_ks_new(count = %d,dmax = %f)\n",count,dmax);
  }
  p = p_ks_new(count,dmax);
  if(verbose == D_KSTEST || verbose == D_ALL){
-   printf("# kstest: returning p = %f\n",p);
+   Rprintf("# kstest: returning p = %f\n",p);
  }
 
  return(p);
@@ -152,12 +152,12 @@ double q_ks(double x)
    sign *= -1;
    qsum += (double)sign*exp(kappa*(double)i*(double)i);
    if(verbose == D_KSTEST || verbose == D_ALL){
-     printf("Q_ks %d: %f\n",i,2.0*qsum);
+     Rprintf("Q_ks %d: %f\n",i,2.0*qsum);
    }
  }
 
  if(verbose == D_KSTEST || verbose == D_ALL){
-   printf("Q_ks returning %f\n",2.0*qsum);
+   Rprintf("Q_ks returning %f\n",2.0*qsum);
  }
  return(2.0*qsum);
 
@@ -216,7 +216,7 @@ void mPower(double *A,int eA,double *V,int *eV,int m,int n)
    * and we will cumulate the product.
    */
   mPower(A,eA,V,eV,m,n/2);
-  /* printf("n = %d  mP eV = %d\n",n/2,*eV); */
+  /* Rprintf("n = %d  mP eV = %d\n",n/2,*eV); */
   B=(double*)malloc((m*m)*sizeof(double));
   mMultiply(V,V,B,m);
   eB=2*(*eV);
@@ -225,11 +225,11 @@ void mPower(double *A,int eA,double *V,int *eV,int m,int n)
       V[i]=B[i];
     }
     *eV=eB;
-    /* printf("n = %d (even) eV = %d\n",n,*eV); */
+    /* Rprintf("n = %d (even) eV = %d\n",n,*eV); */
   } else {
     mMultiply(A,B,V,m);
     *eV=eA+eB;
-    /* printf("n = %d (odd) eV = %d\n",n,*eV); */
+    /* Rprintf("n = %d (odd) eV = %d\n",n,*eV); */
   }
 
   /*
@@ -243,7 +243,7 @@ void mPower(double *A,int eA,double *V,int *eV,int m,int n)
         V[j]=V[j]*1.0e-140;
       }
       *eV+=140;
-      /* printf("rescale eV = %d\n",*eV); */
+      /* Rprintf("rescale eV = %d\n",*eV); */
     }
   }
 
@@ -271,7 +271,7 @@ double p_ks_new(int n,double d)
    */
   s=d*d*n;
   if(ks_test != 2 && ( s>7.24 || ( s>3.76 && n>99 ))) {
-    if(n == 10400) printf("Returning the easy way\n");
+    if(n == 10400) Rprintf("Returning the easy way\n");
     return 2.0*exp(-(2.000071+.331/sqrt(n)+1.409/n)*s);
   }
 
@@ -282,7 +282,7 @@ double p_ks_new(int n,double d)
   k=(int)(n*d)+1;
   m=2*k-1;
   h=k-n*d;
-  /* printf("p_ks_new:  n = %d  k = %d  m = %d  h = %f\n",n,k,m,h); */
+  /* Rprintf("p_ks_new:  n = %d  k = %d  m = %d  h = %f\n",n,k,m,h); */
   H=(double*)malloc((m*m)*sizeof(double));
   Q=(double*)malloc((m*m)*sizeof(double));
   for(i=0;i<m;i++){
@@ -313,20 +313,20 @@ double p_ks_new(int n,double d)
 
   eH=0;
   mPower(H,eH,Q,&eQ,m,n);
-  /* printf("p_ks_new eQ = %d\n",eQ); */
+  /* Rprintf("p_ks_new eQ = %d\n",eQ); */
   s=Q[(k-1)*m+k-1];
-  /* printf("s = %16.8e\n",s); */
+  /* Rprintf("s = %16.8e\n",s); */
   for(i=1;i<=n;i++){
     s=s*i/n;
-    /* printf("i = %d: s = %16.8e\n",i,s); */
+    /* Rprintf("i = %d: s = %16.8e\n",i,s); */
     if(s<1e-140){
-      /* printf("Oops, starting to have underflow problems: s = %16.8e\n",s); */
+      /* Rprintf("Oops, starting to have underflow problems: s = %16.8e\n",s); */
       s*=1e140;
       eQ-=140;
     }
   }
 
-  /* printf("I'll bet this is it: s = %16.8e  eQ = %d\n",s,eQ); */
+  /* Rprintf("I'll bet this is it: s = %16.8e  eQ = %d\n",s,eQ); */
   s*=pow(10.,eQ);
   s = 1.0 - s;
   free(H);
@@ -358,9 +358,9 @@ double kstest_kuiper(double *pvalue,int count)
   * We start by sorting the list of pvalues.
   */
  if(verbose == D_KSTEST || verbose == D_ALL){
-   printf("# kstest_kuiper(): Computing Kuiper KS pvalue for:\n");
+   Rprintf("# kstest_kuiper(): Computing Kuiper KS pvalue for:\n");
    for(i=0;i<count;i++){
-     printf("# kstest_kuiper(): %3d    %10.5f\n",i,pvalue[i]);
+     Rprintf("# kstest_kuiper(): %3d    %10.5f\n",i,pvalue[i]);
    }
  }
 
@@ -381,7 +381,7 @@ double kstest_kuiper(double *pvalue,int count)
   * transform it into a p-value at the end.
   */
  if(verbose == D_KSTEST || verbose == D_ALL){
-   printf("    obs       exp           v        vmin         vmax\n");
+   Rprintf("    obs       exp           v        vmin         vmax\n");
  }
  vmin = 0.0;
  vmax = 0.0;
@@ -395,22 +395,22 @@ double kstest_kuiper(double *pvalue,int count)
      vmin = v;
    }
    if(verbose == D_KSTEST || verbose == D_ALL){
-     printf("%8.3f   %8.3f    %16.6e   %16.6e    %16.6e\n",pvalue[i],y,v,vmin,vmax);
+     Rprintf("%8.3f   %8.3f    %16.6e   %16.6e    %16.6e\n",pvalue[i],y,v,vmin,vmax);
    }
  }
  v = fabs(vmax) + fabs(vmin);
  csqrt = sqrt(count);
  x = (csqrt + 0.155 + 0.24/csqrt)*v;
  if(verbose == D_KSTEST || verbose == D_ALL){
-   printf("Kuiper's V = %8.3f, evaluating q_ks_kuiper(%6.2f)\n",v,x);
+   Rprintf("Kuiper's V = %8.3f, evaluating q_ks_kuiper(%6.2f)\n",v,x);
  }
  p = q_ks_kuiper(x,count);
 
  if(verbose == D_KSTEST || verbose == D_ALL){
    if(p < 0.0001){
-     printf("# kstest_kuiper(): Test Fails!  Visually inspect p-values:\n");
+     Rprintf("# kstest_kuiper(): Test Fails!  Visually inspect p-values:\n");
      for(i=0;i<count;i++){
-       printf("# kstest_kuiper(): %3d    %10.5f\n",i,pvalue[i]);
+       Rprintf("# kstest_kuiper(): %3d    %10.5f\n",i,pvalue[i]);
      }
    }
  }
@@ -460,7 +460,7 @@ double q_ks_kuiper(double x,int count)
  preturn = q - p;
 
  if(verbose == D_KSTEST || verbose == D_ALL){
-   printf("Q_ks yields preturn = %f:  q = %f  p = %f\n",preturn,q,p);
+   Rprintf("Q_ks yields preturn = %f:  q = %f  p = %f\n",preturn,q,p);
  }
  return(preturn);
 

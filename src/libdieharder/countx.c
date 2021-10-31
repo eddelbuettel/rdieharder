@@ -14,6 +14,7 @@
 #include <math.h>
 #include <float.h>
 #include <time.h>
+#include <R_ext/Print.h>
 
 typedef  unsigned char      u1;
 typedef  unsigned long      u4;
@@ -161,10 +162,10 @@ static void chi( u8 *data, u8 len, u4 terms)
       if (temp > 20.0) {
 	k = i;
 	for (j=0; j<terms; ++j) {
-	  printf("%2d ", (int) k&(BUCKETS-1));
+	  Rprintf("%2d ", (int) k&(BUCKETS-1));
 	  k >>= LOGBUCKETS;
 	}
-	printf("%14.4f %14.4f %14.4f\n",
+	Rprintf("%14.4f %14.4f %14.4f\n",
 	       (float)temp,(float)expect,(float)data[i]);
       }
       var += temp;
@@ -177,7 +178,7 @@ static void chi( u8 *data, u8 len, u4 terms)
     temp = (double)countother - expectother;
     temp = temp*temp/expectother;
     if (temp > 20.0) {
-      printf("other %14.4f %14.4f %14.4f\n",
+      Rprintf("other %14.4f %14.4f %14.4f\n",
 	     (float)temp,(float)expectother,(float)countother);
     }
     var += temp;
@@ -185,7 +186,7 @@ static void chi( u8 *data, u8 len, u4 terms)
   --buckets;
 
   /* calculate the total variance and chi-square measure */
-  printf("expected variance: %11.4f   got: %11.4f   chi-square: %6.4f\n",
+  Rprintf("expected variance: %11.4f   got: %11.4f   chi-square: %6.4f\n",
          (float)buckets, (float)var, 
 	 (float)((var-buckets)/sqrt((float)buckets)));
 }
@@ -201,25 +202,25 @@ int main_countx( int argc, char **argv)
   time(&a);
   if (argc == 3) {
     sscanf(argv[1], "%lu", &loglen);
-    printf("sequence length: 2^^%lu\n", loglen);
+    Rprintf("sequence length: 2^^%lu\n", loglen);
     len = (((u8)1)<<loglen);
 
     sscanf(argv[2], "%lu", &terms);
-    printf("terms in subsequences: %lu\n", terms);
+    Rprintf("terms in subsequences: %lu\n", terms);
   } else {
-    fprintf(stderr, "usage: \"countn 24 6\" means use 2^^24 sequences of length 6\n");
+    REprintf( "usage: \"countn 24 6\" means use 2^^24 sequences of length 6\n");
     return 1;
   }
 
   data = (u8 *)malloc(sizeof(u8)*(1<<(LOGBUCKETS*terms)));
   if (!data) {
-    fprintf(stderr, "could not malloc data\n");
+    REprintf( "could not malloc data\n");
     return 1;
   }
 
   for (i=0; i<=MAXBITS; ++i) {
     if (ftab[i] > BUCKETS) {
-      fprintf(stderr, "ftab[%lu]=%lu needs a bigger LOGBUCKETS\n", i, ftab[i]);
+      REprintf( "ftab[%lu]=%lu needs a bigger LOGBUCKETS\n", i, ftab[i]);
       return 1;
     }
   }
@@ -232,7 +233,7 @@ int main_countx( int argc, char **argv)
   free(data);
 
   time(&z);
-  printf("number of seconds: %6lu\n", (size_t)(z-a));
+  Rprintf("number of seconds: %6lu\n", (size_t)(z-a));
 
   return 0;
 

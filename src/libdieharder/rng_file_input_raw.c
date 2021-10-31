@@ -52,8 +52,8 @@ static unsigned long int file_input_raw_get(void *vstate)
     * Read in the next random number from the file
     */
    if(fread(&iret,sizeof(uint),1,state->fp) != 1){
-     fprintf(stderr,"# file_input_raw(): Error.  This cannot happen.\n");
-     exit(0);
+     Rf_error("# file_input_raw(): Error.  This cannot happen.\n");
+     //exit(0);
    }
 
    /*
@@ -63,7 +63,7 @@ static unsigned long int file_input_raw_get(void *vstate)
    state->rptr++;
    state->rtot++;
    if(verbose){
-     fprintf(stdout,"# file_input() %u: %u/%u -> %u\n",(uint)state->rtot,(uint)state->rptr,(uint)state->flen,(uint)iret);
+     Rprintf("# file_input() %u: %u/%u -> %u\n",(uint)state->rtot,(uint)state->rptr,(uint)state->flen,(uint)iret);
    }
 
    /*
@@ -78,8 +78,8 @@ static unsigned long int file_input_raw_get(void *vstate)
    }
    return(iret);
  } else {
-   fprintf(stderr,"Error: %s not open.  Exiting.\n", filename);
-   exit(0);
+   Rf_error("Error: %s not open.  Exiting.\n", filename);
+   //exit(0);
  }
 
 }
@@ -107,8 +107,8 @@ static void file_input_raw_set (void *vstate, unsigned long int s)
  file_input_state_t *state = (file_input_state_t *) vstate;
 
  if(verbose == D_FILE_INPUT_RAW || verbose == D_ALL){
-   fprintf(stdout,"# file_input_raw(): entering file_input_raw_set\n");
-   fprintf(stdout,"# file_input_raw(): state->fp = %p, seed = %lu\n",(void*) state->fp,s);
+   Rprintf("# file_input_raw(): entering file_input_raw_set\n");
+   Rprintf("# file_input_raw(): state->fp = %p, seed = %lu\n",(void*) state->fp,s);
  }
 
  /*
@@ -117,7 +117,7 @@ static void file_input_raw_set (void *vstate, unsigned long int s)
   */
  if(first){
    if(verbose){
-     fprintf(stdout,"# file_input_raw(): entering file_input_raw_set 1st call.\n");
+     Rprintf("# file_input_raw(): entering file_input_raw_set 1st call.\n");
    }
 
    /*
@@ -130,8 +130,8 @@ static void file_input_raw_set (void *vstate, unsigned long int s)
 
    if(stat(filename, &sbuf)){
      if(errno == EBADF){
-       fprintf(stderr,"# file_input_raw(): Error -- file descriptor %s bad.\n",filename);
-       exit(0);
+       Rf_error("# file_input_raw(): Error -- file descriptor %s bad.\n",filename);
+       //exit(0);
      }
    }
    /*
@@ -149,12 +149,12 @@ static void file_input_raw_set (void *vstate, unsigned long int s)
      state->flen = sbuf.st_size/sizeof(uint);
      filecount = state->flen;
      if (filecount < 16) {
-       fprintf(stderr,"# file_input_raw(): Error -- file %s is too small.\n",filename);
-       exit(0);
+       Rf_error("# file_input_raw(): Error -- file %s is too small.\n",filename);
+       //exit(0);
      }
    } else if (S_ISDIR(sbuf.st_mode)){
-     fprintf(stderr,"# file_input_raw(): Error -- path %s is a directory.\n",filename);
-     exit(0);
+     Rf_error("# file_input_raw(): Error -- path %s is a directory.\n",filename);
+     //exit(0);
    } else {
       /*
        * This is neither a file nor a directory, so we will not
@@ -177,7 +177,7 @@ static void file_input_raw_set (void *vstate, unsigned long int s)
   */
  if(state->fp && s ) {
    if(verbose == D_FILE_INPUT || verbose == D_ALL){
-     fprintf(stdout,"# file_input(): Closing/reopening/resetting %s\n",filename);
+     Rprintf("# file_input(): Closing/reopening/resetting %s\n",filename);
    }
    fclose(state->fp);
    state->fp = NULL;
@@ -185,7 +185,7 @@ static void file_input_raw_set (void *vstate, unsigned long int s)
 
  if (state->fp == NULL){
    if(verbose == D_FILE_INPUT_RAW || verbose == D_ALL){
-     fprintf(stdout,"# file_input_raw(): Opening %s\n", filename);
+     Rprintf("# file_input_raw(): Opening %s\n", filename);
    }
 
    /*
@@ -194,16 +194,16 @@ static void file_input_raw_set (void *vstate, unsigned long int s)
     * that might keep the file from reading, e.g. permissions.
     */
    if ((state->fp = fopen(filename,"r")) == NULL) {
-     fprintf(stderr,"# file_input_raw(): Error: Cannot open %s, exiting.\n", filename);
-     exit(0);
+     Rf_error("# file_input_raw(): Error: Cannot open %s, exiting.\n", filename);
+     //exit(0);
    }
 
    /*
     * OK, so if we get here, the file is open.
     */
    if(verbose == D_FILE_INPUT_RAW || verbose == D_ALL){
-     fprintf(stdout,"# file_input_raw(): Opened %s for the first time.\n", filename);
-     fprintf(stdout,"# file_input_raw(): state->fp is %8p, file contains %u unsigned integers.\n",(void*) state->fp,(uint)state->flen);
+     Rprintf("# file_input_raw(): Opened %s for the first time.\n", filename);
+     Rprintf("# file_input_raw(): state->fp is %8p, file contains %u unsigned integers.\n",(void*) state->fp,(uint)state->flen);
    }
    state->rptr = 0;  /* No rands read yet */
    /*
@@ -227,8 +227,8 @@ static void file_input_raw_set (void *vstate, unsigned long int s)
      state->rptr = 0;
      state->rewind_cnt++;
      if(verbose == D_FILE_INPUT_RAW || verbose == D_ALL){
-       fprintf(stderr,"# file_input_raw(): Rewinding %s at rtot = %u\n", filename,(uint) state->rtot);
-       fprintf(stderr,"# file_input_raw(): Rewind count = %u, resetting rptr = %u\n",state->rewind_cnt,(uint) state->rptr);
+       REprintf("# file_input_raw(): Rewinding %s at rtot = %u\n", filename,(uint) state->rtot);
+       REprintf("# file_input_raw(): Rewind count = %u, resetting rptr = %u\n",state->rewind_cnt,(uint) state->rptr);
      }
    } else {
      return;

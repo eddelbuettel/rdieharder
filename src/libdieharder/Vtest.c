@@ -24,8 +24,8 @@ void Vtest_create(Vtest *vtest, unsigned int nvec)
 
  int i;
  MYDEBUG(D_VTEST){
-   printf("#==================================================================\n");
-   printf("# Vtest_create(): Creating test struct for %u nvec.\n",nvec);
+   Rprintf("#==================================================================\n");
+   Rprintf("# Vtest_create(): Creating test struct for %u nvec.\n",nvec);
  }
  vtest->x = (double *) malloc(sizeof(double)*nvec);       /* sample results */
  vtest->y = (double *) malloc(sizeof(double)*nvec);       /* expected sample results */
@@ -40,7 +40,7 @@ void Vtest_create(Vtest *vtest, unsigned int nvec)
  vtest->pvalue = 0.0;
  vtest->cutoff = 5;
  MYDEBUG(D_VTEST){
-   printf("# Vtest_create(): Done.\n");
+   Rprintf("# Vtest_create(): Done.\n");
  }
 
 
@@ -90,8 +90,8 @@ void Vtest_eval(Vtest *vtest)
   */
  /* verbose=1; */
  MYDEBUG(D_VTEST){
-   printf("Evaluating chisq and pvalue for %d points\n",vtest->nvec);
-   printf("Using a cutoff of %f\n",vtest->cutoff);
+   Rprintf("Evaluating chisq and pvalue for %d points\n",vtest->nvec);
+   Rprintf("Using a cutoff of %f\n",vtest->cutoff);
  }
 
  chisq = 0.0;
@@ -100,9 +100,9 @@ void Vtest_eval(Vtest *vtest)
  ndof = 0;
  itail = -1;
  MYDEBUG(D_VTEST){
-   printf("# %7s   %3s      %3s %10s      %10s %10s %9s\n",
+   Rprintf("# %7s   %3s      %3s %10s      %10s %10s %9s\n",
            "bit/bin","DoF","X","Y","sigma","del-chisq","chisq");
-   printf("#==================================================================\n");
+   Rprintf("#==================================================================\n");
  }
  /*
   * If vtest->ndof is nonzero, we use it to compute chisq.  If not, we try
@@ -120,7 +120,7 @@ void Vtest_eval(Vtest *vtest)
      */
      chisq += delchisq;
      MYDEBUG(D_VTEST){
-       printf("# %5u\t%3u\t%12.4f\t%12.4f\t%8.4f\t%10.4f\n",
+       Rprintf("# %5u\t%3u\t%12.4f\t%12.4f\t%8.4f\t%10.4f\n",
                   i,vtest->ndof,vtest->x[i],vtest->y[i],delchisq,chisq);
      }
      /* increment only if the data is substantial */
@@ -129,7 +129,7 @@ void Vtest_eval(Vtest *vtest)
      if(itail == -1){
        itail = i;  /* Do nothing; just remember the index */
        MYDEBUG(D_VTEST){
-         printf("  Saving itail = %u because vtest->x[i] = %f <= %f\n",itail,vtest->x[i],vtest->cutoff);
+         Rprintf("  Saving itail = %u because vtest->x[i] = %f <= %f\n",itail,vtest->x[i],vtest->cutoff);
        }
      } else {
        /*
@@ -155,7 +155,7 @@ void Vtest_eval(Vtest *vtest)
      /* increment only if the data is substantial */
      if(vtest->ndof == 0) ndof++;
      MYDEBUG(D_VTEST){
-       printf("# %5u\t%3u\t%12.4f\t%12.4f\t%8.4f\t%10.4f\n",
+       Rprintf("# %5u\t%3u\t%12.4f\t%12.4f\t%8.4f\t%10.4f\n",
               itail,vtest->ndof,vtest->x[itail],vtest->y[itail],delchisq,chisq);
      }
    }
@@ -197,9 +197,9 @@ void Vtest_eval(Vtest *vtest)
  }
 
  MYDEBUG(D_VTEST){
-   printf("Total:  %10.4f  %10.4f\n",x_tot,y_tot);
-   printf("#==================================================================\n");
-   printf("Evaluated chisq = %f for %u degrees of freedom\n",chisq,vtest->ndof);
+   Rprintf("Total:  %10.4f  %10.4f\n",x_tot,y_tot);
+   Rprintf("#==================================================================\n");
+   Rprintf("Evaluated chisq = %f for %u degrees of freedom\n",chisq,vtest->ndof);
  }
  vtest->chisq = chisq;
 
@@ -212,7 +212,7 @@ void Vtest_eval(Vtest *vtest)
  vtest->pvalue = gsl_sf_gamma_inc_Q((double)(vtest->ndof)/2.0,chisq/2.0);
  /* printf("Evaluted pvalue = %6.4f in Vtest_eval() with %u ndof.\n",vtest->pvalue,vtest->ndof); */
  MYDEBUG(D_VTEST){
-   printf("Evaluted pvalue = %6.4f in Vtest_eval().\n",vtest->pvalue);
+   Rprintf("Evaluted pvalue = %6.4f in Vtest_eval().\n",vtest->pvalue);
  }
  /* verbose=0; */
 

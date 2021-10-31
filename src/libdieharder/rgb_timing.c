@@ -23,7 +23,7 @@ int rgb_timing(Test **test, Rgb_Timing *timing)
  unsigned int *rand_uint;
 
  MYDEBUG(D_RGB_TIMING){
-   printf("# Entering rgb_timing(): ps = %u  ts = %u\n",test[0]->psamples,test[0]->tsamples);
+   Rprintf("# Entering rgb_timing(): ps = %u  ts = %u\n",test[0]->psamples,test[0]->tsamples);
  }
 
  seed = random_seed();

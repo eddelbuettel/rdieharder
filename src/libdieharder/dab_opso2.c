@@ -62,7 +62,7 @@ int dab_opso2(Test **test, int irun) {
    test[0]->pvalues[irun] = 0.5;
    test[1]->pvalues[irun] = 0.5;
    if (irun == 0) {
-     printf("OPSO2: Requires rmax_bits to be >= 24\n");
+     Rprintf("OPSO2: Requires rmax_bits to be >= 24\n");
    }
    return 0;
  }

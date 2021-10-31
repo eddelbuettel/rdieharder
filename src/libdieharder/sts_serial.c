@@ -115,9 +115,9 @@ int sts_serial(Test **test,int irun)
  nb = 16;        /* Just ignore sts_serial_ntuple for now */
  tsamples = test[0]->tsamples;  /* ditto */
  MYDEBUG(D_STS_SERIAL){
-   printf("#==================================================================\n");
-   printf("# Starting sts_serial.\n");
-   printf("# sts_serial: Testing ntuple = %u\n",nb);
+   Rprintf("#==================================================================\n");
+   Rprintf("# Starting sts_serial.\n");
+   Rprintf("# sts_serial: Testing ntuple = %u\n",nb);
  }
 
  /*
@@ -175,7 +175,7 @@ int sts_serial(Test **test,int irun)
   */
  bsize = tsamples*sizeof(uint)*CHAR_BIT;
  MYDEBUG(D_STS_SERIAL){
-   printf("# sts_serial(): bsize = %u\n",bsize);
+   Rprintf("# sts_serial(): bsize = %u\n",bsize);
  }
 
  /*
@@ -190,16 +190,16 @@ int sts_serial(Test **test,int irun)
    /* Fast, but deadly to rngs with less than 32 bits returned */
    /* uintbuf[t] = gsl_rng_get(rng); */
    MYDEBUG(D_STS_SERIAL){
-     printf("# sts_serial(): %u:  ",t);
+     Rprintf("# sts_serial(): %u:  ",t);
      dumpuintbits(&uintbuf[t],1);
-     printf("\n");
+     Rprintf("\n");
    }
  }
  uintbuf[tsamples] = uintbuf[0];   /* Periodic wraparound */
  MYDEBUG(D_STS_SERIAL){
-   printf("# sts_serial(): %u:  ",(uint)tsamples);
+   Rprintf("# sts_serial(): %u:  ",(uint)tsamples);
    dumpuintbits(&uintbuf[tsamples],1);
-   printf("\n");
+   Rprintf("\n");
  }
 
  /*
@@ -223,7 +223,7 @@ int sts_serial(Test **test,int irun)
    j = 0;
    ctotal = 0;
    MYDEBUG(D_STS_SERIAL){
-     printf("looping bsize = %u times\n",bsize);
+     Rprintf("looping bsize = %u times\n",bsize);
    }
    for(t=0;t<bsize;t++){
      /*
@@ -232,9 +232,9 @@ int sts_serial(Test **test,int irun)
      if((t%32) == 0){
        window = uintbuf[j];  /* start with window = testbuf = charbuf */
        MYDEBUG(D_STS_SERIAL){
-         printf("uint window[%u] = %08x = ",j,window);
+         Rprintf("uint window[%u] = %08x = ",j,window);
          dumpuintbits(&window,1);
-         printf("\n");
+         Rprintf("\n");
        }
        j++;
      }
@@ -242,7 +242,7 @@ int sts_serial(Test **test,int irun)
      value = (window >> (32 - m - bi)) & mask;
      MYDEBUG(D_STS_SERIAL){
        dumpbitwin(value,m);
-       printf("\n");
+       Rprintf("\n");
      }
      freq[m][value]++;
      ctotal++;
@@ -250,23 +250,23 @@ int sts_serial(Test **test,int irun)
        window = (window << 16);
        window += (uintbuf[j] >> 16);
        MYDEBUG(D_STS_SERIAL){
-         printf("half window[%u] = %08x = ",j,window);
+         Rprintf("half window[%u] = %08x = ",j,window);
          dumpuintbits(&window,1);
-         printf("\n");
+         Rprintf("\n");
        }
      }
    }
 
    MYDEBUG(D_STS_SERIAL){
-     printf("# sts_serial():=====================================================\n");
-     printf("# sts_serial():                  Count table\n");
-     printf("# sts_serial():\tbits\tvalue\tcount\tprob\n");
+     Rprintf("# sts_serial():=====================================================\n");
+     Rprintf("# sts_serial():                  Count table\n");
+     Rprintf("# sts_serial():\tbits\tvalue\tcount\tprob\n");
      for(i = 0; i<pow(2,m); i++){
-       printf("# sts_serial():   ");
+       Rprintf("# sts_serial():   ");
        dumpbitwin(i,m);
-       printf("\t%u\t%f\t%f\n",i,freq[m][i],(double) freq[m][i]/ctotal);
+       Rprintf("\t%u\t%f\t%f\n",i,freq[m][i],(double) freq[m][i]/ctotal);
      }
-     printf("# sts_serial(): Total count = %u, target probability = %f\n",ctotal,1.0/pow(2,m));
+     Rprintf("# sts_serial(): Total count = %u, target probability = %f\n",ctotal,1.0/pow(2,m));
    }
 
  } /* End of m loop */
@@ -275,7 +275,7 @@ int sts_serial(Test **test,int irun)
   * Now it is time to implement the statistic from STS SP800 whatever.
   */
  MYDEBUG(D_STS_SERIAL){
-   printf("# sts_serial():=====================================================\n");
+   Rprintf("# sts_serial():=====================================================\n");
  }
  for(m=1;m<nb1;m++){
    for(i=0;i<pow(2,m);i++){
@@ -284,7 +284,7 @@ int sts_serial(Test **test,int irun)
    }
    psi2[m] = pow(2,m)*psi2[m]/bsize - bsize;
    MYDEBUG(D_STS_SERIAL){
-     printf("# sts_serial(): psi2[%u] = %f\n",m,psi2[m]);
+     Rprintf("# sts_serial(): psi2[%u] = %f\n",m,psi2[m]);
    }
  }
 
@@ -309,7 +309,7 @@ int sts_serial(Test **test,int irun)
    }
    test[j++]->pvalues[irun] = pvalue;
    MYDEBUG(D_STS_SERIAL){
-     printf("pvalue 1[%u] = %f\n",m,pvalue);
+     Rprintf("pvalue 1[%u] = %f\n",m,pvalue);
    }
    if(m>2){
      pvalue = gsl_sf_gamma_inc_Q(pow(2,m-3),del2psi2[m]/2.0);
@@ -318,7 +318,7 @@ int sts_serial(Test **test,int irun)
      }
      test[j++]->pvalues[irun] = pvalue;
      MYDEBUG(D_STS_SERIAL){
-       printf("pvalue 2[%u] = %f\n",m,pvalue);
+       Rprintf("pvalue 2[%u] = %f\n",m,pvalue);
      }
    }
  }

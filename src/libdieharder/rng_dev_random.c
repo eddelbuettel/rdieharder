@@ -25,11 +25,11 @@ dev_random_get (void *vstate)
 
   if(state->fp != NULL) {
     int rc = fread(&j,sizeof(j),1,state->fp);
-    if (rc == 0) fprintf(stderr, "Error: Nothing written.\n");
+    if (rc == 0) REprintf( "Error: Nothing written.\n");
     return j;
   } else {
-    fprintf(stderr,"Error: /dev/random not open.  Exiting.\n");
-    exit(0);
+    Rf_error("Error: /dev/random not open.  Exiting.\n");
+    //exit(0);
   }
 
 }
@@ -46,9 +46,9 @@ dev_random_set (void *vstate, unsigned long int s)
   dev_random_state_t *state = (dev_random_state_t *) vstate;
 
  if ((state->fp = fopen("/dev/random","r")) == NULL) {
-   fprintf(stderr,"Error: Cannot open /dev/random, exiting.\n");
-   fprintf(stderr,"/dev/random may only be available on Linux systems.\n");
-   exit(0);
+   Rf_error("Error: Cannot open /dev/random, exiting.\n"
+            "/dev/random may only be available on Linux systems.\n");
+   //exit(0);
  }
 
  return;

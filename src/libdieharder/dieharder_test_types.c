@@ -98,7 +98,7 @@ void dieharder_test_types()
  dh_num_diehard_tests++;
 
  MYDEBUG(D_TYPES){
-   printf("# dieharder_test_types():  Found %u diehard tests.\n",dh_num_diehard_tests);
+   Rprintf("# dieharder_test_types():  Found %u diehard tests.\n",dh_num_diehard_tests);
  }
 
  /*

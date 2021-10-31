@@ -67,13 +67,13 @@ double chisq_poisson(unsigned int *observed,double lambda,int kmax,unsigned int 
       ((double) observed[k] - expected[k])/expected[k];
    chisq += delchisq;
    if(verbose == D_CHISQ || verbose == D_ALL){
-     printf("%u:  observed = %f,  expected = %f, delchisq = %f, chisq = %f\n",
+     Rprintf("%u:  observed = %f,  expected = %f, delchisq = %f, chisq = %f\n",
         k,(double)observed[k],expected[k],delchisq,chisq);
    }
  }
 
  if(verbose == D_CHISQ || verbose == D_ALL){
-   printf("Evaluated chisq = %f for %u k values\n",chisq,kmax);
+   Rprintf("Evaluated chisq = %f for %u k values\n",chisq,kmax);
  }
 
  /*
@@ -83,7 +83,7 @@ double chisq_poisson(unsigned int *observed,double lambda,int kmax,unsigned int 
   */
  pvalue = gsl_sf_gamma_inc_Q((double)(kmax-1)/2.0,chisq/2.0);
  if(verbose == D_CHISQ || verbose == D_ALL){
-   printf("pvalue = %f in chisq_poisson.\n",pvalue);
+   Rprintf("pvalue = %f in chisq_poisson.\n",pvalue);
  }
 
  free(expected);
@@ -116,13 +116,13 @@ double chisq_pearson(double *observed,double *expected,int kmax)
       (observed[k] - expected[k])/expected[k];
    chisq += delchisq;
    if(verbose){
-     printf("%u:  observed = %f,  expected = %f, delchisq = %f, chisq = %f\n",
+     Rprintf("%u:  observed = %f,  expected = %f, delchisq = %f, chisq = %f\n",
         k,observed[k],expected[k],delchisq,chisq);
    }
  }
 
  if(verbose){
-   printf("Evaluated chisq = %f for %u k values\n",chisq,kmax);
+   Rprintf("Evaluated chisq = %f for %u k values\n",chisq,kmax);
  }
 
  /*
@@ -132,7 +132,7 @@ double chisq_pearson(double *observed,double *expected,int kmax)
   */
  pvalue = gsl_sf_gamma_inc_Q((double)(kmax-1)/2.0,chisq/2.0);
  if(verbose){
-   printf("pvalue = %f in chisq_pearson.\n",pvalue);
+   Rprintf("pvalue = %f in chisq_pearson.\n",pvalue);
  }
 
  return(pvalue);
@@ -158,9 +158,9 @@ double chisq_binomial(double *observed,double prob,unsigned int kmax,unsigned in
  ndof = 0;
  nmax = kmax;
  if(verbose){
-   printf("# %7s   %3s      %3s %10s      %10s %9s\n",
+   Rprintf("# %7s   %3s      %3s %10s      %10s %9s\n",
            "bit/bin","DoF","X","Y","del-chisq","chisq");
-   printf("#==================================================================\n");
+   Rprintf("#==================================================================\n");
  }
  for(n = 0;n <= nmax;n++){
    if(observed[n] > 10.0){
@@ -170,16 +170,16 @@ double chisq_binomial(double *observed,double prob,unsigned int kmax,unsigned in
      delchisq = (observed[n] - expected)*(observed[n] - expected)/expected;
      chisq += delchisq;
      if(verbose){
-       printf("# %5u     %3u   %10.4f %10.4f %10.4f %10.4f\n",
+       Rprintf("# %5u     %3u   %10.4f %10.4f %10.4f %10.4f\n",
                   n,ndof,observed[n],expected,delchisq,chisq);
      }
      ndof++;
    }
  }
  if(verbose){
-   printf("Total:  %10.4f  %10.4f\n",obstotal,exptotal);
-   printf("#==================================================================\n");
-   printf("Evaluated chisq = %f for %u degrees of freedom\n",chisq,ndof);
+   Rprintf("Total:  %10.4f  %10.4f\n",obstotal,exptotal);
+   Rprintf("#==================================================================\n");
+   Rprintf("Evaluated chisq = %f for %u degrees of freedom\n",chisq,ndof);
  }
 
  /*
@@ -191,7 +191,7 @@ double chisq_binomial(double *observed,double prob,unsigned int kmax,unsigned in
  ndof--;
  pvalue = gsl_sf_gamma_inc_Q((double)(ndof)/2.0,chisq/2.0);
  if(verbose){
-   printf("Evaluted pvalue = %6.4f in chisq_binomial.\n",pvalue);
+   Rprintf("Evaluted pvalue = %6.4f in chisq_binomial.\n",pvalue);
  }
 
  return(pvalue);
@@ -215,13 +215,13 @@ double chisq_uint_uniform_gtest(uint *observed,long numItems,int kmax)
    delchisq = 2.0 * ((double) observed[k] * log((double) observed[k] / expected));
    chisq += delchisq;
    if(verbose){
-     printf("%u:  observed = %u,  expected = %f, delchisq = %f, chisq = %f\n",
+     Rprintf("%u:  observed = %u,  expected = %f, delchisq = %f, chisq = %f\n",
         k,observed[k],expected,delchisq,chisq);
    }
  }
 
  if(verbose){
-   printf("Evaluated chisq = %f for %u k values\n",chisq,kmax);
+   Rprintf("Evaluated chisq = %f for %u k values\n",chisq,kmax);
  }
 
  /* Apply correction; from Wikipedia, citing Smith, P. J., Rae, D. S., Manderscheid,
@@ -238,7 +238,7 @@ double chisq_uint_uniform_gtest(uint *observed,long numItems,int kmax)
   */
  pvalue = gsl_sf_gamma_inc_Q((double)(kmax-1)/2.0,fabs(chisq)/2.0);
  if(verbose){
-   printf("pvalue = %f in chisq_pearson.\n",pvalue);
+   Rprintf("pvalue = %f in chisq_pearson.\n",pvalue);
  }
 
  return(pvalue);
@@ -298,13 +298,13 @@ double chisq_geometric(unsigned int *observed,double prob,int kmax,unsigned int 
       ((double) observed[k] - expected[k])/expected[k];
    chisq += delchisq;
    if(verbose == D_CHISQ || verbose == D_ALL){
-     printf("%u:  observed = %f,  expected = %f, delchisq = %f, chisq = %f\n",
+     Rprintf("%u:  observed = %f,  expected = %f, delchisq = %f, chisq = %f\n",
         k,(double)observed[k],expected[k],delchisq,chisq);
    }
  }
 
  if(verbose == D_CHISQ || verbose == D_ALL){
-   printf("Evaluated chisq = %f for %u k values\n",chisq,kmax);
+   Rprintf("Evaluated chisq = %f for %u k values\n",chisq,kmax);
  }
 
  /*
@@ -314,7 +314,7 @@ double chisq_geometric(unsigned int *observed,double prob,int kmax,unsigned int 
   */
  pvalue = gsl_sf_gamma_inc_Q((double)(kmax-1)/2.0,chisq/2.0);
  if(verbose == D_CHISQ || verbose == D_ALL){
-   printf("pvalue = %f in chisq_geometric.\n",pvalue);
+   Rprintf("pvalue = %f in chisq_geometric.\n",pvalue);
  }
 
  free(expected);

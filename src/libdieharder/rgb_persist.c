@@ -55,9 +55,9 @@ int rgb_persist(Test **test, Rgb_Persist *persist)
    persist->and_mask = ~(last_rand ^ rgb_persist_rand_uint[0]);
    for(i=0;i<256;i++){
      if(verbose){
-       printf("rgb_persist_rand_uint[%d] = %u = ",i,rgb_persist_rand_uint[i]);
+       Rprintf("rgb_persist_rand_uint[%d] = %u = ",i,rgb_persist_rand_uint[i]);
        dumpbits(&rgb_persist_rand_uint[i],persist->nbits);
-       printf("\n");
+       Rprintf("\n");
      }
 
      /*
@@ -65,9 +65,9 @@ int rgb_persist(Test **test, Rgb_Persist *persist)
       */
      persist->and_mask = persist->and_mask & (~(last_rand ^ rgb_persist_rand_uint[i]));
      if(verbose){
-       printf("and_mask = %u = ",persist->and_mask);
+       Rprintf("and_mask = %u = ",persist->and_mask);
        dumpbits(&persist->and_mask,persist->nbits);
-       printf("\n");
+       Rprintf("\n");
      }
 
    }

@@ -65,18 +65,18 @@ int rgb_operm(Test **test,int irun)
   * For a given n = ntuple size in bits, there are n! bit orderings
   */
  MYDEBUG(D_RGB_OPERM){
-   printf("#==================================================================\n");
-   printf("# rgb_operm: Running rgb_operm verbosely for k = %d.\n",rgb_operm_k);
-   printf("# rgb_operm: Use -v = %d to focus.\n",D_RGB_OPERM);
-   printf("# rgb_operm: ======================================================\n");
+   Rprintf("#==================================================================\n");
+   Rprintf("# rgb_operm: Running rgb_operm verbosely for k = %d.\n",rgb_operm_k);
+   Rprintf("# rgb_operm: Use -v = %d to focus.\n",D_RGB_OPERM);
+   Rprintf("# rgb_operm: ======================================================\n");
  }
 
  /*
   * Sanity check first
   */
  if((rgb_operm_k < 0) || (rgb_operm_k > RGB_OPERM_KMAX)){
-   printf("\nError:  rgb_operm_k must be a positive integer <= %u.  Exiting.\n",RGB_OPERM_KMAX);
-   exit(0);
+   Rf_error("\nError:  rgb_operm_k must be a positive integer <= %u.  Exiting.\n",RGB_OPERM_KMAX);
+   //exit(0);
  }
 
  nperms = gsl_sf_fact(rgb_operm_k);
@@ -98,7 +98,7 @@ int rgb_operm(Test **test,int irun)
   * or they'll be forgotten when these routines return.
   */
  MYDEBUG(D_RGB_OPERM){
-   printf("# rgb_operm: Creating and zeroing cexact[][] and cexpt[][].\n");
+   Rprintf("# rgb_operm: Creating and zeroing cexact[][] and cexpt[][].\n");
  }
  cexact = (double **)malloc(nperms*sizeof(double*));
  ceinv  = (double **)malloc(nperms*sizeof(double*));
@@ -161,15 +161,15 @@ int rgb_operm(Test **test,int irun)
  {
    int i;
 
-   printf("#==================================================================\n");
-   for (i = 0; i < nperms; i++) {
-     double eval_i = gsl_vector_get (eval, i);
-     gsl_vector_view evec_i = gsl_matrix_column (evec, i);
-     printf ("eigenvalue[%u] = %g\n", i, eval_i);
-     printf ("eigenvector[%u] = \n",i);
-     gsl_vector_fprintf (stdout,&evec_i.vector, "%10.5f");
-   }
-   printf("#==================================================================\n");
+   /* printf("#==================================================================\n"); */
+   /* for (i = 0; i < nperms; i++) { */
+   /*   double eval_i = gsl_vector_get (eval, i); */
+   /*   gsl_vector_view evec_i = gsl_matrix_column (evec, i); */
+   /*   printf ("eigenvalue[%u] = %g\n", i, eval_i); */
+   /*   printf ("eigenvector[%u] = \n",i); */
+   /*   gsl_vector_fprintf (stdout,&evec_i.vector, "%10.5f"); */
+   /* } */
+   /* printf("#==================================================================\n"); */
  }
 
  gsl_vector_free (eval);
@@ -180,26 +180,26 @@ int rgb_operm(Test **test,int irun)
  gsl_linalg_LU_invert(&CEXACT, p, &CEINV);
  gsl_permutation_free(p);
  gsl_blas_dgemm(CblasNoTrans, CblasNoTrans, 1.0, &CEINV.matrix, &CEXPT.matrix, 0.0, &IDTY.matrix);
- printf("#==================================================================\n");
- printf("# Should be inverse of C, assuming it is invertible:\n");
+ Rprintf("#==================================================================\n");
+ Rprintf("# Should be inverse of C, assuming it is invertible:\n");
  for(i=0;i<nperms;i++){
-   printf("# ");
+   Rprintf("# ");
    for(j = 0;j<nperms;j++){
-     printf("%8.3f ",idty[i][j]);
+     Rprintf("%8.3f ",idty[i][j]);
    }
-   printf("\n");
+   Rprintf("\n");
  }
- printf("#==================================================================\n");
- printf("#==================================================================\n");
- printf("# Should be normal on identity:\n");
+ Rprintf("#==================================================================\n");
+ Rprintf("#==================================================================\n");
+ Rprintf("# Should be normal on identity:\n");
  for(i=0;i<nperms;i++){
-   printf("# ");
+   Rprintf("# ");
    for(j = 0;j<nperms;j++){
-     printf("%8.3f ",idty[i][j]);
+     Rprintf("%8.3f ",idty[i][j]);
    }
-   printf("\n");
+   Rprintf("\n");
  }
- printf("#==================================================================\n");
+ Rprintf("#==================================================================\n");
  */
 
     
@@ -260,34 +260,34 @@ void make_cexact()
  gsl_permutation **operms;
 
  MYDEBUG(D_RGB_OPERM){
-   printf("#==================================================================\n");
-   printf("# rgb_operm: Running cexact()\n");
+   Rprintf("#==================================================================\n");
+   Rprintf("# rgb_operm: Running cexact()\n");
  }
 
  /*
   * Test fpipi().  This is probably cruft, actually.
  MYDEBUG(D_RGB_OPERM){
-   printf("# rgb_operm: Testing fpipi()\n");
+   Rprintf("# rgb_operm: Testing fpipi()\n");
    for(i=0;i<nperms;i++){
      for(j = 0;j<nperms;j++){
-       printf("# rgb_operm: fpipi(%u,%u,%u) = %f\n",i,j,nperms,fpipi(i,j,nperms));
+       Rprintf("# rgb_operm: fpipi(%u,%u,%u) = %f\n",i,j,nperms,fpipi(i,j,nperms));
      }
    }
  }
  */
 
  MYDEBUG(D_RGB_OPERM){
-   printf("#==================================================================\n");
-   printf("# rgb_operm: Forming set of %u overlapping permutations\n",noperms);
-   printf("# rgb_operm: Permutations\n");
-   printf("# rgb_operm:==============================\n");
+   Rprintf("#==================================================================\n");
+   Rprintf("# rgb_operm: Forming set of %u overlapping permutations\n",noperms);
+   Rprintf("# rgb_operm: Permutations\n");
+   Rprintf("# rgb_operm:==============================\n");
  }
  operms = (gsl_permutation**) malloc(noperms*sizeof(gsl_permutation*));
  for(i=0;i<noperms;i++){
    operms[i] = gsl_permutation_alloc(3*rgb_operm_k - 2);
    /* Must quiet down
    MYDEBUG(D_RGB_OPERM){
-     printf("# rgb_operm: ");
+     Rprintf("# rgb_operm: ");
    }
    */
    if(i == 0){
@@ -299,7 +299,7 @@ void make_cexact()
    /*
    MYDEBUG(D_RGB_OPERM){
      gsl_permutation_fprintf(stdout,operms[i]," %u");
-     printf("\n");
+     Rprintf("\n");
    }
    */
  }
@@ -320,8 +320,8 @@ void make_cexact()
 
    /* Not cruft, but quiet...
    MYDEBUG(D_RGB_OPERM){
-     printf("#------------------------------------------------------------------\n");
-     printf("# Generating offset sample permutation pi's\n");
+     Rprintf("#------------------------------------------------------------------\n");
+     Rprintf("# Generating offset sample permutation pi's\n");
    }
    */
    for(k=0;k<2*rgb_operm_k - 1;k++){
@@ -330,15 +330,15 @@ void make_cexact()
 
      /* Not cruft, but quiet...
      MYDEBUG(D_RGB_OPERM){
-       printf("# %u: ",k);
+       Rprintf("# %u: ",k);
        for(ip=k;ip<rgb_operm_k+k;ip++){
-         printf("%.1f ",testv[ip]);
+         Rprintf("%.1f ",testv[ip]);
        }
-       printf("\n# ");
+       Rprintf("\n# ");
        for(ip=0;ip<rgb_operm_k;ip++){
-         printf("%u ",ps[ip]);
+         Rprintf("%u ",ps[ip]);
        }
-       printf(" = %u\n",pi[k]);
+       Rprintf(" = %u\n",pi[k]);
      }
      */
 
@@ -369,21 +369,21 @@ void make_cexact()
  }
 
  MYDEBUG(D_RGB_OPERM){
-   printf("# rgb_operm:==============================\n");
-   printf("# rgb_operm: cexact[][] = \n");
+   Rprintf("# rgb_operm:==============================\n");
+   Rprintf("# rgb_operm: cexact[][] = \n");
  }
  for(i=0;i<nperms;i++){
    MYDEBUG(D_RGB_OPERM){
-     printf("# ");
+     Rprintf("# ");
    }
    for(j=0;j<nperms;j++){
      cexact[i][j] /= noperms;
      MYDEBUG(D_RGB_OPERM){
-       printf("%10.6f  ",cexact[i][j]);
+       Rprintf("%10.6f  ",cexact[i][j]);
      }
    }
    MYDEBUG(D_RGB_OPERM){
-     printf("\n");
+     Rprintf("\n");
    }
  }
 
@@ -413,8 +413,8 @@ void make_cexpt()
  int pi[4096],ps[4096];
 
  MYDEBUG(D_RGB_OPERM){
-   printf("#==================================================================\n");
-   printf("# rgb_operm: Running cexpt()\n");
+   Rprintf("#==================================================================\n");
+   Rprintf("# rgb_operm: Running cexpt()\n");
  }
 
  /*
@@ -455,8 +455,8 @@ void make_cexpt()
 
    /* Not cruft, but quiet...
    MYDEBUG(D_RGB_OPERM){
-     printf("#------------------------------------------------------------------\n");
-     printf("# Generating offset sample permutation pi's\n");
+     Rprintf("#------------------------------------------------------------------\n");
+     Rprintf("# Generating offset sample permutation pi's\n");
    }
    */
    for(k=0;k<2*rgb_operm_k-1;k++){
@@ -465,15 +465,15 @@ void make_cexpt()
 
      /* Not cruft, but quiet...
      MYDEBUG(D_RGB_OPERM){
-       printf("# %u: ",k);
+       Rprintf("# %u: ",k);
        for(ip=k;ip<rgb_operm_k+k;ip++){
-         printf("%.1f ",testv[ip]);
+         Rprintf("%.1f ",testv[ip]);
        }
-       printf("\n# ");
+       Rprintf("\n# ");
        for(ip=0;ip<rgb_operm_k;ip++){
-         printf("%u ",permsample->data[ip]);
+         Rprintf("%u ",permsample->data[ip]);
        }
-       printf(" = %u\n",pi[k]);
+       Rprintf(" = %u\n",pi[k]);
      }
      */
    }
@@ -503,21 +503,21 @@ void make_cexpt()
  }
 
  MYDEBUG(D_RGB_OPERM){
-   printf("# rgb_operm:==============================\n");
-   printf("# rgb_operm: cexpt[][] = \n");
+   Rprintf("# rgb_operm:==============================\n");
+   Rprintf("# rgb_operm: cexpt[][] = \n");
  }
  for(i=0;i<nperms;i++){
    MYDEBUG(D_RGB_OPERM){
-     printf("# ");
+     Rprintf("# ");
    }
    for(j=0;j<nperms;j++){
      cexpt[i][j] /= tsamples;
      MYDEBUG(D_RGB_OPERM){
-       printf("%10.6f  ",cexpt[i][j]);
+       Rprintf("%10.6f  ",cexpt[i][j]);
      }
    }
    MYDEBUG(D_RGB_OPERM){
-     printf("\n");
+     Rprintf("\n");
    }
  }
 
@@ -536,7 +536,7 @@ uint piperm(size_t *data,int len)
  if(lookup == 0){
    lookup = (gsl_permutation**) malloc(nperms*sizeof(gsl_permutation*));
    MYDEBUG(D_RGB_OPERM){
-     printf("# rgb_operm: Allocating piperm lookup table of perms.\n");
+     Rprintf("# rgb_operm: Allocating piperm lookup table of perms.\n");
    }
    for(i=0;i<nperms;i++){
         lookup[i] = gsl_permutation_alloc(rgb_operm_k);
@@ -570,9 +570,9 @@ uint piperm(size_t *data,int len)
    */
    MYDEBUG(D_RGB_OPERM){
      for(i=0;i<nperms;i++){
-       printf("# rgb_operm: %u => ",i);
+       Rprintf("# rgb_operm: %u => ",i);
        gsl_permutation_fprintf(stdout,lookup[i]," %u");
-       printf("\n");
+       Rprintf("\n");
      }
    }
 
@@ -582,15 +582,15 @@ uint piperm(size_t *data,int len)
    if(memcmp(data,lookup[i]->data,len*sizeof(uint))==0){
      /* Not cruft, but off:
      MYDEBUG(D_RGB_OPERM){
-       printf("# piperm(): ");
+       Rprintf("# piperm(): ");
        gsl_permutation_fprintf(stdout,lookup[i]," %u");
-       printf(" = %u\n",i);
+       Rprintf(" = %u\n",i);
      }
      */
      return(i);
    }
  }
- printf("We'd better not get here...\n");
+ Rprintf("We'd better not get here...\n");
 
  return(0);
 
@@ -611,7 +611,7 @@ double fpipi(int pi1,int pi2,int nkp)
 
    fret = (double) (nkp - 1.0)/nkp;
    if(verbose < 0){
-     printf(" f(%d,%d) = %10.6f\n",pi1,pi2,fret);
+     Rprintf(" f(%d,%d) = %10.6f\n",pi1,pi2,fret);
    }
    return(fret);
 
@@ -619,7 +619,7 @@ double fpipi(int pi1,int pi2,int nkp)
 
    fret = (double) (-1.0/nkp);
    if(verbose < 0){
-     printf(" f(%d,%d) = %10.6f\n",pi1,pi2,fret);
+     Rprintf(" f(%d,%d) = %10.6f\n",pi1,pi2,fret);
    }
    return(fret);
 

@@ -121,14 +121,14 @@ int diehard_oqso(Test **test, int irun)
  ptest.x = t;
 
  MYDEBUG(D_DIEHARD_OQSO){
-   printf("%f %f %f\n",ptest.y,ptest.x,ptest.x-ptest.y);
+   Rprintf("%f %f %f\n",ptest.y,ptest.x,ptest.x-ptest.y);
  }
 
  Xtest_eval(&ptest);
  test[0]->pvalues[irun] = ptest.pvalue;
 
  MYDEBUG(D_DIEHARD_OQSO) {
-   printf("# diehard_oqso(): ks_pvalue[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# diehard_oqso(): ks_pvalue[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
  }
 
  return(0);

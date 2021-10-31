@@ -87,9 +87,9 @@ int kperm(uint v[],uint voffset)
  }
 
  if(verbose == -1){
-   printf("==================================================================\n");
-   printf("%10u %10u %10u %10u %10u\n",w[0],w[1],w[2],w[3],w[4]);
-   printf(" Permutations = \n");
+   Rprintf("==================================================================\n");
+   Rprintf("%10u %10u %10u %10u %10u\n",w[0],w[1],w[2],w[3],w[4]);
+   Rprintf(" Permutations = \n");
  }
 
  pindex = 0;
@@ -107,14 +107,14 @@ int kperm(uint v[],uint voffset)
    w[i] = w[k];
    w[k] = tmp;
    if(verbose == -1){
-     printf("%10u %10u %10u %10u %10u\n",w[0],w[1],w[2],w[3],w[4]);
+     Rprintf("%10u %10u %10u %10u %10u\n",w[0],w[1],w[2],w[3],w[4]);
    }
  }
 
  uret = pindex;
 
  if(verbose == -1){
-   printf(" => %u\n",pindex);
+   Rprintf(" => %u\n",pindex);
  }
 
  return uret;
@@ -176,7 +176,7 @@ int diehard_operm5(Test **test, int irun)
 
  for(i=0;i<120;i++){
    tcount[i] += count[i];
-   /* printf("%u: %f\n",i,tcount[i]); */
+   /* Rprintf("%u: %f\n",i,tcount[i]); */
  }
 
  chisq = 0.0;
@@ -211,18 +211,18 @@ int diehard_operm5(Test **test, int irun)
  }
 
  if(verbose == -2){
-   printf("norm = %10.2f, av = %10.2f",norm,av);
+   Rprintf("norm = %10.2f, av = %10.2f",norm,av);
    for(i=0;i<120;i++){
-     printf("count[%u] = %4.0f; x[%u] = %3.2f ",i,count[i],i,x[i]);
-     if((i%2)==0){printf("\n");}
+     Rprintf("count[%u] = %4.0f; x[%u] = %3.2f ",i,count[i],i,x[i]);
+     if((i%2)==0){Rprintf("\n");}
    }
    if((chisq/norm) >= 0){
-     printf("\n\nchisq/norm: %10.5f :-) and chisq: %10.5f\n",(chisq/norm), chisq);
+     Rprintf("\n\nchisq/norm: %10.5f :-) and chisq: %10.5f\n",(chisq/norm), chisq);
    }
  }
 	
  if((chisq/norm) < 0){
-   printf("\n\nCHISQ NEG.! chisq/norm: %10.5f and chisq: %10.5f",(chisq/norm), chisq);
+   Rprintf("\n\nCHISQ NEG.! chisq/norm: %10.5f and chisq: %10.5f",(chisq/norm), chisq);
  }
 	
  chisq = fabs(chisq / norm);
@@ -233,13 +233,13 @@ int diehard_operm5(Test **test, int irun)
  }
 
  MYDEBUG(D_DIEHARD_OPERM5){
-   printf("# diehard_operm5(): chisq[%u] = %10.5f\n",kspi,chisq);
+   Rprintf("# diehard_operm5(): chisq[%u] = %10.5f\n",kspi,chisq);
  }
 
  test[0]->pvalues[irun] = gsl_sf_gamma_inc_Q((double)(ndof)/2.0,chisq/2.0);
 
  MYDEBUG(D_DIEHARD_OPERM5){
-   printf("# diehard_operm5(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# diehard_operm5(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
  }
 
  kspi++;

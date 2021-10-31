@@ -148,7 +148,7 @@ int diehard_parking_lot(Test **test, int irun)
  test[0]->pvalues[irun] = ptest.pvalue;
 
  MYDEBUG(D_DIEHARD_PARKING_LOT) {
-   printf("# diehard_parking_lot(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# diehard_parking_lot(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
  }
 
  return(0);

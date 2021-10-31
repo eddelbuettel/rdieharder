@@ -88,13 +88,13 @@ int rgb_bitdist(Test **test,int irun)
    test[0]->ntuple = ntuple;
    nb = ntuple;
    MYDEBUG(D_RGB_BITDIST){
-     printf("# rgb_bitdist: Testing ntuple = %u\n",nb);
+     Rprintf("# rgb_bitdist: Testing ntuple = %u\n",nb);
    }
  } else {
-   fprintf(stderr,"Error:  Can only test distribution of positive ntuples.\n");
-   fprintf(stderr,"        Use -n ntuple for 0 < ntuple.\n");
-   fprintf(stderr,"        Read test description with dieharder -d 200 -h.\n");
-   exit(0);
+   Rf_error("Error:  Can only test distribution of positive ntuples.\n"
+           "        Use -n ntuple for 0 < ntuple.\n"
+           "        Read test description with dieharder -d 200 -h.\n");
+   //exit(0);
  }
 
  /*
@@ -104,7 +104,7 @@ int rgb_bitdist(Test **test,int irun)
   */
  value_max = (uint) pow(2,nb);
  MYDEBUG(D_RGB_BITDIST){
-   printf("# rgb_bitdist(): value_max = %u\n",value_max);
+   Rprintf("# rgb_bitdist(): value_max = %u\n",value_max);
  }
 
  /*
@@ -135,11 +135,11 @@ int rgb_bitdist(Test **test,int irun)
   */
  ntuple_prob = 1.0/(double)value_max;
  MYDEBUG(D_RGB_BITDIST){
-   printf("# rgb_bitdist(): ntuple_prob = %f\n",ntuple_prob);
-   printf("# rgb_bitdist(): Testing %u samples of %u bit strings\n",test[0]->tsamples,bits);
-   printf("# rgb_bitdist():=====================================================\n");
-   printf("# rgb_bitdist():            vtest table\n");
-   printf("# rgb_bitdist(): Outcome   bit          x           y       sigma\n");
+   Rprintf("# rgb_bitdist(): ntuple_prob = %f\n",ntuple_prob);
+   Rprintf("# rgb_bitdist(): Testing %u samples of %u bit strings\n",test[0]->tsamples,bits);
+   Rprintf("# rgb_bitdist():=====================================================\n");
+   Rprintf("# rgb_bitdist():            vtest table\n");
+   Rprintf("# rgb_bitdist(): Outcome   bit          x           y       sigma\n");
  }
    
  tsamples = test[0]->tsamples;
@@ -207,13 +207,13 @@ int rgb_bitdist(Test **test,int irun)
        vtest[i].y[b] = vtest[0].y[b];
      }
      MYDEBUG(D_RGB_BITDIST){
-       printf("# rgb_bitdist():  %3u     %3u   %10.5f  %10.5f\n",
+       Rprintf("# rgb_bitdist():  %3u     %3u   %10.5f  %10.5f\n",
          i,b,vtest[i].x[b],vtest[i].y[b]);
      }
      vtest[i].x[0] = tsamples;
    }
    MYDEBUG(D_RGB_BITDIST){
-     printf("# rgb_bitdist():=====================================================\n");
+     Rprintf("# rgb_bitdist():=====================================================\n");
    }
  }
 
@@ -242,7 +242,7 @@ int rgb_bitdist(Test **test,int irun)
      count[value]++;
 
      MYDEBUG(D_RGB_BITDIST) {
-       printf("# rgb_bitdist():b=%u count[%u] = %u\n",b,value,count[value]);
+       Rprintf("# rgb_bitdist():b=%u count[%u] = %u\n",b,value,count[value]);
      }
 
    }
@@ -262,11 +262,11 @@ int rgb_bitdist(Test **test,int irun)
 	   vtest[i].x[0]--;
 	}
       MYDEBUG(D_RGB_BITDIST){
-	 printf("# rgb_bitdist(): vtest[%u].x[%u] = %u\n",i,count[i],(uint)vtest[i].x[count[i]]);
+	 Rprintf("# rgb_bitdist(): vtest[%u].x[%u] = %u\n",i,count[i],(uint)vtest[i].x[count[i]]);
      }
    }
    MYDEBUG(D_RGB_BITDIST){
-     printf("# rgb_bitdist(): Sample %u: total count = %u (should be %u, count of bits)\n",t,ctotal,bits);
+     Rprintf("# rgb_bitdist(): Sample %u: total count = %u (should be %u, count of bits)\n",t,ctotal,bits);
    }
  }
 
@@ -277,22 +277,22 @@ int rgb_bitdist(Test **test,int irun)
   */
 
  MYDEBUG(D_RGB_BITDIST){
-   printf("# rgb_bitdist(): ntuple_prob = %f\n",ntuple_prob);
-   printf("# rgb_bitdist(): Testing %u samples of %u bit strings\n",test[0]->tsamples,bits);
-   printf("# rgb_bitdist():=====================================================\n");
-   printf("# rgb_bitdist():            vtest table\n");
-   printf("# rgb_bitdist(): Outcome   bit          x           y       sigma\n");
+   Rprintf("# rgb_bitdist(): ntuple_prob = %f\n",ntuple_prob);
+   Rprintf("# rgb_bitdist(): Testing %u samples of %u bit strings\n",test[0]->tsamples,bits);
+   Rprintf("# rgb_bitdist():=====================================================\n");
+   Rprintf("# rgb_bitdist():            vtest table\n");
+   Rprintf("# rgb_bitdist(): Outcome   bit          x           y       sigma\n");
  }
  ri = gsl_rng_uniform_int(rng,value_max);
  for(i=0;i<value_max;i++){
    for(b=0;b<=bsamples;b++){
      MYDEBUG(D_RGB_BITDIST){
-       printf("# rgb_bitdist():  %3u     %3u   %10.5f  %10.5f\n",
+       Rprintf("# rgb_bitdist():  %3u     %3u   %10.5f  %10.5f\n",
          i,b,vtest[i].x[b],vtest[i].y[b]);
      }
    }
    MYDEBUG(D_RGB_BITDIST){
-     printf("# rgb_bitdist():=====================================================\n");
+     Rprintf("# rgb_bitdist():=====================================================\n");
    }
    Vtest_eval(&vtest[i]);
 
@@ -315,7 +315,7 @@ int rgb_bitdist(Test **test,int irun)
    if(i == ri ) {
      test[0]->pvalues[irun] = vtest[i].pvalue;
      MYDEBUG(D_RGB_BITDIST) {
-       printf("# rgb_bitdist(): test[%u]->pvalues[%u] = %10.5f\n",
+       Rprintf("# rgb_bitdist(): test[%u]->pvalues[%u] = %10.5f\n",
           0,irun,test[0]->pvalues[irun]);
      }
    }

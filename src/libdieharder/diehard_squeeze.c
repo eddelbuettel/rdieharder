@@ -89,7 +89,7 @@ int diehard_squeeze(Test **test, int irun)
   */
  MYDEBUG(D_DIEHARD_SQUEEZE) {
    for(i=0;i<43;i++){
-     printf("%d:   %f    %f\n",i+6,vtest.x[i],vtest.y[i]);
+     Rprintf("%d:   %f    %f\n",i+6,vtest.x[i],vtest.y[i]);
    }
  }
 
@@ -117,7 +117,7 @@ int diehard_squeeze(Test **test, int irun)
 
  MYDEBUG(D_DIEHARD_SQUEEZE) {
    for(i=0;i<43;i++){
-     printf("%d:   %f    %f\n",i+6,vtest.x[i],vtest.y[i]);
+     Rprintf("%d:   %f    %f\n",i+6,vtest.x[i],vtest.y[i]);
    }
  }
 
@@ -125,7 +125,7 @@ int diehard_squeeze(Test **test, int irun)
  test[0]->pvalues[irun] = vtest.pvalue;
 
  MYDEBUG(D_DIEHARD_SQUEEZE) {
-   printf("# diehard_squeeze(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# diehard_squeeze(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
  }
 
  Vtest_destroy(&vtest);

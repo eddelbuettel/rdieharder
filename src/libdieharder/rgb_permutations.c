@@ -26,10 +26,10 @@ int rgb_permutations(Test **test,int irun)
  gsl_permutation** lookup;
 
 
- MYDEBUG(D_RGB_PERMUTATIONS){
-   printf("#==================================================================\n");
-   printf("# rgb_permutations: Debug with %u\n",D_RGB_PERMUTATIONS);
- }
+ /* MYDEBUG(D_RGB_PERMUTATIONS){ */
+ /*   printf("#==================================================================\n"); */
+ /*   printf("# rgb_permutations: Debug with %u\n",D_RGB_PERMUTATIONS); */
+ /* } */
 
  /*
   * Number of permutations.  Note that the minimum ntuple value for a
@@ -49,9 +49,9 @@ int rgb_permutations(Test **test,int irun)
   */
  testv = (double *)malloc(k*sizeof(double));
 
- MYDEBUG(D_RGB_PERMUTATIONS){
-   printf("# rgb_permutations: There are %u permutations of length k = %u\n",nperms,k);
- }
+ /* MYDEBUG(D_RGB_PERMUTATIONS){ */
+ /*   printf("# rgb_permutations: There are %u permutations of length k = %u\n",nperms,k); */
+ /* } */
 
  /*
   * Create a test, initialize it.
@@ -63,9 +63,9 @@ int rgb_permutations(Test **test,int irun)
    vtest.y[i] = (double) test[0]->tsamples/nperms;
  }
 
- MYDEBUG(D_RGB_PERMUTATIONS){
-   printf("# rgb_permutations: Allocating permutation lookup table.\n");
- }
+ /* MYDEBUG(D_RGB_PERMUTATIONS){ */
+ /*   printf("# rgb_permutations: Allocating permutation lookup table.\n"); */
+ /* } */
  lookup = (gsl_permutation**) malloc(nperms*sizeof(gsl_permutation*));
  for(i=0;i<nperms;i++){
    lookup[i] = gsl_permutation_alloc(k);
@@ -79,13 +79,13 @@ int rgb_permutations(Test **test,int irun)
    }
  }
 
- MYDEBUG(D_RGB_PERMUTATIONS){
-   for(i=0;i<nperms;i++){
-     printf("# rgb_permutations: %u => ",i);
-     gsl_permutation_fprintf(stdout,lookup[i]," %u");
-     printf("\n");
-   }
- }
+ /* MYDEBUG(D_RGB_PERMUTATIONS){ */
+ /*   for(i=0;i<nperms;i++){ */
+ /*     printf("# rgb_permutations: %u => ",i); */
+ /*     gsl_permutation_fprintf(stdout,lookup[i]," %u"); */
+ /*     printf("\n"); */
+ /*   } */
+ /* } */
 
  /*
   * We count the order permutations in a long string of samples of
@@ -104,51 +104,51 @@ int rgb_permutations(Test **test,int irun)
     */
    for(i=0;i<k;i++) {
      testv[i] = (double) gsl_rng_get(rng);
-     MYDEBUG(D_RGB_PERMUTATIONS){
-       printf("# rgb_permutations: testv[%u] = %u\n",i,(uint) testv[i]);
-     }
+     /* MYDEBUG(D_RGB_PERMUTATIONS){ */
+     /*   printf("# rgb_permutations: testv[%u] = %u\n",i,(uint) testv[i]); */
+     /* } */
    }
 
    gsl_sort_index(ps,testv,1,k);
 
-   MYDEBUG(D_RGB_PERMUTATIONS){
-     for(i=0;i<k;i++) {
-       printf("# rgb_permutations: ps[%u] = %lu\n",i,ps[i]);
-     }
-   }
+   /* MYDEBUG(D_RGB_PERMUTATIONS){ */
+   /*   for(i=0;i<k;i++) { */
+   /*     printf("# rgb_permutations: ps[%u] = %lu\n",i,ps[i]); */
+   /*   } */
+   /* } */
 
    for(i=0;i<nperms;i++){
      if(memcmp(ps,lookup[i]->data,k*sizeof(size_t))==0){
        permindex = i;
-       MYDEBUG(D_RGB_PERMUTATIONS){
-         printf("# Found permutation: ");
-         gsl_permutation_fprintf(stdout,lookup[i]," %u");
-         printf(" = %u\n",i);
-       }
+       /* MYDEBUG(D_RGB_PERMUTATIONS){ */
+       /*   printf("# Found permutation: "); */
+       /*   gsl_permutation_fprintf(stdout,lookup[i]," %u"); */
+       /*   printf(" = %u\n",i); */
+       /* } */
        break;
      }
    }
 
    vtest.x[permindex]++;
-   MYDEBUG(D_RGB_PERMUTATIONS){
-     printf("# rgb_permutations: Augmenting vtest.x[%u] = %f\n",permindex,vtest.x[permindex]);
-   }
+   /* MYDEBUG(D_RGB_PERMUTATIONS){ */
+   /*   printf("# rgb_permutations: Augmenting vtest.x[%u] = %f\n",permindex,vtest.x[permindex]); */
+   /* } */
 
  }
 
- MYDEBUG(D_RGB_PERMUTATIONS){
-   printf("# rgb_permutations:==============================\n");
-   printf("# rgb_permutations: permutation count = \n");
-   for(i=0;i<nperms;i++){
-     printf("# count[%u] = %u\n",i,(uint) vtest.x[i]);
-   }
- }
+ /* MYDEBUG(D_RGB_PERMUTATIONS){ */
+ /*   printf("# rgb_permutations:==============================\n"); */
+ /*   printf("# rgb_permutations: permutation count = \n"); */
+ /*   for(i=0;i<nperms;i++){ */
+ /*     printf("# count[%u] = %u\n",i,(uint) vtest.x[i]); */
+ /*   } */
+ /* } */
 
  Vtest_eval(&vtest);
  test[0]->pvalues[irun] = vtest.pvalue;
- MYDEBUG(D_RGB_PERMUTATIONS) {
-   printf("# rgb_permutations(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
- }
+ /* MYDEBUG(D_RGB_PERMUTATIONS) { */
+ /*   printf("# rgb_permutations(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]); */
+ /* } */
 
  for(i=0;i<nperms;i++){
    gsl_permutation_free(lookup[i]);

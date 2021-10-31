@@ -71,7 +71,7 @@ int sts_monobit(Test **test, int irun)
   * that if -b bits is specified, size will be "more than enough".
   */
  MYDEBUG(D_STS_MONOBIT) {
-   printf("# rgb_bitdist(): Generating %lu bits in bitstring",test[0]->tsamples*sizeof(uint)*8);
+   Rprintf("# rgb_bitdist(): Generating %lu bits in bitstring",test[0]->tsamples*sizeof(uint)*8);
  }
  ptest.x = 0;
 
@@ -83,10 +83,10 @@ int sts_monobit(Test **test, int irun)
 #endif
    MYDEBUG(D_STS_MONOBIT) {
 #if NOBITS
-     printf("# rgb_bitdist() (nobits): rand_int[%d] = %u = ",i,bitstring);
+     Rprintf("# rgb_bitdist() (nobits): rand_int[%d] = %u = ",i,bitstring);
      dumpbits(&bitstring,8*sizeof(uint));
 #else
-     printf("# rgb_bitdist() (bits): rand_int[%d] = %u = ",i,n);
+     Rprintf("# rgb_bitdist() (bits): rand_int[%d] = %u = ",i,n);
      dumpbits(&n,8*sizeof(uint));
 #endif
    }
@@ -117,13 +117,13 @@ int sts_monobit(Test **test, int irun)
  
  ptest.x = 2*ptest.x - nbits;
  MYDEBUG(D_STS_MONOBIT) {
-   printf("mtext.x = %10.5f  ptest.sigma = %10.5f\n",ptest.x,ptest.sigma);
+   Rprintf("mtext.x = %10.5f  ptest.sigma = %10.5f\n",ptest.x,ptest.sigma);
  }
  Xtest_eval(&ptest);
  test[0]->pvalues[irun] = ptest.pvalue;
 
  MYDEBUG(D_STS_MONOBIT) {
-   printf("# sts_monobit(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# sts_monobit(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
  }
 
  return(0);

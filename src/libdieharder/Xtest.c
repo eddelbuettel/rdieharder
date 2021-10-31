@@ -35,9 +35,9 @@ xtest->pvalue =
       gsl_cdf_gaussian_P(xtest->y - xtest->x,xtest->sigma);
 
  if(verbose == D_XTEST || verbose == D_ALL){
-   printf("# Xtest_eval(): x = %10.5f  y = %10.5f  sigma = %10.5f\n",
+   Rprintf("# Xtest_eval(): x = %10.5f  y = %10.5f  sigma = %10.5f\n",
      xtest->x, xtest->y, xtest->sigma);
-   printf("# Xtest_eval(): p-value = %10.5f\n",xtest->pvalue);
+   Rprintf("# Xtest_eval(): p-value = %10.5f\n",xtest->pvalue);
  }
 
 }

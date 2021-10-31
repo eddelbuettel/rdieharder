@@ -117,7 +117,7 @@ int diehard_sums(Test **test, int irun)
   */
 
  if(verbose == D_DIEHARD_SUMS || verbose == D_ALL){
-   printf("# diehard_sums:  focus with -v %d.\n",D_DIEHARD_SUMS);
+   Rprintf("# diehard_sums:  focus with -v %d.\n",D_DIEHARD_SUMS);
  }
 
  /*
@@ -173,21 +173,21 @@ int diehard_sums(Test **test, int irun)
   * Fill a rand_list, summing into y[0] at the same time.
   */
  if(verbose == D_DIEHARD_SUMS || verbose == D_ALL){
-   printf("#==================================================================\n");
-   printf("# Initializing initial y[0] and rand_list\n");
+   Rprintf("#==================================================================\n");
+   Rprintf("# Initializing initial y[0] and rand_list\n");
  }
  for(t=0;t<m;t++){
    rand_list[t] = gsl_rng_uniform(rng);
    y[0] += rand_list[t];
    if(verbose == D_DIEHARD_SUMS || verbose == D_ALL){
-     printf("y[0] =  y[0] + %f = %f\n",rand_list[t],y[0]);
+     Rprintf("y[0] =  y[0] + %f = %f\n",rand_list[t],y[0]);
    }
  }
    
  if(verbose == D_DIEHARD_SUMS || verbose == D_ALL){
-   printf("#==================================================================\n");
-   printf("# Now we generate the rest of the %u overlapping y's\n",m);
-   printf("y[%u] =  %f (raw)\n",0,y[0]);
+   Rprintf("#==================================================================\n");
+   Rprintf("# Now we generate the rest of the %u overlapping y's\n",m);
+   Rprintf("y[%u] =  %f (raw)\n",0,y[0]);
  }
  for(t=1;t<m;t++){
    /*
@@ -197,20 +197,20 @@ int diehard_sums(Test **test, int irun)
    newrand = gsl_rng_uniform(rng);
    y[t] = y[t-1] - rand_list[t-1] + newrand;
    if(verbose == D_DIEHARD_SUMS || verbose == D_ALL){
-     printf("y[%u] =  %f - %f + %f = %f (raw)\n",t,y[t-1],rand_list[t-1],newrand,y[t]);
+     Rprintf("y[%u] =  %f - %f + %f = %f (raw)\n",t,y[t-1],rand_list[t-1],newrand,y[t]);
    }
 
    /* We're done with y[t-1] as a raw sum.  Convert it to be N(0,1) */
    y[t-1] = (y[t-1] - mean)*std;
 
    if(verbose == D_DIEHARD_SUMS || verbose == D_ALL){
-     printf("y[%u] =  %f (converted)\n",t-1,y[t-1]);
+     Rprintf("y[%u] =  %f (converted)\n",t-1,y[t-1]);
    }
  }
  /* We're done with y[m-1] as a raw sum.  Convert it to be N(0,1) */
  y[m-1] = (y[m-1] - mean)*std;
  if(verbose == D_DIEHARD_SUMS || verbose == D_ALL){
-   printf("y[%u] =  %f (converted)\n",m-1,y[m-1]);
+   Rprintf("y[%u] =  %f (converted)\n",m-1,y[m-1]);
  }
 
  /*
@@ -218,16 +218,16 @@ int diehard_sums(Test **test, int irun)
   * to a uniform distribution.
   */
  if(verbose == D_DIEHARD_SUMS || verbose == D_ALL){
-   printf("#==================================================================\n");
-   printf("# We convert it to a normal distribution of width 1.0\n");
+   Rprintf("#==================================================================\n");
+   Rprintf("# We convert it to a normal distribution of width 1.0\n");
  }
  x[0] = y[0]/sqrt(1.0*m);
  x[1] = -x[0]*(m-1)/sqrt(2.0*m - 1.0) + y[1]*sqrt(m/(2.0*m - 1.0));
  x[0] =  gsl_cdf_gaussian_P(x[0],1.0);
  x[1] =  gsl_cdf_gaussian_P(x[1],1.0);
  if(verbose == D_DIEHARD_SUMS || verbose == D_ALL){
-   printf("x[0] = %f\n",x[0]);
-   printf("x[1] = %f\n",x[1]);
+   Rprintf("x[0] = %f\n",x[0]);
+   Rprintf("x[1] = %f\n",x[1]);
  }
 
  for(t=2;t<m;t++){
@@ -250,7 +250,7 @@ int diehard_sums(Test **test, int irun)
    x[t] = y[t-2]/sqrt(a*b) - y[t-1]*sqrt((a-1.0)/(b+2.0)) + y[t]*sqrt(a/b);
    x[t] =  gsl_cdf_gaussian_P(x[t],1.0);
    if(verbose == D_DIEHARD_SUMS || verbose == D_ALL){
-     printf("x[%u] = %f\n",t,x[t]);
+     Rprintf("x[%u] = %f\n",t,x[t]);
    }
  }
 
@@ -268,7 +268,7 @@ int diehard_sums(Test **test, int irun)
  }
  test[0]->pvalues[irun] = kstest(x,m);
  MYDEBUG(D_DIEHARD_SUMS) {
-   printf("# diehard_sums(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
+   Rprintf("# diehard_sums(): test[0]->pvalues[%u] = %10.5f\n",irun,test[0]->pvalues[irun]);
  }
 
  free(x);
