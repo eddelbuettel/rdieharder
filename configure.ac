@@ -1,10 +1,10 @@
 # Process this file with autoconf to produce a configure script.
 #
 # Configure.in for RDieHarder
-# Copyright (C) 2008 - 2019  Dirk Eddelbuettel and licensed under GNU GPL
+# Copyright (C) 2008 - 2021  Dirk Eddelbuettel and licensed under GNU GPL
 
 # The version set here will propagate to other files from here
-AC_INIT(RDieHarder, 0.2.1)
+AC_INIT([RDieHarder],[0.2.1])
 
 # Ensure C++ is set up as R expects
 : ${R_HOME=`R RHOME`}
@@ -39,8 +39,7 @@ fi
 
 dnl # offer configure argument support for dieharder includes
 dnl AC_ARG_WITH([dieharder-include],
-dnl             AC_HELP_STRING([--with-dieharder-include=INCLUDE_PATH],
-dnl                            [Supply the location of DieHarder header files]),
+dnl             AS_HELP_STRING([--with-dieharder-include=INCLUDE_PATH],[dnl                            Supply the location of DieHarder header files]),
 dnl             [dh_include_path=$withval],
 dnl             [dh_include_path=""])
 
@@ -88,8 +87,7 @@ dnl fi
 
 dnl # offer configure argument support for dieharder library
 dnl AC_ARG_WITH([dieharder-libdir],
-dnl             AC_HELP_STRING([--with-dieharder-libdir=LIBRARY_PATH],
-dnl                            [Supply the location of DieHarder library file]),
+dnl             AS_HELP_STRING([--with-dieharder-libdir=LIBRARY_PATH],[dnl                            Supply the location of DieHarder library file]),
 dnl             [dh_lib_path=$withval],
 dnl             [dh_lib_path=""])
 
@@ -130,8 +128,10 @@ dnl fi
 
 # Expand into arguments
 DH_CFLAGS="-I${DH_INCDIR} -I. -DRDIEHARDER"
-DH_LIBS="-L${DH_LIBDIR} -ldieharder"
-DH_TGT="${DH_TARGET}"
+#DH_LIBS="-L${DH_LIBDIR} -ldieharder"
+DH_LIBS=
+#DH_TGT="${DH_TARGET}"
+DH_TGT=
 ENDIANNESS="${endianness}"
 
 # Now substitute these variables in src/Makevars.in to create src/Makevars
@@ -141,8 +141,10 @@ AC_SUBST(DH_CFLAGS)
 AC_SUBST(DH_LIBS)
 AC_SUBST(DH_TGT)
 AC_SUBST(ENDIANNESS)
-AC_OUTPUT(src/Makevars)
-AC_OUTPUT(src/libdieharder/Makefile)
+AC_CONFIG_FILES([src/Makevars])
+AC_OUTPUT
+#AC_CONFIG_FILES([src/libdieharder/Makefile])
+AC_OUTPUT
 
 echo "
 ${PACKAGE_NAME} ${PACKAGE_VERSION}

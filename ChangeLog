@@ -2,6 +2,9 @@
 
 	* DESCRIPTION (Version, Date): Roll minor version
 
+	* configure.ac: Ran 'autoupdate; autoreconf --warnings=obsolete'
+	* configure: Regenerated
+
 	* src/Makevars.in: Simplified, no longer builds libdieharder
 
 	* src/libdieharder/dab_filltree.c (insert): Use 'static inline'
