@@ -1,3 +1,10 @@
+2021-10-31  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/Makevars.in: Simplified, no longer builds libdieharder
+
+	* src/libdieharder/dab_filltree.c (insert): Use 'static inline'
+	* src/libdieharder/dab_filltree2.c (insertBit): Idem
+
 2021-05-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (BugReports): Add to DESCRIPTION
