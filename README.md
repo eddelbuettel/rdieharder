@@ -10,8 +10,7 @@
 
 ### About
 
-The RDieHarder package provides an R interface to the
-[DieHarder](https://webhome.phy.duke.edu/~rgb/General/dieharder.php) suite of
+The RDieHarder package provides an R interface to the DieHarder suite of
 random number generators and tests that was developed by Robert G. Brown and
 David Bauer, extending earlier work by George Marsaglia and others.
 
@@ -21,4 +20,6 @@ GPL (>= 2)
 
 ### Author
 
-Dirk Eddelbuettel
+Dirk Eddelbuettel for R package and R integration
+
+The DieHarder authors for DieHarder

@@ -66,8 +66,7 @@
   \code{dieharderTests()} function.
 }
 \references{
-  The \code{dieharder} source code and website
-  at \url{http://www.phy.duke.edu/~rgb/General/dieharder.php}.
+  The \code{dieharder} source code and website.
 }
 \author{Dirk Eddelbuettel \email{edd@debian.org} for the
   \R interface and the port of the R RNGs to DieHarder; Robert G. Brown
