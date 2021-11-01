@@ -1,5 +1,6 @@
 2021-11-01  Dirk Eddelbuettel  <edd@debian.org>
 
+	* src/libdieharder/skein_block64.c: Use intptr_t
 	* src/libdieharder/bits.c (mybitadd): Correct assignment
 
 2021-10-31  Dirk Eddelbuettel  <edd@debian.org>

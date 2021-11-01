@@ -15,6 +15,7 @@
 ************************************************************************/
 
 #include <string.h>
+#include <stdint.h>
 #include <dieharder/skein.h>
 
 #ifndef SKEIN_USE_ASM
@@ -223,8 +224,9 @@ void Threefish_512_Process_Blocks64(Threefish_512_Ctxt_t *ctx, const u08b_t *inp
 		 * line did, without the warning.
 		 */
 		/* output += SKEIN_512_BLOCK_BYTES; */
-		unsigned long long int output_tmp = (unsigned long long int) output;
-		output_tmp += SKEIN_512_BLOCK_BYTES;
+		/* unsigned long long int output_tmp = (unsigned long long int) output; */
+		intptr_t output_tmp = (intptr_t) output;
+                output_tmp += SKEIN_512_BLOCK_BYTES;
 		output = (void *) output_tmp;
         } while (--blkCnt);
     }
