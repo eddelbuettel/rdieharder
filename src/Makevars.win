@@ -1,19 +1,116 @@
 
-DH_CFLAGS  = -Ilibdieharder -I. -DRDIEHARDER
-DH_LIBS    = -Llibdieharder -ldieharder
+VERSION=3.31.1
+LITTLE_ENDIAN=1
+
+DH_CFLAGS  = -Ilibdieharder -I. -DRDIEHARDER -DVERSION=$(VERSION) -DLITTLE_ENDIAN=$(LITTLE_ENDIAN)
+#DH_LIBS    = -Llibdieharder -ldieharder
 
 # combine to standard arguments for R
 PKG_CFLAGS = $(DH_CFLAGS) -I../windows/gsl-2.4/include -I../inst/include
-PKG_LIBS   = $(DH_LIBS) -L../windows/gsl-2.4/lib${R_ARCH} -lgsl -lgslcblas
+#PKG_LIBS   = $(DH_LIBS) -L../windows/gsl-2.4/lib${R_ARCH} -lgsl -lgslcblas
+PKG_LIBS   = -L../windows/gsl-2.4/lib${R_ARCH} -lgsl -lgslcblas
 
 LIBCFLAGS  = -std=c99 -DRDIEHARDER -I../../windows/gsl-2.4/include
 
-all: 		winlibs libdieharder.a $(SHLIB)
-$(SHLIB): 	 
+SOURCES = \
+	libdieharder/bits.c \
+	libdieharder/chisq.c \
+	libdieharder/countx.c \
+	libdieharder/dab_birthdays1.c \
+	libdieharder/dab_bytedistrib.c \
+	libdieharder/dab_dct.c \
+	libdieharder/dab_filltree.c \
+	libdieharder/dab_filltree2.c \
+	libdieharder/dab_monobit2.c \
+	libdieharder/dab_opso2.c \
+	libdieharder/diehard_2dsphere.c \
+	libdieharder/diehard_3dsphere.c \
+	libdieharder/diehard_birthdays.c \
+	libdieharder/diehard_bitstream.c \
+	libdieharder/diehard_count_1s_byte.c \
+	libdieharder/diehard_count_1s_stream.c \
+	libdieharder/diehard_craps.c \
+	libdieharder/diehard_dna.c \
+	libdieharder/diehard_operm5.c \
+	libdieharder/diehard_opso.c \
+	libdieharder/diehard_oqso.c \
+	libdieharder/diehard_parking_lot.c \
+	libdieharder/diehard_rank_32x32.c \
+	libdieharder/diehard_rank_6x8.c \
+	libdieharder/diehard_runs.c \
+	libdieharder/diehard_squeeze.c \
+	libdieharder/diehard_sums.c \
+	libdieharder/dieharder_rng_types.c \
+	libdieharder/dieharder_test_types.c \
+	libdieharder/histogram.c \
+	libdieharder/kstest.c \
+	libdieharder/marsaglia_tsang_gcd.c \
+	libdieharder/marsaglia_tsang_gorilla.c \
+	libdieharder/parse.c \
+	libdieharder/prob.c \
+	libdieharder/random_seed.c \
+	libdieharder/rank.c \
+	libdieharder/rgb_bitdist.c \
+	libdieharder/rgb_kstest_test.c \
+	libdieharder/rgb_lagged_sums.c \
+	libdieharder/rgb_minimum_distance.c \
+	libdieharder/rgb_permutations.c \
+	libdieharder/rgb_persist.c \
+	libdieharder/rgb_timing.c \
+	libdieharder/rngav.c \
+	libdieharder/rng_aes.c \
+	libdieharder/rijndael-alg-fst.c \
+	libdieharder/rng_ca.c \
+	libdieharder/rng_dev_random.c \
+	libdieharder/rng_dev_arandom.c \
+	libdieharder/rng_dev_urandom.c \
+	libdieharder/rng_file_input.c \
+	libdieharder/rng_file_input_raw.c \
+	libdieharder/rngs_gnu_r.c \
+	libdieharder/rng_kiss.c \
+	libdieharder/rng_superkiss.c \
+	libdieharder/rng_stdin_input_raw.c \
+	libdieharder/rng_threefish.c \
+	libdieharder/rng_uvag.c \
+	libdieharder/rng_XOR.c \
+	libdieharder/sample.c \
+	libdieharder/skein_block64.c \
+	libdieharder/skein_block_ref.c \
+	libdieharder/std_test.c \
+	libdieharder/sts_monobit.c \
+	libdieharder/sts_runs.c \
+	libdieharder/sts_serial.c \
+	libdieharder/timing.c \
+	libdieharder/Vtest.c \
+	libdieharder/version.c \
+	libdieharder/Xtest.c \
+	add_ui_rngs.c \
+	choose_rng.c \
+	dieharder.c \
+	dieharder_exit.c \
+	globals.c \
+	help.c \
+	init.c \
+	list_rand.c \
+	list_rngs.c \
+	list_tests.c \
+	output.c \
+	output_rnds.c \
+	parsecl.c \
+	rng_empty_random.c \
+	run_all_tests.c \
+	run_test.c \
+	startup.c \
+	time_rng.c \
+	user_template.c
 
-libdieharder.a:
-		$(MAKE) CC="$(CC)" CFLAGS="$(CFLAGS) $(LIBCFLAGS)" \
-			AR="$(AR)" RANLIB="$(RANLIB)" \
-			--directory=libdieharder libdieharder.a
+#	libdieharder/rng_jenkins.c \
+
+OBJECTS = $(SOURCES:.c=.o)
+
+$(SHLIB): 	winlibs $(OBJECTS)
+
+all: 		$(SHLIB)
+
 winlibs:
 		"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"
