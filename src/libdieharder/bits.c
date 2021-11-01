@@ -41,6 +41,7 @@ unsigned int get_bit_ntuple(unsigned int *bitstring,unsigned int bslen,unsigned 
 {
 
  unsigned int b,rlen;
+
  int ioffset;
  unsigned int result,carry,nmask;
 
@@ -1212,7 +1213,7 @@ void mybitadd(char *dst, int doffset, char *src, int soffset, int slen)
  unsigned int tmp;
  char *btmp;
 
- btmp = (char *)(&tmp + 2);  /* we only need the last two bytes of tmp */
+ btmp = (char *)(&tmp) + 2;  /* we only need the last two bytes of tmp */
 
  sindex = soffset/CHAR_BIT;  /* index of first source byte */
  soffset = soffset%CHAR_BIT; /* index WITHIN first source byte */
