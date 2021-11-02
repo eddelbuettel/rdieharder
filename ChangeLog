@@ -1,3 +1,8 @@
+2021-11-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/libdieharder/rngs_gnu_r.c: Comment-out #define for long
+	triggering warning when using clang
+
 2021-11-01  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.2.2
