@@ -4,7 +4,7 @@
 # Copyright (C) 2008 - 2021  Dirk Eddelbuettel and licensed under GNU GPL
 
 # The version set here will propagate to other files from here
-AC_INIT([RDieHarder],[0.2.1])
+AC_INIT([RDieHarder],[0.2.2])
 
 # Ensure C++ is set up as R expects
 : ${R_HOME=`R RHOME`}
@@ -146,11 +146,11 @@ AC_OUTPUT
 #AC_CONFIG_FILES([src/libdieharder/Makefile])
 AC_OUTPUT
 
-echo "
-${PACKAGE_NAME} ${PACKAGE_VERSION}
-================
-
-compiler flags:  ${DH_CFLAGS} ${GSL_CFLAGS}
-link argument:   ${DH_LIBS} ${GSL_LIBS}
-build dieharder: ${DH_TGT}
-"
+#echo "
+#${PACKAGE_NAME} ${PACKAGE_VERSION}
+#================
+#
+#compiler flags:  ${DH_CFLAGS} ${GSL_CFLAGS}
+#link argument:   ${DH_LIBS} ${GSL_LIBS}
+#build dieharder: ${DH_TGT}
+#"

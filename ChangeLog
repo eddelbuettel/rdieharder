@@ -4,6 +4,7 @@
 	triggering warning when using clang
 	* src/dieharder.c (dieharderGenerators): Also initialize j
 
+	* configure.ac: Set version 0.2.2, belatedly
 
 2021-11-01  Dirk Eddelbuettel  <edd@debian.org>
 
