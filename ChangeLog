@@ -2,6 +2,8 @@
 
 	* src/libdieharder/rngs_gnu_r.c: Comment-out #define for long
 	triggering warning when using clang
+	* src/dieharder.c (dieharderGenerators): Also initialize j
+
 
 2021-11-01  Dirk Eddelbuettel  <edd@debian.org>
 

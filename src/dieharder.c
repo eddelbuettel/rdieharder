@@ -1,7 +1,7 @@
 
 /*
  * RDieHarder interface to DieHarder
- * Copyright (C) 2006 - 2011 Dirk Eddelbuettel
+ * Copyright (C) 2006 - 2021 Dirk Eddelbuettel
  * GPL'ed
  *
  * Based on dieharder.c from DieHarder, and interfacing DieHarder
@@ -149,7 +149,7 @@ SEXP dieharderGenerators(void) {
      *
      * We start with the basic GSL generators, which start at offset 0.
      */
-    i = 0;
+    i = j = 0;
     while(dh_rng_types[i] != NULL){
 	i++;
 	j++;
