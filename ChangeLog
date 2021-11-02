@@ -1,7 +1,19 @@
 2021-11-01  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Release 0.2.2
+
+	* src*: Several Nov 1 and Oct 30 changes are based on extremely
+	helpful email by Brian D Ripley which is gratefully acknowledged.
+	Together with the refactored build system and the changes to
+	lindieharder the package should now be in better standing.
+
 	* src/libdieharder/skein_block64.c: Use intptr_t
 	* src/libdieharder/bits.c (mybitadd): Correct assignment
+
+	* src/Makevars.win: Simplified, no longer builds libdieharder
+
+	* README.md: Remove DieHarder URL which upsets CRAN URL	checker
+	* man/dieharder.Rd: Idem
 
 2021-10-31  Dirk Eddelbuettel  <edd@debian.org>
 

@@ -1,15 +1,15 @@
 Package: RDieHarder
-Version: 0.2.1.1
-Date: 2021-10-31
-Author: Dirk Eddelbuettel
+Version: 0.2.2
+Date: 2021-11-01
+Author: Dirk Eddelbuettel, Robert G Brown, David Bauer
+ plus contributors to DieHarder
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Title: R Interface to the 'DieHarder' RNG Test Suite
 Description: The 'RDieHarder' package provides an R interface to 
  the 'DieHarder' suite of random number generators and tests that 
  was developed by Robert G. Brown and David Bauer, extending 
  earlier work by George Marsaglia and others. The 'DieHarder'
- library is included, but if a version is already installed
- it will be used instead.
+ library code is included.
 Depends: R (>= 2.5.0)
 SystemRequirements: GNU GSL for the GSL random-number generators
 License: GPL (>= 2)
