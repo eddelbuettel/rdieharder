@@ -1,5 +1,7 @@
 2021-11-02  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll minor version
+
 	* src/libdieharder/rngs_gnu_r.c: Comment-out #define for long
 	triggering warning when using clang
 	* src/dieharder.c (dieharderGenerators): Also initialize j
