@@ -1,3 +1,8 @@
+2021-12-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* configure.win: Based on patch by Tomas Kalibera that is part of his
+	changes for the Windows utf8-enhabced ucrt3 builds of R 4.2.0
+
 2021-11-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version

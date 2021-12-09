@@ -1,0 +1,3 @@
+#! /bin/bash
+./configure $*
+cp src/Makevars src/Makevars.ucrt
