@@ -62,7 +62,7 @@
 #define YES	1
 #define NO	0
 #define PI      3.141592653589793238462643
-#define K       1024
+#define KB      1024
 #define LINE    80
 #define PAGE    4096
 #define M       1048576
@@ -247,7 +247,7 @@ extern char **fields;
  off_t file_input_get_rtot(gsl_rng *rng);
  void file_input_set_rtot(gsl_rng *rng,unsigned int value);
 
-extern char filename[K];      /* Input file name */
+extern char filename[KB];      /* Input file name */
 extern int fromfile;		/* set true if file is used for rands */
 extern int filenumbits;	/* number of bits per integer */
  /*

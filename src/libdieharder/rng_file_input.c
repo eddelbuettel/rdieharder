@@ -72,7 +72,7 @@ static unsigned long int file_input_get (void *vstate)
  file_input_state_t *state = (file_input_state_t *) vstate;
  unsigned int iret;
  double f;
- char inbuf[K]; /* input buffer */
+ char inbuf[KB]; /* input buffer */
 
  /*
   * Check that the file is open (via file_input_set()).
@@ -82,7 +82,7 @@ static unsigned long int file_input_get (void *vstate)
    /*
     * Read in the next random number from the file
     */
-   if(fgets(inbuf,K,state->fp) == 0){
+   if(fgets(inbuf,KB,state->fp) == 0){
      Rf_error("# file_input(): Error: EOF on %s\n",filename);
      //exit(0);
    }
@@ -200,7 +200,7 @@ static void file_input_set (void *vstate, unsigned long int s)
 {
 
  int cnt,numfields;
- char inbuf[K]; /* input buffer */
+ char inbuf[KB]; /* input buffer */
 
  file_input_state_t *state = (file_input_state_t *) vstate;
 
@@ -284,7 +284,7 @@ static void file_input_set (void *vstate, unsigned long int s)
  cnt = 0;
  while(cnt < 3){
    if(state->fp != NULL) {
-     if(fgets(inbuf,K,state->fp) == 0){
+     if(fgets(inbuf,KB,state->fp) == 0){
        Rf_error("# file_input(): Error: EOF on %s\n",filename);
        //exit(0);
      }

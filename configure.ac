@@ -4,7 +4,7 @@
 # Copyright (C) 2008 - 2021  Dirk Eddelbuettel and licensed under GNU GPL
 
 # The version set here will propagate to other files from here
-AC_INIT([RDieHarder],[0.2.2])
+AC_INIT([RDieHarder],[0.2.3])
 
 # Ensure C++ is set up as R expects
 : ${R_HOME=`R RHOME`}
