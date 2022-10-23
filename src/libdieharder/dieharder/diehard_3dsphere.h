@@ -2,6 +2,8 @@
  * diehard_3dsphere test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

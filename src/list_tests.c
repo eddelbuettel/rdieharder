@@ -14,7 +14,7 @@
 
 #include "dieharder.h"
 
-void list_tests()
+void list_tests(void)
 {
 
  int i;
@@ -42,7 +42,7 @@ void list_tests()
 
 }
 
-void list_tests_old()
+void list_tests_old(void)
 {
 
  dh_header();

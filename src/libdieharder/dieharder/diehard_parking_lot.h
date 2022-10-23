@@ -2,6 +2,8 @@
  * diehard_parking_lot test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

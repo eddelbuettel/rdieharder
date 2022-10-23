@@ -138,7 +138,7 @@ static int report( u4 *data, u4 *data2, u4 length, int print)
   }
 }
 
-void driver()
+void driver(void)
 {
   u4 i;
   u4 data[BUCKETS];

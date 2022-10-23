@@ -2,6 +2,8 @@
  * dab_bytedistrib test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

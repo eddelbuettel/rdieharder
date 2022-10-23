@@ -23,7 +23,7 @@
  */
 
 #define LINE_LENGTH 80
-void dh_header()
+void dh_header(void)
 {
 
  int i,half,version_length;
@@ -48,7 +48,7 @@ void dh_header()
 
 }
 
-void dh_version()
+void dh_version(void)
 {
  Rprintf("%s\n",QUOTEME(VERSION));
 }

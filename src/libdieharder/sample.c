@@ -40,7 +40,7 @@
 
 #include <dieharder/libdieharder.h>
 
-double sample(void *testfunc())
+double sample(void *testfunc(void))
 {
 
  int p;

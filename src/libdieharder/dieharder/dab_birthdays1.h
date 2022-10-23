@@ -2,6 +2,8 @@
  * dab_birthdays1 test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

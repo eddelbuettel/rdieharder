@@ -4,6 +4,8 @@
  * suitable for use as a template.
  */
 
+#pragma once
+
 /*
  * The function needs a prototype.  In order to use the standard test
  * creation/destruction/execution routines, the prototype should have

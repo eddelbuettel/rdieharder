@@ -2,9 +2,12 @@
  * sts_serial test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */
+//int sts_serial(Test **test,int irun);
 int sts_serial(Test **test,int irun);
 
 static Dtest sts_serial_dtest __attribute__((unused)) = {

@@ -7,7 +7,7 @@
 #include "dieharder.h"
 
 //void table_line(Dtest *dtest,Test **test);
-void table_line();
+void table_line(void);
 
 void output(Dtest *dtest,Test **test)
 {
@@ -170,7 +170,7 @@ void show_test_results(Dtest *dtest,Test **test)
  * Print out all results in table format only
  */
 //void table_line(Dtest *dtest,Test **test)
-void table_line()
+void table_line(void)
 {
 
 #if !defined(RDIEHARDER)
@@ -233,7 +233,7 @@ void table_line()
 
 }
 
-void table_header()
+void table_header(void)
 {
 
  #if !defined(RDIEHARDER)

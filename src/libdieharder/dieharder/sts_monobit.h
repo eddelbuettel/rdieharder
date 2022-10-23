@@ -2,6 +2,8 @@
  * sts_monobit test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

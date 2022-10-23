@@ -12,7 +12,7 @@ void parsecl(int argc, char **argv)
     int c, errflg=0;
     uint tflag_tmp;
     extern char *optarg;
-    extern int optind, opterr, optopt;
+    extern int optind;//, opterr, optopt;
 
 #if 0    
 // OLD

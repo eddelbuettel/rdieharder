@@ -99,19 +99,19 @@ extern char table_separator;
   * Subroutine Prototypes
   *========================================================================
   */
- unsigned long int random_seed();
- void start_timing();
- void stop_timing();
- double delta_timing();
- void measure_rate();
- void Usage();
- void help();
+ unsigned long int random_seed(void);
+ void start_timing(void);
+ void stop_timing(void);
+ double delta_timing(void);
+ void measure_rate(void);
+ void Usage(void);
+ void help(void);
  double binomial(unsigned int n, unsigned int k, double p);
  double chisq_eval(double *x,double *y,double *sigma, unsigned int n);
  double chisq_poisson(uint *observed,double lambda,int kmax,uint nsamp);
  double chisq_binomial(double *observed,double prob,uint kmax,uint nsamp);
  void dumpbits(unsigned int *data, unsigned int nbits);
- double sample(void *testfunc());
+ double sample(void *testfunc(void));
  double kstest(double *pvalue,int count);
  double kstest_kuiper(double *pvalue,int count);
  double q_ks(double x);

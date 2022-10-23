@@ -50,7 +50,7 @@ Stem and leaf plot for test data
 
 NULL
 
-	One-sample Kolmogorov-Smirnov test
+	Exact one-sample Kolmogorov-Smirnov test
 
 data:  object$data
 D = 0.091065, p-value = 0.3566

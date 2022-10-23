@@ -6,6 +6,8 @@
  *========================================================================
  */
 
+#pragma once
+
  typedef struct {
    /* The name of the test */
    char *name;
@@ -26,7 +28,8 @@
    unsigned int nkps;
 
    /* A pointer to the test itself (must be filled at initialization) */
-   int (*test)();
+   /*int (*test)();*/
+   int (*test)(Test **test,int irun);
 
    /* void pointer to a vector of additional test arguments */
    void *targs;

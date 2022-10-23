@@ -1,10 +1,14 @@
+2022-10-23  Dirk Eddelbuettel  <edd@debian.org>
+
+        * src/*: Numerous changes to accomodate clang-15 -Wstrict-prototypes
+
 2021-12-23  Dirk Eddelbuettel  <edd@debian.org>
 
-	* README.md: Remove unused continuous integration artifact and badge
+        * README.md: Remove unused continuous integration artifact and badge
 
 2021-12-14  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Release 0.2.3
+        * DESCRIPTION (Version, Date): Release 0.2.3
 	* configure.ac: Idem
 	* configure: Idem
 

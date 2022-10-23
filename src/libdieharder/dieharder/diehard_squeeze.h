@@ -2,6 +2,8 @@
  * diehard_squeeze test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

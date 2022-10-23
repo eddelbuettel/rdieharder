@@ -2,6 +2,8 @@
  * diehard_dna test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

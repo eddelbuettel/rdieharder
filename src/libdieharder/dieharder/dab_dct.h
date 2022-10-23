@@ -2,6 +2,8 @@
  * dab_dct test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

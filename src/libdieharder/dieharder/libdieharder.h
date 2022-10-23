@@ -4,6 +4,8 @@
  *========================================================================
  */
 
+#pragma once
+
 #include "copyright.h"
 
 /* To enable large file support */
@@ -40,12 +42,12 @@
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_eigen.h>
-#include <dieharder/Dtest.h>
 #include <dieharder/parse.h>
 #include <dieharder/verbose.h>
 #include <dieharder/Xtest.h>
 #include <dieharder/Vtest.h>
 #include <dieharder/std_test.h>
+#include <dieharder/Dtest.h>
 #include <dieharder/tests.h>
 #include <dieharder/dieharder_rng_types.h>
 #include <dieharder/dieharder_test_types.h>
@@ -98,22 +100,22 @@
   * Subroutine Prototypes
   *========================================================================
   */
- unsigned long int random_seed();
- void start_timing();
- void stop_timing();
- double delta_timing();
- void measure_rate();
- void Usage();
- void help();
- void dh_header();
- void dh_version();
+ unsigned long int random_seed(void);
+ void start_timing(void);
+ void stop_timing(void);
+ double delta_timing(void);
+ void measure_rate(void);
+ void Usage(void);
+ void help(void);
+ void dh_header(void);
+ void dh_version(void);
  double binomial(unsigned int n, unsigned int k, double p);
  double chisq_eval(double *x,double *y,double *sigma, unsigned int n);
  double chisq_poisson(unsigned int *observed,double lambda,int kmax,unsigned int nsamp);
  double chisq_binomial(double *observed,double prob,unsigned int kmax,unsigned int nsamp);
  double chisq_pearson(double *observed,double *expected,int kmax);
  double chisq_uint_uniform_gtest(uint *observed,long numItems,int kmax);
- double sample(void *testfunc());
+ double sample(void *testfunc(void));
  double kstest(double *pvalue,int count);
  double kstest_kuiper(double *pvalue,int count);
  double q_ks(double x);
@@ -141,13 +143,13 @@
  void get_rand_bits(void *result,unsigned int rsize,unsigned int nbits,gsl_rng *gsl_rng);
  void mybitadd(char *dst, int doffset, char *src, int soffset, int slen);
  void get_rand_pattern(void *result,unsigned int rsize,int *pattern,gsl_rng *gsl_rng);
- void reset_bit_buffers();
+ void reset_bit_buffers(void);
 
 /* Cruft
  int get_int_bit(unsigned int i, unsigned int n);
 */
 
- void add_lib_rngs();
+ void add_lib_rngs(void);
 
  int binary_rank(unsigned int **mtx,int mrows,int ncols);
     

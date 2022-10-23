@@ -2,6 +2,8 @@
  * diehard_craps test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

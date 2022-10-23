@@ -21,9 +21,10 @@
 
 #include <dieharder/libdieharder.h>
 
-int rgb_persist(Test **test, Rgb_Persist *persist)
+//int rgb_persist(Test **test, Rgb_Persist *persist)
+int rgb_persist(Test **test, int persist_int)
 {
-
+ Rgb_Persist *persist = (Rgb_Persist*) &persist_int;
  uint last_rand;
  int i,j;
 

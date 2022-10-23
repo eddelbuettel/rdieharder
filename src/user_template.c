@@ -71,6 +71,7 @@
  *========================================================================
  */
 
+#include <dieharder/libdieharder.h>
 #include "dieharder.h"
 
 int user_template(Test **test,int irun)

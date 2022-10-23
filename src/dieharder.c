@@ -1,7 +1,7 @@
 
 /*
  * RDieHarder interface to DieHarder
- * Copyright (C) 2006 - 2021 Dirk Eddelbuettel
+ * Copyright (C) 2006 - 2022 Dirk Eddelbuettel
  * GPL'ed
  *
  * Based on dieharder.c from DieHarder, and interfacing DieHarder
@@ -16,9 +16,9 @@
 
 #include "dieharder.h"		/* from the front-end sources */
 
-void choose_rng();
-void run_all_tests();
-void run_test();
+void choose_rng(void);
+void run_all_tests(void);
+void run_test(void);
 
 SEXP dieharder(SEXP genS, SEXP testS, SEXP seedS, SEXP psamplesS, SEXP verbS, SEXP infileS, SEXP ntupleS) {
 

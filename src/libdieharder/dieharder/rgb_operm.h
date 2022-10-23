@@ -2,6 +2,8 @@
  * rgb_operm test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

@@ -17,7 +17,7 @@
 #include "dieharder.h"
 static int firstcall=1;
 
-void startup()
+void startup(void)
 {
 
  int i,j;

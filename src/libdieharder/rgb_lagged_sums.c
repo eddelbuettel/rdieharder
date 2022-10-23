@@ -89,7 +89,7 @@ int rgb_lagged_sums(Test **test,int irun)
 
 }
 
-void help_rgb_lagged_sums()
+void help_rgb_lagged_sums(void)
 {
 
   Rprintf("%s",rgb_lagged_sums_dtest.description);

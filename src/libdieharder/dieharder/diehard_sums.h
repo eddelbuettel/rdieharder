@@ -2,6 +2,8 @@
  * diehard_sums test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

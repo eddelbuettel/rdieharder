@@ -15,7 +15,7 @@
 
 #include "dieharder.h"
 
-double output_rnds()
+double output_rnds(void)
 {
 
  uint i,j;

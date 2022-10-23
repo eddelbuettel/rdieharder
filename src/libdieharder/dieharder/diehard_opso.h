@@ -2,6 +2,8 @@
  * diehard_opso test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

@@ -8,7 +8,7 @@
 
 int execute_test(int dtest_num);
 
-void run_test()
+void run_test(void)
 {
 
  int i;

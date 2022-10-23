@@ -2,6 +2,8 @@
  * diehard_rank_6x8 test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

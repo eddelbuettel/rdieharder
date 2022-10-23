@@ -1424,7 +1424,7 @@ void get_rand_pattern(void *result,unsigned int rsize,int *pattern,gsl_rng *gsl_
  * static buffers that must be cleared in order to achieve consistent
  * results from a rng reseed on, per run.
  */
-void reset_bit_buffers()
+void reset_bit_buffers(void)
 {
 
   int i;

@@ -6,7 +6,7 @@
  *
  * This file provides the "one spot" for these _sole_ defintions.
  *
- * Dirk Eddelbuettel, Dec 2019
+ * Dirk Eddelbuettel, Dec 2019, Oct 2022
  */
 
 #include <sys/time.h>
@@ -17,6 +17,7 @@
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_matrix.h>
 
+#include <dieharder/std_test.h>
 #include <dieharder/Dtest.h>
 
 
@@ -142,3 +143,4 @@ char splitbuf[PK][PBUF];
 
 unsigned int *rgb_persist_rand_uint;   /* rgb_persist.h */
 unsigned int rgb_operm_k;              /* rgb_operm.h */
+unsigned int nperms;                   /* rgb_operm.c, rgb_permutations.c */

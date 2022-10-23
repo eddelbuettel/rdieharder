@@ -50,8 +50,6 @@ SRC = \
 	rgb_lagged_sums.c \
 	rgb_minimum_distance.c \
 	rgb_permutations.c \
-	rgb_persist.c \
-	rgb_timing.c \
 	rngav.c \
 	rng_aes.c \
 	rijndael-alg-fst.c \
@@ -80,6 +78,9 @@ SRC = \
 	Vtest.c \
 	version.c \
 	Xtest.c
+
+#	rgb_persist.c \
+#	rgb_timing.c \
 
 OBJ         = $(SRC:%.c=%.o)
 

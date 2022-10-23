@@ -15,7 +15,7 @@
 
 #include "dieharder.h"
 
-void list_rngs()
+void list_rngs(void)
 {
  int i,j;
 

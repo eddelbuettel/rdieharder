@@ -6,6 +6,8 @@
  *========================================================================
  */
 
+#pragma once
+
  /*
   * This is the struct used in Vtest.c, a standard Pearson's chisq
   * test on a vector of measurements and corresponding expected
