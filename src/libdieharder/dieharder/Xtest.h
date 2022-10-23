@@ -6,6 +6,8 @@
  *========================================================================
  */
 
+#pragma once
+
  /*
   * This is the struct used in Xtest.c, a erfc based test that generates
   * a p-value for a single normally distributed statistic.

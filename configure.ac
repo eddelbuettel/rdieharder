@@ -1,10 +1,10 @@
 # Process this file with autoconf to produce a configure script.
 #
 # Configure.in for RDieHarder
-# Copyright (C) 2008 - 2021  Dirk Eddelbuettel and licensed under GNU GPL
+# Copyright (C) 2008 - 2022  Dirk Eddelbuettel and licensed under GNU GPL
 
 # The version set here will propagate to other files from here
-AC_INIT([RDieHarder],[0.2.3])
+AC_INIT([RDieHarder],[0.2.4])
 
 # Ensure C++ is set up as R expects
 : ${R_HOME=`R RHOME`}

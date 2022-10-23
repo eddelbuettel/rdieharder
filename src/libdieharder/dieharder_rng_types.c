@@ -39,7 +39,7 @@
 #include <dieharder/libdieharder.h>
 FILE *test_fp;
 
-void dieharder_rng_types()
+void dieharder_rng_types(void)
 {
 
  int i;

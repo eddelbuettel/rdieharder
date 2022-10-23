@@ -11,7 +11,8 @@ typedef struct {
  double avg_time_nsec;
  double rands_per_sec;
 } Rgb_Timing;
-int rgb_timing(Test **test, Rgb_Timing *timing);
+//int rgb_timing(Test **test, Rgb_Timing *timing);
+int rgb_timing(Test **test, int timing);
 
 static Dtest rgb_timing_dtest __attribute__((unused)) = {
   "RGB Timing Test",

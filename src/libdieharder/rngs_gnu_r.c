@@ -55,7 +55,7 @@ static void r_knuth_taocp2_set (void *vstate, unsigned long int s);
 
 typedef unsigned int Int32; /* in Random.h */
 
-typedef void * (*DL_FUNC)();
+typedef void * (*DL_FUNC)(void*, unsigned long int);
 
 /*
  * The question is, will the patch below break the Debian

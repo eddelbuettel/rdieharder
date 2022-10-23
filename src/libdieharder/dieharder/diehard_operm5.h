@@ -2,6 +2,8 @@
  * diehard_operm5 test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

@@ -16,9 +16,9 @@
 
 //int select_rng(int gennum,char *genname,uint initial_seed);
 int select_rng(int gennum);
-void time_rng();
+//void time_rng(void);
 
-void choose_rng()
+void choose_rng(void)
 {
 
  /*
@@ -253,9 +253,9 @@ int select_rng(int gennum)
  /*
   * Here we evaluate the speed of the generator if the rate flag is set.
   */
- if(tflag & TRATE){
-   time_rng();
- }
+ /* if(tflag & TRATE){ */
+ /*   time_rng(); */
+ /* } */
 
  /*
   * Before we quit, we must count the number of significant bits in the
@@ -295,7 +295,7 @@ int select_rng(int gennum)
  * ========================================================================
  */
 
-int select_XOR()
+int select_XOR(void)
 {
 
  unsigned int i,j;
@@ -439,9 +439,9 @@ int select_XOR()
  /*
   * Here we evaluate the speed of the generator if the rate flag is set.
   */
- if(tflag & TRATE){
-   time_rng();
- }
+ /* if(tflag & TRATE){ */
+ /*   time_rng(); */
+ /* } */
 
  /*
   * We don't really need this anymore, I don't think.  But we'll leave it

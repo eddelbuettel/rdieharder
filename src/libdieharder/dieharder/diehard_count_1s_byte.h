@@ -2,6 +2,8 @@
  * diehard_count_1s_byte test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

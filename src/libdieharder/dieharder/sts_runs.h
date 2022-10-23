@@ -2,6 +2,8 @@
  * sts_runs test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

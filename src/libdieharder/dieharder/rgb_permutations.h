@@ -2,6 +2,8 @@
  * rgb_permutations test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

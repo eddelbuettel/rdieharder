@@ -2,6 +2,8 @@
  * dab_monobit2 test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

@@ -12,7 +12,7 @@
 #include <dieharder/libdieharder.h>
 
 #define RGB_PERM_KMAX 10
-uint nperms;
+extern uint nperms;
 double fpipi(int pi1,int pi2,int nkp);
 uint rgb_permutations_k;
 

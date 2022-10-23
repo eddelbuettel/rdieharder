@@ -2,6 +2,8 @@
  * rgb_kstest_test test header
  */
 
+#pragma once
+
 /*
  * function prototype
  */

@@ -1,3 +1,5 @@
+#pragma once
+
 /*
  * This is is the std_test struct.  It is the sole output interface between
  * the user and the test program -- all standard test inputs and returns
@@ -25,8 +27,8 @@ typedef struct {
   double z;            /* Extra variable passed on command line */
 } Test;
 
+#include <dieharder/Dtest.h>
 
 Test **create_test(Dtest *dtest, unsigned int tsamples, unsigned int psamples);
 void destroy_test(Dtest *dtest, Test **test);
 void std_test(Dtest *dtest, Test **test);
-

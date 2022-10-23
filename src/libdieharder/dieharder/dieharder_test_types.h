@@ -34,7 +34,7 @@
 
 
 
- void dieharder_test_types();
+void dieharder_test_types(void);
 
 extern Dtest *dh_test_types[MAXTESTS];
 

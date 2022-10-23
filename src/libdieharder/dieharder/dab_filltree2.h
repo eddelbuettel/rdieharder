@@ -2,6 +2,8 @@
  * dab_filltree2 test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

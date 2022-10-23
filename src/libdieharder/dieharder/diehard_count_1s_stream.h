@@ -2,6 +2,8 @@
  * diehard_count_1s_stream test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

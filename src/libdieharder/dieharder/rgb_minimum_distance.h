@@ -2,6 +2,8 @@
  * rgb_minimum_distance test header
  */
 
+#pragma once
+
 /*
  * function prototype
  */

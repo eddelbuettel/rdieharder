@@ -2,6 +2,8 @@
  * dab_opso2 test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

@@ -16,7 +16,7 @@
 
 #include <dieharder/libdieharder.h>
 
-unsigned long int random_seed()
+unsigned long int random_seed(void)
 {
 
  unsigned int seed;

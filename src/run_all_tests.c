@@ -18,7 +18,7 @@
 
 int execute_test(int dtest_num);
 
-void run_all_tests()
+void run_all_tests(void)
 {
 
  /*

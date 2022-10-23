@@ -49,6 +49,7 @@ SRC = \
 	rgb_kstest_test.c \
 	rgb_lagged_sums.c \
 	rgb_minimum_distance.c \
+	rgb_operm.c \
 	rgb_permutations.c \
 	rgb_persist.c \
 	rgb_timing.c \

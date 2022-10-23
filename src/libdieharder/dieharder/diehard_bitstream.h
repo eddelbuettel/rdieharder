@@ -2,6 +2,8 @@
  * diehard_bitstream test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

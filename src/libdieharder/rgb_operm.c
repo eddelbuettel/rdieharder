@@ -43,23 +43,24 @@
  */
 double fpipi(int pi1,int pi2,int nkp);
 uint piperm(size_t *data,int len);
-void make_cexact();
-void make_cexpt();
-int nperms,noperms;
+void make_cexact(void);
+void make_cexpt(void);
+extern int nperms;
+int noperms;
 double **cexact,**ceinv,**cexpt,**idty;
 double *cvexact,*cvein,*cvexpt,*vidty;
 
 int rgb_operm(Test **test,int irun)
 {
 
- int i,j,n,nb,iv,s;
+    int i,j,iv;//,n,nb,iv,s;
  uint csamples;   /* rgb_operm_k^2 is vector size of cov matrix */
- uint *count,ctotal; /* counters */
- uint size;
- double pvalue,ntuple_prob,pbin;  /* probabilities */
+ //uint *count,ctotal; /* counters */
+ //uint size;
+ //double pvalue,ntuple_prob,pbin;  /* probabilities */
  Vtest *vtest;   /* Chisq entry vector */
 
- gsl_matrix_view CEXACT,CEINV,CEXPT,IDTY;
+ gsl_matrix_view CEXACT;//,CEINV,CEXPT,IDTY;
 
  /*
   * For a given n = ntuple size in bits, there are n! bit orderings
@@ -82,7 +83,7 @@ int rgb_operm(Test **test,int irun)
  nperms = gsl_sf_fact(rgb_operm_k);
  noperms = gsl_sf_fact(3*rgb_operm_k-2);
  csamples = rgb_operm_k*rgb_operm_k;
- gsl_permutation * p = gsl_permutation_alloc(nperms);
+ //gsl_permutation * p = gsl_permutation_alloc(nperms);
 
  /*
   * Allocate memory for value_max vector of Vtest structs and counts,
@@ -90,7 +91,7 @@ int rgb_operm(Test **test,int irun)
   * or leak.
   */
  vtest = (Vtest *)malloc(csamples*sizeof(Vtest));
- count = (uint *)malloc(csamples*sizeof(uint));
+ //count = (uint *)malloc(csamples*sizeof(uint));
  Vtest_create(vtest,csamples+1);
 
  /*
@@ -135,9 +136,9 @@ int rgb_operm(Test **test,int irun)
  }
 
  CEXACT = gsl_matrix_view_array(cvexact, nperms, nperms);
- CEINV  = gsl_matrix_view_array(cvein  , nperms, nperms);
- CEXPT  = gsl_matrix_view_array(cvexpt , nperms, nperms);
- IDTY   = gsl_matrix_view_array(vidty  , nperms, nperms);
+ //CEINV  = gsl_matrix_view_array(cvein  , nperms, nperms);
+ //CEXPT  = gsl_matrix_view_array(cvexpt , nperms, nperms);
+ //IDTY   = gsl_matrix_view_array(vidty  , nperms, nperms);
 
  /*
   * Hmmm, looks like cexact isn't invertible.  Duh.  So it has eigenvalues.
@@ -159,7 +160,7 @@ int rgb_operm(Test **test,int irun)
  gsl_eigen_symmv_sort (eval, evec, GSL_EIGEN_SORT_ABS_ASC);
 
  {
-   int i;
+   //int i;
 
    /* printf("#==================================================================\n"); */
    /* for (i = 0; i < nperms; i++) { */
@@ -238,7 +239,7 @@ int rgb_operm(Test **test,int irun)
 void make_cexact()
 {
 
- int i,j,k,ip,t,nop;
+ int i,j,k,t;//,ip,t,nop;
  double fi,fj;
  /*
   * This is the test vector.
@@ -400,7 +401,7 @@ void make_cexact()
 void make_cexpt()
 {
 
- int i,j,k,ip,t;
+ int i,j,k,t;//ip
  double fi,fj;
  /*
   * This is the test vector.
@@ -460,8 +461,8 @@ void make_cexpt()
    }
    */
    for(k=0;k<2*rgb_operm_k-1;k++){
-     gsl_sort_index(ps,&testv[k],1,rgb_operm_k);
-     pi[k] = piperm(ps,rgb_operm_k);
+       gsl_sort_index((size_t*)ps,&testv[k],1,rgb_operm_k);
+       pi[k] = piperm((size_t*)ps,rgb_operm_k);
 
      /* Not cruft, but quiet...
      MYDEBUG(D_RGB_OPERM){
@@ -526,8 +527,8 @@ void make_cexpt()
 uint piperm(size_t *data,int len)
 {
 
- uint i,j,k,max,min;
- uint pindex,uret,tmp;
+ uint i;//,j,k,max,min;
+ //uint pindex,uret,tmp;
  static gsl_permutation** lookup = 0;
 
  /*
@@ -599,7 +600,7 @@ uint piperm(size_t *data,int len)
 double fpipi(int pi1,int pi2,int nkp)
 {
 
- int i;
+ //int i;
  double fret;
 
  /*

@@ -59,7 +59,7 @@
   */
 #define MAXRNGS 1000
 
- void dieharder_rng_types();
+void dieharder_rng_types(void);
 
 extern const gsl_rng_type *dh_rng_types[MAXRNGS];
 extern const gsl_rng_type **gsl_types;    /* where all the rng types go */

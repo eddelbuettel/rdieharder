@@ -2,6 +2,8 @@
  * rgb_bitdist test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

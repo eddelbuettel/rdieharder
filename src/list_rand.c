@@ -18,7 +18,7 @@
 
 #include "dieharder.h"
 
-void list_rand()
+void list_rand(void)
 {
 
  int i;

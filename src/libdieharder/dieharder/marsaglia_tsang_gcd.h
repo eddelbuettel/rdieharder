@@ -2,6 +2,8 @@
  * diehard_marsaglia_tsang_gcd test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

@@ -9,8 +9,8 @@
 
 /* .Call calls */
 extern SEXP dieharder(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP dieharderGenerators();
-extern SEXP dieharderTests();
+extern SEXP dieharderGenerators(void);
+extern SEXP dieharderTests(void);
 
 static const R_CallMethodDef CallEntries[] = {
     {"dieharder",           (DL_FUNC) &dieharder,           7},

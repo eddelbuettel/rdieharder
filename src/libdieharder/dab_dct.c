@@ -194,7 +194,7 @@ int dab_dct(Test **test,int irun)
  return(0);
 }
 
-void help_dab_dct()
+void help_dab_dct(void)
 {
   Rprintf("%s",dab_dct_dtest.description);
 }
@@ -308,7 +308,7 @@ double evalMostExtreme(double *pvalue, unsigned int num) {
  return ext;
 }
 
-int main_dab_dct() {
+int main_dab_dct(void) {
  unsigned int input[] = { 4, 5, 6, 5, 4, 3, 2, 1, 1, 2, 3, 4, 5, 6, 7, 8 };
  double output1[16], output2[16], output3[16];
  int i;

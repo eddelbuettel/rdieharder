@@ -2,6 +2,8 @@
  * diehard_birthdays test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

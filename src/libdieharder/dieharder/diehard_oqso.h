@@ -2,6 +2,8 @@
  * diehard_oqso test header.
  */
 
+#pragma once
+
 /*
  * function prototype
  */

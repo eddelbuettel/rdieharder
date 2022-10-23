@@ -27,7 +27,7 @@
 
 #include <dieharder/libdieharder.h>
 
-void dieharder_test_types()
+void dieharder_test_types(void)
 {
 
  int i;

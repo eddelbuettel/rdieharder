@@ -35,14 +35,14 @@ static Dtest user_template_dtest = {
   0
 };
 
-void help_user_template()
+void help_user_template(void)
 {
 
   Rprintf("%s",user_template_dtest.description);
 
 }
 
-void help()
+void help(void)
 {
 
  /*
@@ -52,9 +52,9 @@ void help()
   * "#" so it is easy to filter out of standard test results output.
   */
  if(all==YES){
-   Rprintf("%s",rgb_timing_dtest.description);
-   Rprintf("%s",rgb_persist_dtest.description);
-   Rprintf("%s",rgb_bitdist_dtest.description);
+   //Rprintf("%s",rgb_timing_dtest.description);
+   //Rprintf("%s",rgb_persist_dtest.description);
+   //Rprintf("%s",rgb_bitdist_dtest.description);
    Rprintf("%s",rgb_minimum_distance_dtest.description);
    Rprintf("%s",rgb_permutations_dtest.description);
    Rprintf("%s",rgb_lagged_sums_dtest.description);
@@ -147,15 +147,15 @@ void help()
      break;
  }
  switch(rgb){
-   case RGB_TIMING:
-     Rprintf("%s",rgb_timing_dtest.description);
-     break;
-   case RGB_PERSIST:
-     Rprintf("%s",rgb_persist_dtest.description);
-     break;
-   case RGB_BITDIST:
-     Rprintf("%s",rgb_bitdist_dtest.description);
-     break;
+   /* case RGB_TIMING: */
+   /*   Rprintf("%s",rgb_timing_dtest.description); */
+   /*   break; */
+   /* case RGB_PERSIST: */
+   /*   Rprintf("%s",rgb_persist_dtest.description); */
+   /*   break; */
+   /* case RGB_BITDIST: */
+   /*   Rprintf("%s",rgb_bitdist_dtest.description); */
+   /*   break; */
    case RGB_MINIMUM_DISTANCE:
      Rprintf("%s",rgb_minimum_distance_dtest.description);
      break;
@@ -204,7 +204,7 @@ void help()
 
 }
 
-void Usage()
+void Usage(void)
 {
 
  Rprintf("\n\
