@@ -20,6 +20,7 @@
 
 /* This turns on uint macro in c99 */
 #define __USE_MISC 1
+#include <stdint.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
