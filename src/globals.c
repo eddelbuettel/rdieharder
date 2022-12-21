@@ -10,6 +10,7 @@
  */
 
 #include <sys/time.h>
+#include <sys/types.h>
 #include <R.h>
 #include <Rinternals.h>
 
