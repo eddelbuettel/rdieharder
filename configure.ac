@@ -22,9 +22,6 @@ else
    endianness=0
 fi
 
-# Checks for common programs using default macros
-AC_PROG_CC
-
 # Check for non-standard programs: gsl-config(1)
 AC_PATH_PROG([GSL_CONFIG], [gsl-config])
 
@@ -144,7 +141,6 @@ AC_SUBST(ENDIANNESS)
 AC_CONFIG_FILES([src/Makevars])
 AC_OUTPUT
 #AC_CONFIG_FILES([src/libdieharder/Makefile])
-AC_OUTPUT
 
 #echo "
 #${PACKAGE_NAME} ${PACKAGE_VERSION}
