@@ -1,6 +1,6 @@
 Package: RDieHarder
-Version: 0.2.4
-Date: 2022-10-23
+Version: 0.2.4.1
+Date: 2023-01-12
 Author: Dirk Eddelbuettel, Robert G Brown, David Bauer
  plus contributors to DieHarder
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
