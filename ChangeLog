@@ -1,5 +1,7 @@
 2024-01-04  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
 	* src/libdieharder/bits.c: Adjust format for r-devel on	Windows
         src/libdieharder/countx.c: Idem
         src/libdieharder/rng_file_input.c: Idem
