@@ -13,6 +13,7 @@
 #include <float.h>
 #include <time.h>
 #include <R_ext/Print.h>
+#include <stdint.h>
 
 typedef  unsigned char      u1;
 typedef  unsigned long      u4;
@@ -176,7 +177,7 @@ int main_rngav( int argc, char **argv)
 
   time(&z);
 
-  Rprintf("number of seconds: %6lu\n", (size_t)(z-a));
+  Rprintf("number of seconds: %6u\n", (uint32_t)(z-a));
 
   return 0;
 

@@ -1,3 +1,11 @@
+2024-01-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/libdieharder/bits.c: Adjust format for r-devel on	Windows
+        src/libdieharder/countx.c: Idem
+        src/libdieharder/rng_file_input.c: Idem
+        src/libdieharder/rngav.c: Idem
+        src/libdieharder/sts_monobit.c: Idem
+
 2023-01-12  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Release 0.2.5
