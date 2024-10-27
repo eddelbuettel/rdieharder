@@ -1,9 +1,11 @@
 Package: RDieHarder
 Version: 0.2.6
 Date: 2024-01-12
-Author: Dirk Eddelbuettel, Robert G Brown, David Bauer
- plus contributors to DieHarder
-Maintainer: Dirk Eddelbuettel <edd@debian.org>
+Authors@R: c(person("Dirk", "Eddelbuettel", role = c("aut", "cre"), email = "edd@debian.org", 
+                    comment = c(ORCID = "0000-0001-6419-907X")),
+             person("Robert G", "Brown", role = "aut"),
+             person("David", "Bauer", role = "aut"),
+             person("DieHarder Contributors", role = "ctb"))
 Title: R Interface to the 'DieHarder' RNG Test Suite
 Description: The 'RDieHarder' package provides an R interface to 
  the 'DieHarder' suite of random number generators and tests that 
