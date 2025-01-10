@@ -1,7 +1,7 @@
 # Process this file with autoconf to produce a configure script.
 #
 # Configure.in for RDieHarder
-# Copyright (C) 2008 - 2023  Dirk Eddelbuettel and licensed under GNU GPL
+# Copyright (C) 2008 - 2025  Dirk Eddelbuettel and licensed under GNU GPL
 
 # The version set here will propagate to other files from here
 AC_INIT([RDieHarder],[0.2.5])
@@ -14,7 +14,7 @@ fi
 
 AC_MSG_CHECKING([endianness])
 ENDIAN=`"${R_HOME}/bin/Rscript" -e 'cat(.Platform$endian)'`
-if test "${ENDIAN}" == "little"; then
+if test "${ENDIAN}" = "little"; then
    AC_MSG_RESULT([little])
    endianness=1
 else
