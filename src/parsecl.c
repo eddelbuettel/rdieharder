@@ -227,7 +227,7 @@ void parsecl(int argc, char **argv)
     /*
      * If there are no more arguments, we are done.
      */
-    if(argc-optind == 0){
+    //if(argc-optind == 0){
 	/*
 	 * If help was requested, call the help routine.  This routine does
 	 * different things depending on the other flags and variables, so
@@ -235,12 +235,12 @@ void parsecl(int argc, char **argv)
 	 */
 	if(help_flag) help();
 	return;
-    }
+    //}
 
     /*
      * Anything else left is an erroneous call and should cause the Usage
      * message to be printed.
      */
-    Usage();
+    //Usage();
 
 }
