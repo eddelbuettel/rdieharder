@@ -1,3 +1,11 @@
+2025-03-26  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Release 0.2.7
+        * configure.ac: Idem
+        * configure: Idem
+
+	* src/parsecl.c: Ignore optind
+
 2025-01-10  Dirk Eddelbuettel  <edd@debian.org>
 
 	* configure.ac: Correct one possible bashism
