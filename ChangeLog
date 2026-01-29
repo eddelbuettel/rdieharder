@@ -2,6 +2,10 @@
 
 	* vignettes/RDieHarder.Rnw: Replace two \mailto{} uses with \textt{}
 
+2026-01-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .github/workflows/ci.yaml: Switch ci.yaml to actions/checkout@v6
+
 2025-12-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/RDieHarder.Rnw: Use \mailto on two email addresses
