@@ -1,6 +1,10 @@
+2026-01-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/RDieHarder.Rnw: Replace two \mailto{} uses with \textt{}
+
 2025-12-14  Dirk Eddelbuettel  <edd@debian.org>
 
-	* vignettes/RDieHarder.Rnw: Use \mainto on two email addresses
+	* vignettes/RDieHarder.Rnw: Use \mailto on two email addresses
 
 2025-08-13  Dirk Eddelbuettel  <edd@debian.org>
 
