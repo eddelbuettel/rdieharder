@@ -57,10 +57,10 @@ prettyDate <- format(Sys.Date(), "%B %e, %Y")
 \title{\pkg{RDieHarder}: An R interface to the \dieharder\ suite of Random
   Number Generator Tests}
 \author{\href{http://dirk.eddelbuettel.com}{Dirk Eddelbuettel} \\
-  Debian \\ \url{edd@debian.org}
+  Debian \\ \mailto{edd@debian.org}
   \and
   \href{http://www.phy.duke.edu/~rgb}{Robert G. Brown} \\
-  Physics, Duke University \\ \url{rgb@phy.duke.edu} }
+  Physics, Duke University \\ \mailto{rgb@phy.duke.edu} }
 \date{Initial Version as of May 2007\\
       \footnotesize Rebuilt on \Sexpr{prettyDate} using RDieHarder \Sexpr{prettyVersion}}
 
