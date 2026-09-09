@@ -2,6 +2,8 @@
 
 	* man/dieharder.Rd: Correct \usage{}, adjust one argument
 
+	* vignettes/RDieHarder.bib: Update reference URLs
+
 	* .github/workflows/ci.yaml: Switch to actions/checkout@v7
 
 2026-01-29  Dirk Eddelbuettel  <edd@debian.org>
