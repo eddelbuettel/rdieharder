@@ -12,8 +12,8 @@
   of random number generators.
 }
 \usage{
-   \method{dieharder}{default}(rng="mt19937", test="diehard_runs", psamples=100,
-                               seed=0, verbose=FALSE, inputfile="", ntuple=5) 
+   dieharder(rng="mt19937", test=1, psamples=100,
+             seed=0, verbose=FALSE, inputfile="", ntuple=5)
    \method{print}{dieharder}(x, ...)
    \method{summary}{dieharder}(object, ...)
    \method{plot}{dieharder}(x, ...)
