@@ -21,15 +21,17 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup
         uses: eddelbuettel/github-actions/r-ci@master
 
       - name: Dependencies
-        run: |
-          ./run.sh install_deps
-          ./run.sh install_aptget libgsl-dev
+        run: ./run.sh install_deps
+
+      - name: Linux System Dependencies
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: ./run.sh install_aptget libgsl-dev
         
       - name: Test
         run: ./run.sh run_tests

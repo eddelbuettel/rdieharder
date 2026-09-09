@@ -1,3 +1,7 @@
+2026-09-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .github/workflows/ci.yaml: Switch to actions/checkout@v7
+
 2026-01-29  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/RDieHarder.Rnw: Replace two \mailto{} uses with \textt{}
