@@ -1,3 +1,11 @@
+2026-09-10  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Release 0.2.8
+        * configure.ac: Idem
+        * configure: Idem
+
+	* vignettes/RDieHarder.Rnw: URL updates
+
 2026-09-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* man/dieharder.Rd: Correct \usage{}, adjust one argument
