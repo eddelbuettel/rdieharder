@@ -34,7 +34,7 @@
 \newcommand{\diehard}{\textrm{DieHard}}
 \newcommand{\dieharder}{\textrm{Die}\textsl{Harder}}
 \newcommand{\rdieharder}{\pkg{RDieHarder}}
-\newcommand{\wikinote}[2]{#2\footnote{C.f.~the Wikipedia entry \url{http://www.wikipedia.org/wiki/#1}.}}
+\newcommand{\wikinote}[2]{#2\footnote{C.f.~the Wikipedia entry \url{https://en.wikipedia.org/wiki/#1}.}}
 %%
 
 \begin{document}
@@ -57,10 +57,10 @@ options(warn=-1)  # KS test now warns about ties
 
 \title{\pkg{RDieHarder}: An R interface to the \dieharder\ suite of Random
   Number Generator Tests}
-\author{\href{http://dirk.eddelbuettel.com}{Dirk Eddelbuettel} \\
+\author{\href{https://dirk.eddelbuettel.com}{Dirk Eddelbuettel} \\
   Debian \\ \texttt{edd@debian.org}
   \and
-  \href{http://www.phy.duke.edu/~rgb}{Robert G. Brown} \\
+  \href{https://physics.duke.edu/~rgb}{Robert G. Brown} \\
   Physics, Duke University \\ \texttt{rgb@phy.duke.edu} }
 \date{Initial Version as of May 2007\\
       \footnotesize Rebuilt on \Sexpr{prettyDate} using RDieHarder \Sexpr{prettyVersion}}
@@ -168,7 +168,7 @@ proper generator, converge closer and closer to $\mu = N / 2$. Each of these
 $N$ draws forms one experiment.  If $N$ is sufficiently large, then the means
 of all experiments should be normally distributed with a standard deviation
 of $\sigma = \sqrt{ N / 12}$.\footnote{This is known as the Irwin-Hall
-  distribution, see \url{http://en.wikipedia.org/wiki/Irwin-Hall_distribution}.}
+  distribution, see \url{https://en.wikipedia.org/wiki/Irwin-Hall_distribution}.}
 Given this asymptotic result, we can, for any given experiment $i \in 1,
 \ldots, M$ transform the given sum $x_i$ of $N$ draws into a probability
 value $p_i$ using the inverse normal distribution.\footnote{Running
@@ -183,7 +183,7 @@ probability values, we can compute one 'meta-test' of whether we can reject
 the null of a perfect generator by rejecting that our $M$ probability values
 are not uniformly distributed. One suitable test is for example the
 non-parametric \wikinote{Kolmogorov-Smirnov\_test}{Kolmogorov-Smirnov (KS)}
-statistic.  \dieharder\ uses the \wikinote{Kuiper\%27s\_test}{Kuiper} variant
+statistic.  \dieharder\ uses the \wikinote{Kuiper's_test}{Kuiper} variant
 of the KS test which uses the combination $D_+ + D_-$ of the maximum and
 minimum distance to the alternative distribution, instead of using just one
 of these as in the case of the KS test.  This renders the test more sensitive
@@ -245,8 +245,7 @@ Recent versions of \dieharder\ use the GNU autotools. On Unix system,
 the steps required to build and install \dieharder\ should only be the familiar
 steps \texttt{configure; make; sudo make install}.
 
-For Debian, initial packages have been provided and are currently available
-at \url{http://dirk.eddelbuettel.com/code/tmp}.  Within due course, these
+For Debian, initial packages have been provided.  Within due course, these
 packages should be uploaded to Debian, and thus become part of the next
 Debian (and Ubuntu) releases.  \dieharder\ is also expected to be part of
 future Fedora Core (and other RPM-based distribution) releases.
