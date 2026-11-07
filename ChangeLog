@@ -1,3 +1,8 @@
+2026-11-05  Thiago Sousa  <thiagodoregosousa@gmail.com>
+
+	* src/libdieharder/kstest.c (kstest): Use symmetrized distance d
+	for dmax, as in dieharder PR #29 (fixes p-values biased high)
+
 2026-09-10  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Release 0.2.8
