@@ -42,6 +42,8 @@ int dab_monobit2(Test **test, int irun)
      if ( nsamp*gsl_ran_binomial_pdf(nmax/2,0.5,nmax) < 20 ) break;
    }
    ntup = j;
+ } else if (ntup >= BLOCK_MAX) {
+   Rf_error("Can only use ntuple up to %i for dab_monobit2 (test 209).\n", BLOCK_MAX-1);
  }
 
  test[0]->ntuple = ntup;
