@@ -1,8 +1,16 @@
+2026-11-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
 2026-11-08  Thiago Sousa  <thiagodoregosousa@gmail.com>
 
 	* src/libdieharder/dab_monobit2.c (dab_monobit2): Reject ntuple >=
 	BLOCK_MAX via Rf_error() to avoid overflowing pvalues[]; port of
 	upstream dieharder commit d928cbf by Milan Broz
+	* src/libdieharder/dieharder/dab_birthdays1.h: Correct test label;
+	port of dieharder commit 7f62af2 by Milan Broz
+	* src/libdieharder/rng_file_input.c: Do not report rewrind if nothing
+	read; port of dieharder commit 67989b4 by Milan Broz
 
 2026-11-05  Thiago Sousa  <thiagodoregosousa@gmail.com>
 
